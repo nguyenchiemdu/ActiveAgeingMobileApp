@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "976829296973",
+    "project_id": "activeageingvietnam",
+    "storage_bucket": "activeageingvietnam.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976829296973:android:fd6a1ea079bbd5642dc704",
+        "android_client_info": {
+          "package_name": "com.example.activeageing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976829296973-1u1cls046fm9jpud2qfgmm36890tafng.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.activeageing",
+            "certificate_hash": "8103dd0dd1fe3796a7715a8b2400bab46732da08"
+          }
+        },
+        {
+          "client_id": "976829296973-4gqgsslklrjdgrah91pneu8s8o1kov93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2S-u6zw4_AP-VfFn-w7VOQBEsyH__K-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976829296973-4gqgsslklrjdgrah91pneu8s8o1kov93.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

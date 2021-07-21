@@ -1,8 +1,12 @@
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'sign_up_screen/sign_up_screen.dart';
+
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  final Function updateVerifyEmail;
+  LoginScreen(this.updateVerifyEmail, {Key? key}) : super(key: key);
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
 
@@ -28,10 +32,27 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {
                   //print('ok');
                   UserAuthen()
-                      .signInWithEmailPassword(email.text, password.text);
+                      .signInWithEmailPassword(email.text, password.text)
+                      .then((value) {
+                    updateVerifyEmail(
+                        FirebaseAuth.instance.currentUser.emailVerified);
+                  });
                 },
                 child: Text('Log in'),
               ),
+              InkWell(
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(fontSize: 20),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => SignUpScreen(),
+                      ));
+                },
+              )
             ],
           ),
         ),

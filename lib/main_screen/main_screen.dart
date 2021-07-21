@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<Map>.value(
+    return FutureProvider<Map<String, dynamic>>.value(
       value: UserDatabase().getUserData(),
       initialData: {'name': 'null'},
       child: Scaffold(
@@ -34,9 +37,10 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Consumer<Map>(
-                    builder: (context, userData, child) =>
-                        Text(userData['name'])),
+                Consumer<Map<String, dynamic>>(
+                    builder: (context, userData, child) {
+                  return Text(userData["name"].toString());
+                }),
                 ElevatedButton(
                   onPressed: () {
                     //print('ok');

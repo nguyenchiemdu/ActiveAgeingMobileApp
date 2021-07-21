@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:active_ageing_mobile_app/main_screen/main_screen.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_screen/login_screen.dart';
+import 'login_screen/sign_up_screen/verification_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          Provider(create: (context) => FirebaseAuth.instance.currentUser),
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
             initialData: null,
@@ -46,13 +50,57 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthWrapper extends StatelessWidget {
+class AuthWrapper extends StatefulWidget {
+  @override
+  _AuthWrapperState createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  bool isUserEmailVerified = false;
+  late Timer timer;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  updateVerifyEmail(bool status) {
+    setState(() {
+      isUserEmailVerified = status;
+    });
+  }
+
+  cancelTimer() {
+    timer.cancel();
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
-    if (user != null)
-      return MainScreen();
-    else
-      return LoginScreen();
+    if (user != null) {
+      print(isUserEmailVerified);
+      if (isUserEmailVerified == true)
+        return MainScreen();
+      else {
+        timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+          print('Timer is still running');
+          var user = FirebaseAuth.instance.currentUser;
+          await user.reload();
+          if (user.emailVerified) {
+            cancelTimer();
+            setState(() {
+              isUserEmailVerified = user.emailVerified;
+            });
+          }
+        });
+        return VerificationScreen(cancelTimer);
+      }
+    } else
+      return LoginScreen(updateVerifyEmail);
   }
 }

@@ -6,17 +6,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'change_password.dart';
+import 'select_currency_unit.dart';
 
-class AccountManagement extends StatelessWidget {
+class AccountManagement extends StatefulWidget {
   AccountManagement({Key? key}) : super(key: key);
+
+  @override
+  _AccountManagementState createState() => _AccountManagementState();
+}
+
+class _AccountManagementState extends State<AccountManagement> {
   final Map userSample = {
     'name': 'Loading',
     'photoURL':
         'https://s3-alpha-sig.figma.com/img/a0b4/fd34/2210c5f7a9f72b3e284ed0769b35803a?Expires=1627862400&Signature=VX~evHwLNiL6QRjxX-EWTwDXyOrzkNvleJUZmo3H4VCvBbyigv6MsSlV9ATrdXhLghoWhmgGJeR6KCgO3Qd8Tf3zzzCGSWuwmRx1hdY04DSKk3eZ79mhG76oGuJWu5wQw9xLeljbqaAr8tH1St~hUzfg4QdJPQguJLjI-3UZtTVOCU~CvHgPT1POU6iYsrnesWmfQHXH71cQXQ19ggC5z01CYszg9lfHquhw4to-RRaOiY0oMvlCXjYGGVNC0YKR6qriBh1kFdSJ1U42SkjDiYkzGDDBzAEexCiyzBgRri8AxR8QYaQBV9Y7IDDnXLd4PLwOM6~k12bY6K1vegML4w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
     'email': 'Loading',
   };
+  String currency = 'VND';
+
   @override
   Widget build(BuildContext context) {
+    Function updateCurrency = (String newCurrency) {
+      setState(() {
+        currency = newCurrency;
+      });
+    };
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
     return Scaffold(
@@ -42,7 +56,15 @@ class AccountManagement extends StatelessWidget {
               children: [
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Provider(
+                                create: (context) => updateCurrency,
+                                builder: (context, child) =>
+                                    SelectCurrencyUnit())));
+                  },
                   child: Container(
                     width: double.infinity,
                     margin: EdgeInsets.all(10),
@@ -54,7 +76,7 @@ class AccountManagement extends StatelessWidget {
                           'Đơn vị tiền tệ',
                           style: TextStyle(fontSize: 20),
                         ),
-                        Text('VND')
+                        Text(currency)
                       ],
                     ),
                   ),
@@ -123,7 +145,10 @@ class AccountManagement extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text('Error'),
+                                title: Text(
+                                  'Error',
+                                  style: TextStyle(color: Colors.red),
+                                ),
                                 content: Text(
                                     "You are sign in with Google account. So we can't change your password"),
                               ));

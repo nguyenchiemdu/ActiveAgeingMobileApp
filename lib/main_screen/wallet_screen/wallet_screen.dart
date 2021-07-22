@@ -63,8 +63,9 @@ class WalletScreen extends StatelessWidget {
           InkWell(
             // borderRadius: BorderRadius.all(Radius.circular(5)),
             onTap: () {
+              var param = user['listWallet'] == null ? [] : user['listWallet'];
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ListWallet()));
+                  MaterialPageRoute(builder: (context) => ListWallet(param)));
             },
             child: Container(
               width: double.infinity,

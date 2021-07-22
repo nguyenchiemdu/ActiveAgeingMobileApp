@@ -18,17 +18,15 @@ class HomeScreen extends StatelessWidget {
                 ? Text('loading')
                 : Row(
                     children: [
-                      Image.network(docSnap.data()['photoURL']),
+                      Image.network(
+                        docSnap.data()['photoURL'],
+                        width: 50,
+                        height: 50,
+                      ),
                       Text('Hello, ' + docSnap.data()['name'])
                     ],
                   );
           }),
-          ElevatedButton(
-            onPressed: () {
-              UserAuthen().signOut();
-            },
-            child: Text('log out'),
-          )
         ],
       ),
     );

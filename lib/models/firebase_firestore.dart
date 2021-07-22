@@ -34,4 +34,10 @@ class UserDatabase {
         print('firstUploadUserData :' + error.toString());
       });
   }
+
+  Future updateUserData(Map<String, dynamic> data) async {
+    firestore.collection('users').doc(user.uid).update(data).then((value) {
+      print('updateUserData : Success!');
+    });
+  }
 }

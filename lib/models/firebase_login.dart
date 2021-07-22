@@ -7,7 +7,15 @@ import 'firebase_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserAuthen {
-  Future signInWithEmailPassword(String email, String password) async {
+  String signInMethod() {
+    if (FirebaseAuth.instance.currentUser != null)
+      //if (FirebaseAuth.instance.currentUser.providerData[0].providerId == 'password')
+      return FirebaseAuth.instance.currentUser.providerData[0].providerId;
+    return 'notSignIn';
+  }
+
+  Future<bool> signInWithEmailPassword(String email, String password) async {
+    bool ok = true;
     try {
       // UserCredential userCredential =
       await FirebaseAuth.instance
@@ -15,10 +23,13 @@ class UserAuthen {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
+        ok = false;
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        ok = false;
       }
     }
+    return ok;
   }
 
   Future signInWithGoogle() async {
@@ -76,6 +87,32 @@ class UserAuthen {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<bool> validateCurentPassword(String password) async {
+    User user = FirebaseAuth.instance.currentUser;
+    AuthCredential credential =
+        EmailAuthProvider.credential(email: user.email, password: password);
+    //FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential);
+    try {
+      var authResult = await user.reauthenticateWithCredential(credential);
+      return authResult.user != null;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<String> updateUserPassword(String password) async {
+    String ok = 'true';
+    User user = FirebaseAuth.instance.currentUser;
+    try {
+      await user.updatePassword(password);
+    } on FirebaseException catch (e) {
+      print(e.toString());
+      ok = e.message;
+    }
+    return ok;
   }
 
   Future signOut() async {

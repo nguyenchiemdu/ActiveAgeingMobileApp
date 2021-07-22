@@ -56,7 +56,9 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  bool isUserEmailVerified = false;
+  bool isUserEmailVerified = FirebaseAuth.instance.currentUser != null
+      ? FirebaseAuth.instance.currentUser.emailVerified
+      : false;
   late Timer timer;
   @override
   void initState() {
@@ -70,6 +72,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   cancelTimer() {
+    print('dang cancel timer');
     timer.cancel();
   }
 
@@ -84,6 +87,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final user = Provider.of<User?>(context);
     if (user != null) {
       print(isUserEmailVerified);
+      print(user.providerData[0].providerId);
       if (isUserEmailVerified != true &&
           user.providerData[0].providerId != 'google.com') {
         timer = Timer.periodic(Duration(seconds: 5), (timer) async {
@@ -91,6 +95,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
           var user = FirebaseAuth.instance.currentUser;
           await user.reload();
           if (user.emailVerified) {
+            print('sap setsate');
             cancelTimer();
             setState(() {
               isUserEmailVerified = user.emailVerified;

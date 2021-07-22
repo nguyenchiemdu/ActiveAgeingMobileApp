@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:active_ageing_mobile_app/main_screen/home_screen/home_screen.dart';
+import 'package:active_ageing_mobile_app/main_screen/wallet_screen/wallet_screen.dart';
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,9 +25,7 @@ class _MainScreenState extends State<MainScreen> {
     Container(
       color: Colors.green,
     ),
-    Container(
-      color: Colors.blue,
-    ),
+    WalletScreen(),
   ];
   void _selectPage(int index) {
     setState(() {

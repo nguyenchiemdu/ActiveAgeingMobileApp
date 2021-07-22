@@ -34,8 +34,9 @@ class LoginScreen extends StatelessWidget {
                   UserAuthen()
                       .signInWithEmailPassword(email.text, password.text)
                       .then((value) {
-                    updateVerifyEmail(
-                        FirebaseAuth.instance.currentUser.emailVerified);
+                    if (value == true)
+                      updateVerifyEmail(
+                          FirebaseAuth.instance.currentUser.emailVerified);
                   });
                 },
                 child: Text('Log in'),

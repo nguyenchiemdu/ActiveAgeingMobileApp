@@ -84,9 +84,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final user = Provider.of<User?>(context);
     if (user != null) {
       print(isUserEmailVerified);
-      if (isUserEmailVerified == true)
-        return MainScreen();
-      else {
+      if (isUserEmailVerified != true &&
+          user.providerData[0].providerId != 'google.com') {
         timer = Timer.periodic(Duration(seconds: 5), (timer) async {
           print('Timer is still running');
           var user = FirebaseAuth.instance.currentUser;
@@ -100,6 +99,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
         });
         return VerificationScreen(cancelTimer);
       }
+      return MainScreen();
     } else
       return LoginScreen(updateVerifyEmail);
   }

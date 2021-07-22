@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:active_ageing_mobile_app/main_screen/home_screen/home_screen.dart';
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,13 +15,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   UserDatabase().getUserData();
-  // }
-
   int selectIndex = 0;
+  List<Widget> listScreen = [
+    HomeScreen(),
+    Container(
+      color: Colors.red,
+    ),
+    Container(
+      color: Colors.green,
+    ),
+    Container(
+      color: Colors.blue,
+    ),
+  ];
   void _selectPage(int index) {
     setState(() {
       selectIndex = index;
@@ -28,29 +36,20 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<Map<String, dynamic>>.value(
-      value: UserDatabase().getUserData(),
-      initialData: {'name': 'null'},
+    return MultiProvider(
+      providers: [
+        // FutureProvider(
+        //     create: (context) => UserDatabase().getUserData(),
+        //     initialData: {'name': 'null'}),
+        StreamProvider<DocumentSnapshot?>(
+            create: (context) => FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser.uid)
+                .snapshots(),
+            initialData: null)
+      ],
       child: Scaffold(
-          body: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Consumer<Map<String, dynamic>>(
-                    builder: (context, userData, child) {
-                  return Text(userData["name"].toString());
-                }),
-                ElevatedButton(
-                  onPressed: () {
-                    //print('ok');
-                    UserAuthen().signOut();
-                  },
-                  child: Text('log out'),
-                )
-              ],
-            ),
-          ),
+          body: listScreen[selectIndex],
           bottomNavigationBar: Container(
             child: BottomNavigationBar(
               onTap: _selectPage,

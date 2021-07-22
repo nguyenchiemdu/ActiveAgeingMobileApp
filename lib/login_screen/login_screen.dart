@@ -40,6 +40,11 @@ class LoginScreen extends StatelessWidget {
                 },
                 child: Text('Log in'),
               ),
+              ElevatedButton(
+                  onPressed: () async {
+                    await UserAuthen().signInWithGoogle();
+                  },
+                  child: Text('Sign in with Google')),
               InkWell(
                 child: Text(
                   "Sign up",

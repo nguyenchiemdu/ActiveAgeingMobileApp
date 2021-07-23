@@ -16,18 +16,30 @@ class _ListWalletState extends State<ListWallet> {
   initState() {
     super.initState();
     listWallet = widget.listWallet;
-    listWalletWidget =
-        widget.listWallet.map((wallet) => Wallet(wallet)).toList();
+    listWalletWidget = widget.listWallet
+        .map((wallet) => Wallet(wallet, deleteWallet))
+        .toList();
   }
 
   addWallet(Map wallet) async {
     var tmp = listWallet;
     tmp.add(wallet);
+    update(tmp);
+  }
+
+  deleteWallet(Map wallet) {
+    var tmp = listWallet;
+    tmp.remove(wallet);
+    update(tmp);
+  }
+
+  update(List tmp) async {
     var data = {'listWallet': tmp};
     await UserDatabase().updateUserData(data);
     setState(() {
       listWallet = tmp;
-      listWalletWidget = tmp.map((wallet) => Wallet(wallet)).toList();
+      listWalletWidget =
+          tmp.map((wallet) => Wallet(wallet, deleteWallet)).toList();
     });
   }
 

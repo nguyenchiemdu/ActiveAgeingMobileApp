@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'wallet_edit.dart';
+
 class Wallet extends StatelessWidget {
-  const Wallet(this.wallet, {Key? key}) : super(key: key);
+  const Wallet(this.wallet, this.deleteWallet, {Key? key}) : super(key: key);
   final Map wallet;
+  final Function deleteWallet;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WalletEditScreen(wallet, deleteWallet)));
+      },
       child: Container(
         width: double.infinity,
         child: Row(
@@ -21,7 +29,9 @@ class Wallet extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(wallet['name'].toString()),
-                Text(wallet['money'].toString())
+                Text(wallet['money'].toString() +
+                    " " +
+                    wallet['currency'].toString())
               ],
             ),
           ],

@@ -54,12 +54,13 @@ class _AddGoalTypeState extends State<AddGoalType> {
             }).toList(),
           ),
           ElevatedButton(
-              onPressed: () {
-                Navigator.push(
+              onPressed: () async {
+                var submitData = await Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
                             AddGoalName({'type': _goalType})));
+                if (submitData != null) Navigator.pop(context, submitData);
               },
               child: Text('Tiếp theo'))
         ]),

@@ -1,10 +1,29 @@
+import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:flutter/material.dart';
 import 'add_goal_type.dart';
 import 'saving_goal_widget.dart';
 
-class SavingGoalsScreen extends StatelessWidget {
+class SavingGoalsScreen extends StatefulWidget {
   SavingGoalsScreen(this.listSavingGoals, {Key? key}) : super(key: key);
   final List listSavingGoals;
+
+  @override
+  _SavingGoalsScreenState createState() =>
+      _SavingGoalsScreenState(listSavingGoals);
+}
+
+class _SavingGoalsScreenState extends State<SavingGoalsScreen> {
+  _SavingGoalsScreenState(this.listSavingGoals);
+  List listSavingGoals;
+  addSavingGoal(Map<String, dynamic> newData) {
+    List tmp = listSavingGoals;
+    tmp.add(newData);
+    UserDatabase().updateUserData({'listSavingGoals': tmp});
+    setState(() {
+      listSavingGoals = tmp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +56,11 @@ class SavingGoalsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          var submitData = await Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddGoalType()));
+          if (submitData != null) addSavingGoal(submitData);
+          print(submitData);
         },
         child: Icon(Icons.add),
       ),

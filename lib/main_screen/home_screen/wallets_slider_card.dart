@@ -18,7 +18,7 @@ class WalletSliderCard extends StatelessWidget {
                   itemCount: listWallet.length,
                   itemBuilder: (BuildContext context, int index, realIdx) =>
                       Container(
-                        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                        margin: EdgeInsets.only(left: 10, right: 10),
                         child: WalletCard(listWallet[index]),
                       ),
                   options: CarouselOptions(

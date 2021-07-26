@@ -55,13 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: new BoxDecoration(
                       border: Border.all(width:1.0,color: Color(0xffededed), style: BorderStyle.solid),
                       color: Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(10),),
+                    borderRadius: BorderRadius.circular(12),),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: TextField(
                       textAlignVertical: TextAlignVertical.center,
                       controller: email,
                         decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
+                          ),
                           hintText: "Địa chỉ email",
                           hintStyle: TextStyle(
                           fontFamily: 'Inter',
@@ -87,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: MediaQuery.of(context).size.height / 333.5 * 28,
                   decoration: new BoxDecoration(
                     color: Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(width:1.0,color: Color(0xffededed))
                   ),
                   child: Align(
@@ -97,6 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: password,
                       obscureText: true,
                       decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.transparent, width: 0.0),
+                        ),
                         hintText: "Mật khẩu",
                         hintStyle: TextStyle(
                           fontFamily: 'Inter',
@@ -189,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                   height: MediaQuery.of(context).size.height / 333.5 * 24,
                   decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12),
                   ) ,
                   child: ElevatedButton(
                     onPressed: () {
@@ -255,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: MediaQuery.of(context).size.height / 333.5 * 24,
                     decoration: new BoxDecoration(
                       color: Color(0xffededed),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: ElevatedButton(
                         onPressed: () async {

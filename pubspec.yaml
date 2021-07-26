@@ -55,7 +55,22 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/images/saving_icon.png
     - assets/images/date_picker.png
+    - assets/images/top_bar.png
+    - assets/images/retirement_planning_icon.png
+    - assets/images/fincare-icon.png
+    - assets/images/smaller_invest_icon.png
+    - assets/images/smaller_saving_icon.png
+    - assets/images/smaller_retirement_icon.png
+    - assets/images/community_icon.png
+    - assets/images/products_icon.png
+    - assets/images/check_up_icon.png
+    - assets/images/workshops_icon.png
+    - assets/images/healthcare-icon.png
+    - assets/images/social-activity-icon.png
+
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

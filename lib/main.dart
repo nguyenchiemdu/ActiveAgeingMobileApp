@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:active_ageing_mobile_app/main_screen/main_screen.dart';
+import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_auth/firebase_auth.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -8,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_screen/login_screen.dart';
+import 'login_screen/sign_up_screen/sign_up_infor.dart';
 import 'login_screen/sign_up_screen/verification_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,10 +35,25 @@ class MyApp extends StatelessWidget {
     800: const Color(0xff004832),
     900: const Color(0xff002D1F)
   });
+  Future<Map<String, dynamic>?> getUserData() async {
+    if (FirebaseAuth.instance.currentUser == null) return null;
+    //String uid = FirebaseAuth.instance.currentUser.uid;
+    return await UserDatabase().getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          // FutureProvider<Map<String, dynamic>?>(
+          //     create: (context) => getUserData(), initialData: null),
+          StreamProvider<DocumentSnapshot?>(
+            create: (context) => FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser.uid)
+                .snapshots(),
+            initialData: null,
+          ),
           Provider(create: (context) => FirebaseAuth.instance.currentUser),
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
@@ -63,10 +81,13 @@ class _AuthWrapperState extends State<AuthWrapper> {
   late Timer timer;
   @override
   void initState() {
+    // print('dang init state');
+    // print(FirebaseAuth.instance.currentUser);
     super.initState();
   }
 
   updateVerifyEmail(bool status) {
+    // print('updateVerifyEmail');
     setState(() {
       isUserEmailVerified = status;
     });
@@ -83,12 +104,23 @@ class _AuthWrapperState extends State<AuthWrapper> {
     super.dispose();
   }
 
+  Future getUserData() async {
+    //String uid = FirebaseAuth.instance.currentUser.uid;
+    return await UserDatabase().getUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // print('vong ngoai ' + isUserEmailVerified.toString());
+    // print(FirebaseAuth.instance.currentUser);
     final user = Provider.of<User?>(context);
     if (user != null) {
       print(isUserEmailVerified);
-      print(user.providerData[0].providerId);
+      // print(user.providerData[0].providerId);
+      Map<String, dynamic>? userData =
+          Provider.of<DocumentSnapshot?>(context) != null
+              ? Provider.of<DocumentSnapshot?>(context)!.data()
+              : null;
       if (isUserEmailVerified != true &&
           user.providerData[0].providerId != 'google.com') {
         timer = Timer.periodic(Duration(seconds: 5), (timer) async {
@@ -103,8 +135,12 @@ class _AuthWrapperState extends State<AuthWrapper> {
             });
           }
         });
+
         return VerificationScreen(cancelTimer);
       }
+      // print('userData :' + userData.toString());
+      // ignore: unnecessary_null_comparison
+      if (userData == null) return SignUpInforScreen();
       return MainScreen();
     } else
       return LoginScreen(updateVerifyEmail);

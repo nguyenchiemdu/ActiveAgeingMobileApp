@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_screen/login_screen.dart';
 import 'login_screen/sign_up_screen/verification_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: MaterialApp(
-            title: 'Active Ageing Viet Nam',
+            title: 'Active Ageing Vietnam',
             theme: ThemeData(
               primarySwatch: myGreen,
             ),

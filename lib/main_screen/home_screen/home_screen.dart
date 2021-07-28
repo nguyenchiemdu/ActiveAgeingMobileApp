@@ -27,37 +27,7 @@ class HomeScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 333.5 * 10,
             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 333.5 * 15) ,
-            child: Row(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 187.5 * 8,
-                  height: MediaQuery.of(context).size.height / 333.5 * 1,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: NetworkImage(docSnap.data()['photoURL']),
-                        fit: BoxFit.fitWidth,
-                      )),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 187.5 * 4,
-                  height: MediaQuery.of(context).size.height / 333.5 * 0,
-                ),
-                new Text("Chào Quang",
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Color(0xffffffff),
-                      fontSize: 14 * curScaleFactor,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal,
-                    )
-                )
-              ],
-            ),
+
         ),
         Container(
             decoration: BoxDecoration(

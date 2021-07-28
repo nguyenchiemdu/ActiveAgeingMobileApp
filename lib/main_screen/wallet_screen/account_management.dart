@@ -26,6 +26,8 @@ class _AccountManagementState extends State<AccountManagement> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     Function updateCurrency = (String newCurrency) {
       setState(() {
         currency = newCurrency;
@@ -36,19 +38,93 @@ class _AccountManagementState extends State<AccountManagement> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(top: 20),
         child: Column(
           children: [
             Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 333.5 * 44,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                image: AssetImage("assets/images/screen_header.png"),
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter
+            )
+          ),
+              child:
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:
+                   [
+                     Container(
+                       width: MediaQuery.of(context).size.width / 187.5 * 8,
+                       height: MediaQuery.of(context).size.height / 333.5 * 1,
+                     ),
+                     Image.asset("assets/images/previous_icon.png"),
+                     Container(
+                       width: MediaQuery.of(context).size.width / 187.5 * 5,
+                       height: MediaQuery.of(context).size.height / 333.5 * 1,
+                     ),
+                     new Text("Quay lại",
+                         textAlign: TextAlign.center,
+                         style: TextStyle(
+                           fontFamily: 'Inter',
+                           color: Color(0xffecf9f4),
+                           fontSize: 14 * curScaleFactor,
+                           fontWeight: FontWeight.w400,
+                           fontStyle: FontStyle.normal,
+                         )
+                     ),
+                     Container(
+                       width: MediaQuery.of(context).size.width / 187.5 * 30,
+                       height: MediaQuery.of(context).size.height / 333.5 * 1,
+                     ),
+                     new Text("Tài khoản",
+                         textAlign: TextAlign.center,
+                         style: TextStyle(
+                           fontFamily: 'Inter',
+                           color: Color(0xffecf9f4),
+                           fontSize: 16 * curScaleFactor,
+                           fontWeight: FontWeight.w500,
+                           fontStyle: FontStyle.normal,
+                         )
+                     ),
+                   ]
+                )
+        ),
+            Container(
               child: Column(
                 children: [
-                  Image.network(
-                    user['photoURL'],
-                    width: 50,
-                    height: 50,
+                    Image.asset("assets/images/avatar.png",
+                    width: MediaQuery.of(context).size.width / 187.5 * 82.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 45,),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 30,
+                    height: MediaQuery.of(context).size.height / 333.5 * 6,
                   ),
-                  Text(user['name']),
-                  Text(user['email']),
+                  new Text(user['name'],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xff1a1a1a),
+                        fontSize: 24 * curScaleFactor,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                      )
+                  ),
+                  new Text(user['email'],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xff999999),
+                        fontSize: 12 * curScaleFactor,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                      )
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 30,
+                    height: MediaQuery.of(context).size.height / 333.5 * 18,
+                  ),
                 ],
               ),
             ),
@@ -66,43 +142,123 @@ class _AccountManagementState extends State<AccountManagement> {
                                     SelectCurrencyUnit())));
                   },
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Đơn vị tiền tệ',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text(currency)
-                      ],
-                    ),
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 33,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffffffff)
+                    ),                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 8,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          new Text("Đơn vị tiền tệ",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff1a1a1a),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 187.5 * 8,
+                            height: MediaQuery.of(context).size.height / 333.5 * 2,
+                          ),
+                          new Text(currency,
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff999999),
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              )
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 89,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Image.asset("assets/images/next_icon.png",width:40,height:40),
+                    ],
+                  ),
                   ),
                 ),
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () {},
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ngôn Ngữ',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        Text('Tiếng Việt')
-                      ],
-                    ),
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 33,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffffffff)
+                    ),                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 8,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          new Text("Ngôn ngữ",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff1a1a1a),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 187.5 * 8,
+                            height: MediaQuery.of(context).size.height / 333.5 * 2,
+                          ),
+                          new Text("Tiếng Việt",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff999999),
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              )
+                          )
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 100,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Image.asset("assets/images/next_icon.png",width:40,height:40),
+                    ],
                   ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 0.8 ,
+                  color: Color(0xffededed)
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
                 ),
               ],
             ),
-            Text('----------------'),
             Column(
               children: [
                 InkWell(
@@ -119,19 +275,46 @@ class _AccountManagementState extends State<AccountManagement> {
                     );
                   },
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Đổi thông tin',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ],
-                    ),
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 23,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffffffff)
+                    ),                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 8,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          new Text("Đổi thông tin",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff1a1a1a),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )
+                          ),
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 89,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Image.asset("assets/images/next_icon.png",width:40,height:40),
+                    ],
                   ),
+                  ),
+                ),
+
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 89,
+                  height: MediaQuery.of(context).size.height / 333.5 * 4,
                 ),
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -145,29 +328,65 @@ class _AccountManagementState extends State<AccountManagement> {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text(
-                                  'Error',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                content: Text(
-                                    "You are sign in with Google account. So we can't change your password"),
-                              ));
+                            title: Text(
+                              'Error',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            content: Text(
+                                "You are sign in with Google account. So we can't change your password"),
+                          ));
                   },
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Đổi mật khẩu',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ],
-                    ),
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 23,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffffffff)
+                    ),                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 8,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          new Text("Đổi mật khẩu",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff1a1a1a),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )
+                          ),
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 89,
+                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                      ),
+                      Image.asset("assets/images/next_icon.png",width:40,height:40),
+                    ],
+                  ),
                   ),
                 ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 0.8 ,
+                    color: Color(0xffededed)
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                ),
+
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),
                   onTap: () {
@@ -176,17 +395,22 @@ class _AccountManagementState extends State<AccountManagement> {
                     });
                   },
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Đăng xuất',
-                          style: TextStyle(fontSize: 20, color: Colors.red),
-                        ),
-                      ],
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 23,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xffffffff),
+                    ),
+                    child: new Text("Đăng xuất",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xffff2d2d),
+                          fontSize: 16 * curScaleFactor,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        )
                     ),
                   ),
                 ),

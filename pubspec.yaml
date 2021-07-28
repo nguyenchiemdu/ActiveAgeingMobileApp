@@ -69,6 +69,14 @@ flutter:
     - assets/images/workshops_icon.png
     - assets/images/healthcare-icon.png
     - assets/images/social-activity-icon.png
+    - assets/images/next_icon.png
+    - assets/images/report_icon.png
+    - assets/images/wallet_icon.png
+    - assets/images/screen_header.png
+    - assets/images/previous_icon.png
+    - assets/images/avatar.png
+
+
 
 
   # To add assets to your application, add an assets section, like this:

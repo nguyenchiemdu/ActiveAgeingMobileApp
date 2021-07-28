@@ -16,93 +16,241 @@ class WalletScreen extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
-    return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-      width: double.infinity - 20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Wallet',
-            style: TextStyle(fontSize: 30),
-          ),
-          Container(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Image.network(
-                  user['photoURL'],
-                  width: 50,
-                  height: 50,
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 8,
+              height: MediaQuery.of(context).size.height / 333.5 * 25,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+              child: new Text("Ví của bạn",
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff333333),
+                    fontSize: 24 * curScaleFactor,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                  )
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 8,
+              height: MediaQuery.of(context).size.height / 333.5 * 8,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 105,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color(0xffffffff)
                 ),
-                Text(user['name']),
-                Text(user['email']),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              StreamProvider<DocumentSnapshot?>(
-                            create: (context) => FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser.uid)
-                                .snapshots(),
-                            initialData: null,
-                            builder: (context, child) => AccountManagement(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/avatar.png",
+                      width: MediaQuery.of(context).size.width / 187.5 * 82.5,
+                      height: MediaQuery.of(context).size.height / 333.5 * 45,),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 4,
+                    ),
+                    Text(user['name'],
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff1a1a1a),
+                          fontSize: 16*curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        )
+                    ),
+                    Text(user['email'],
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff999999),
+                          fontSize: 12*curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        )),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 66,
+                      height: MediaQuery.of(context).size.height / 333.5 * 12,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    StreamProvider<DocumentSnapshot?>(
+                                  create: (context) => FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth.instance.currentUser.uid)
+                                      .snapshots(),
+                                  initialData: null,
+                                  builder: (context, child) => AccountManagement(),
+                                ),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xffededed),
+                            shadowColor: Colors.transparent
                           ),
+                          child: Text('Quản lí tài khoản',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff4d4d4d),
+                                fontSize: 12*curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              ))),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 8,
+              height: MediaQuery.of(context).size.height / 333.5 * 4,
+            ),
+            InkWell(
+              // borderRadius: BorderRadius.all(Radius.circular(5)),
+              onTap: () {
+                var param = user['listWallet'] == null ? [] : user['listWallet'];
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ListWallet(param)));
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 33,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffffffff)
+                ),                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Image.asset("assets/images/wallet_icon.png",width:40,height:40),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        new Text("Ví của bạn",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff1a1a1a),
+                              fontSize: 14 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            )
                         ),
-                      );
-                    },
-                    child: Text('Quản lí tài khoản'))
-              ],
-            ),
-          ),
-          InkWell(
-            // borderRadius: BorderRadius.all(Radius.circular(5)),
-            onTap: () {
-              var param = user['listWallet'] == null ? [] : user['listWallet'];
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ListWallet(param)));
-            },
-            child: Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Ví của bạn',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Text('Xem danh dách ví của bạn'),
-                ],
+                        Container(
+                          width: MediaQuery.of(context).size.width / 187.5 * 8,
+                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                        ),
+                        new Text("Danh sách ví của bạn",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff999999),
+                              fontSize: 12 * curScaleFactor,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            )
+                        )
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 50,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Image.asset("assets/images/next_icon.png",width:40,height:40),
+                  ],
+                ),
               ),
             ),
-          ),
-          InkWell(
-            // borderRadius: BorderRadius.all(Radius.circular(5)),
-            onTap: () {},
-            child: Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 8,
+              height: MediaQuery.of(context).size.height / 333.5 * 4,
+            ),
+            InkWell(
+              // borderRadius: BorderRadius.all(Radius.circular(5)),
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 33,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffffffff)
+                ),                child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Xem báo cáo',
-                    style: TextStyle(fontSize: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 8,
+                    height: MediaQuery.of(context).size.height / 333.5 * 1,
                   ),
-                  Text('Báo cáo về giao dịch, tiết kiệm, đầu tư'),
+                  Image.asset("assets/images/wallet_icon.png",width:40,height:40),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 8,
+                    height: MediaQuery.of(context).size.height / 333.5 * 1,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Text("Xem báo cáo",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff1a1a1a),
+                            fontSize: 14 * curScaleFactor,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.normal,
+                          )
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 8,
+                        height: MediaQuery.of(context).size.height / 333.5 * 2,
+                      ),
+                      new Text("Báo cáo về giao dịch, tiết kiệm, đầu tư",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff999999),
+                            fontSize: 12 * curScaleFactor,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                          )
+                      )
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 4,
+                    height: MediaQuery.of(context).size.height / 333.5 * 1,
+                  ),
+                  Image.asset("assets/images/next_icon.png",width:40,height:40),
                 ],
               ),
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

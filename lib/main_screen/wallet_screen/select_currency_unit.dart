@@ -35,35 +35,50 @@ class _SelectCurrencyUnitState extends State<SelectCurrencyUnit> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
+
     Function update = Provider.of<Function>(context);
     return Provider<Function>(
       create: (context) => updateStatus,
+
       child: Scaffold(
+        appBar: AppBar(
+            centerTitle: true,
+            titleTextStyle:TextStyle(
+              fontFamily: 'Inter',
+              color: Color(0xffecf9f4),
+              fontSize: 16 * curScaleFactor,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.normal,
+            ) ,
+            title: Text("Đơn vị tiền tệ")
+        ),
         resizeToAvoidBottomInset: false,
         body: Container(
           margin: EdgeInsets.only(top: 30),
           child: Column(
             children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Back')),
-                    Text('Đơn vị tiền tệ'),
-                    ElevatedButton(
-                        onPressed: () {
-                          int index = listSelectStatus.indexOf(true);
-                          update(list[index]);
-                          Navigator.pop(context);
-                        },
-                        child: Text('Save')),
-                  ],
-                ),
-              ),
+              // Container(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       ElevatedButton(
+              //           onPressed: () {
+              //             Navigator.pop(context);
+              //           },
+              //           child: Text('Back')),
+              //       Text('Đơn vị tiền tệ'),
+              //       ElevatedButton(
+              //           onPressed: () {
+              //             int index = listSelectStatus.indexOf(true);
+              //             update(list[index]);
+              //             Navigator.pop(context);
+              //           },
+              //           child: Text('Save')),
+              //     ],
+              //   ),
+              // ),
               Container(
                 child: Row(
                   children: [

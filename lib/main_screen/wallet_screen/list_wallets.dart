@@ -47,23 +47,50 @@ class _ListWalletState extends State<ListWallet> {
   List<Widget> listWalletWidget = [];
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          titleTextStyle:TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 14 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+          ) ,
+          title: Text("Danh sách ví")
+      ),
       body: Container(
-        padding: EdgeInsets.only(top: 30),
         child: Column(
           children: [
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 4,
+              height: MediaQuery.of(context).size.height / 333.5 * 8,
+            ),
             Container(
               child: Column(
                 children: listWalletWidget,
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) => BottomChooseWallet(addWallet));
-                },
-                child: Text('Tạo ví mới'.toUpperCase()))
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 24,
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 333.5 * 16,),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) => BottomChooseWallet(addWallet));
+                      },
+                      child: Text('Tạo ví mới'.toUpperCase())),
+                ),
+              ),
+            )
+
           ],
         ),
       ),

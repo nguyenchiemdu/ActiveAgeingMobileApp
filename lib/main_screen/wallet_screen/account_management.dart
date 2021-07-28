@@ -36,61 +36,72 @@ class _AccountManagementState extends State<AccountManagement> {
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        titleTextStyle:TextStyle(
+          fontFamily: 'Inter',
+          color: Color(0xffecf9f4),
+          fontSize: 16 * curScaleFactor,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.normal,
+        ) ,
+        title: Text("Tài khoản")
+      ),
       body: Container(
         width: double.infinity,
         child: Column(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 333.5 * 44,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("assets/images/screen_header.png"),
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter
-            )
-          ),
-              child:
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children:
-                   [
-                     Container(
-                       width: MediaQuery.of(context).size.width / 187.5 * 8,
-                       height: MediaQuery.of(context).size.height / 333.5 * 1,
-                     ),
-                     Image.asset("assets/images/previous_icon.png"),
-                     Container(
-                       width: MediaQuery.of(context).size.width / 187.5 * 5,
-                       height: MediaQuery.of(context).size.height / 333.5 * 1,
-                     ),
-                     new Text("Quay lại",
-                         textAlign: TextAlign.center,
-                         style: TextStyle(
-                           fontFamily: 'Inter',
-                           color: Color(0xffecf9f4),
-                           fontSize: 14 * curScaleFactor,
-                           fontWeight: FontWeight.w400,
-                           fontStyle: FontStyle.normal,
-                         )
-                     ),
-                     Container(
-                       width: MediaQuery.of(context).size.width / 187.5 * 30,
-                       height: MediaQuery.of(context).size.height / 333.5 * 1,
-                     ),
-                     new Text("Tài khoản",
-                         textAlign: TextAlign.center,
-                         style: TextStyle(
-                           fontFamily: 'Inter',
-                           color: Color(0xffecf9f4),
-                           fontSize: 16 * curScaleFactor,
-                           fontWeight: FontWeight.w500,
-                           fontStyle: FontStyle.normal,
-                         )
-                     ),
-                   ]
-                )
-        ),
+        //     Container(
+        //       width: MediaQuery.of(context).size.width,
+        //       height: MediaQuery.of(context).size.height / 333.5 * 44,
+        //       decoration: BoxDecoration(
+        //           image: DecorationImage(
+        //         image: AssetImage("assets/images/screen_header.png"),
+        //         fit: BoxFit.fitWidth,
+        //         alignment: Alignment.topCenter
+        //     )
+        //   ),
+        //       child:
+        //         Row(
+        //           crossAxisAlignment: CrossAxisAlignment.center,
+        //           children:
+        //            [
+        //              Container(
+        //                width: MediaQuery.of(context).size.width / 187.5 * 8,
+        //                height: MediaQuery.of(context).size.height / 333.5 * 1,
+        //              ),
+        //              Image.asset("assets/images/previous_icon.png"),
+        //              Container(
+        //                width: MediaQuery.of(context).size.width / 187.5 * 5,
+        //                height: MediaQuery.of(context).size.height / 333.5 * 1,
+        //              ),
+        //              new Text("Quay lại",
+        //                  textAlign: TextAlign.center,
+        //                  style: TextStyle(
+        //                    fontFamily: 'Inter',
+        //                    color: Color(0xffecf9f4),
+        //                    fontSize: 14 * curScaleFactor,
+        //                    fontWeight: FontWeight.w400,
+        //                    fontStyle: FontStyle.normal,
+        //                  )
+        //              ),
+        //              Container(
+        //                width: MediaQuery.of(context).size.width / 187.5 * 30,
+        //                height: MediaQuery.of(context).size.height / 333.5 * 1,
+        //              ),
+        //              new Text("Tài khoản",
+        //                  textAlign: TextAlign.center,
+        //                  style: TextStyle(
+        //                    fontFamily: 'Inter',
+        //                    color: Color(0xffecf9f4),
+        //                    fontSize: 16 * curScaleFactor,
+        //                    fontWeight: FontWeight.w500,
+        //                    fontStyle: FontStyle.normal,
+        //                  )
+        //              ),
+        //            ]
+        //         )
+        // ),
             Container(
               child: Column(
                 children: [
@@ -190,6 +201,10 @@ class _AccountManagementState extends State<AccountManagement> {
                     ],
                   ),
                   ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 30,
+                  height: MediaQuery.of(context).size.height / 333.5 * 4,
                 ),
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),

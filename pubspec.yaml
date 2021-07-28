@@ -75,6 +75,10 @@ flutter:
     - assets/images/screen_header.png
     - assets/images/previous_icon.png
     - assets/images/avatar.png
+    - assets/images/cash_icon.png
+    - assets/images/pig_icon.png
+    - assets/images/amount_icon.png
+    - assets/images/currency_icon.png
 
 
 

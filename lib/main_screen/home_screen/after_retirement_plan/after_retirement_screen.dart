@@ -56,7 +56,20 @@ class _AfterRetirementScreenState extends State<AfterRetirementScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          titleTextStyle:TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 16 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+          ) ,
+          title: Text("Kế hoạch về hưu")
+      ),
       body: Container(
         padding: EdgeInsets.only(top: 30),
         child: Column(
@@ -80,13 +93,14 @@ class _AfterRetirementScreenState extends State<AfterRetirementScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xffffffff),
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => AddRetirementName(addRetirementPlan)));
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, color: Color(0xff000000),),
       ),
     );
   }

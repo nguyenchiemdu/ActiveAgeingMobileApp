@@ -119,8 +119,7 @@ class RetirementReportScreen extends StatelessWidget {
                         SummaryWidget(data, retirementPaymentMoney, end),
                         data['yearsRetirement'] >
                                 beginningRetirementBalance.length -
-                                    data['retirementAge'] -
-                                    data['currentAge']
+                                    (data['retirementAge'] - data['currentAge'])
                             ? FailWidget()
                             : SuccessWidget()
                       ],

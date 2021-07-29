@@ -22,19 +22,34 @@ class _AfterRetirementScreenState extends State<AfterRetirementScreen> {
   void initState() {
     super.initState();
     listRetirementWidget = listRetirement
-        .map((retirement) => RetirementWIdget(retirement))
+        .map((retirement) => RetirementWIdget(retirement, editRetirentPlan))
         .toList();
+  }
+
+  void editRetirentPlan(Map oldPlan, Map newPlan) {
+    // print('da toi day');
+    List tmp = listRetirement.map((item) {
+      if (item == oldPlan) return newPlan;
+      return item;
+    }).toList();
+
+    updateData(tmp);
+  }
+
+  void updateData(List newRetirementPlan) {
+    setState(() {
+      listRetirement = newRetirementPlan;
+      listRetirementWidget = newRetirementPlan
+          .map((retirement) => RetirementWIdget(retirement, editRetirentPlan))
+          .toList();
+    });
+    UserDatabase().updateUserData({'listRetirement': newRetirementPlan});
   }
 
   void addRetirementPlan(Map data) async {
     List tmp = listRetirement;
     tmp.add(data);
-    setState(() {
-      listRetirement = tmp;
-      listRetirementWidget =
-          tmp.map((retirement) => RetirementWIdget(retirement)).toList();
-    });
-    UserDatabase().updateUserData({'listRetirement': tmp});
+    updateData(tmp);
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => RetirementReportScreen(data)));
   }

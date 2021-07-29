@@ -133,12 +133,12 @@ class AddRetirementBacisInfor extends StatelessWidget {
                     if (_formKey.currentState!.validate()) {
                       Map data = {
                         'namePlan': name,
-                        'currentAge': currentAge.text,
-                        'retirementAge': retirementAge.text,
-                        'income': income.text,
-                        'increase': increase.text,
-                        'saving': saving.text,
-                        'yearsRetirement': yearsRetirement.text,
+                        'currentAge': double.parse(currentAge.text),
+                        'retirementAge': double.parse(retirementAge.text),
+                        'income': double.parse(income.text),
+                        'increase': double.parse(increase.text),
+                        'saving': double.parse(saving.text),
+                        'yearsRetirement': double.parse(yearsRetirement.text),
                       };
                       Navigator.push(
                           context,

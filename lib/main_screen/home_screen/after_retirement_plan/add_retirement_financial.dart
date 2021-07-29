@@ -112,11 +112,11 @@ class AddRetirementFinancial extends StatelessWidget {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Map tmp = {
-                      'annualSaving': annualSaving.text,
-                      'retirementPay': retirementPay.text,
-                      'rateBefore': rateBefore.text,
-                      'rateAfter': rateAfter.text,
-                      'pension': pension.text,
+                      'annualSaving': double.parse(annualSaving.text),
+                      'retirementPay': double.parse(retirementPay.text),
+                      'rateBefore': double.parse(rateBefore.text),
+                      'rateAfter': double.parse(rateAfter.text),
+                      'pension': double.parse(pension.text),
                     };
                     data.addAll(tmp);
                     Navigator.pop(context);

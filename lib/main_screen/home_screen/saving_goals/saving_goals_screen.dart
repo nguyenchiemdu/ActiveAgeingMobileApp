@@ -78,7 +78,6 @@ class _SavingGoalsScreenState extends State<SavingGoalsScreen> {
           var submitData = await Navigator.push(
               context, MaterialPageRoute(builder: (context) => AddGoalType()));
           if (submitData != null) addSavingGoal(submitData);
-          print(submitData);
         },
         child: Icon(Icons.add),
       ),

@@ -5,11 +5,19 @@ import 'package:intl/intl.dart';
 import 'edit_goal_screen.dart';
 import 'goal_detail_screen.dart';
 
-class SavingGoalWidget extends StatelessWidget {
+class SavingGoalWidget extends StatefulWidget {
   SavingGoalWidget(this.savingGoal, this.editSavingGoal, {Key? key})
       : super(key: key);
   final Map<String, dynamic> savingGoal;
   final Function editSavingGoal;
+
+  @override
+  _SavingGoalWidgetState createState() => _SavingGoalWidgetState(savingGoal);
+}
+
+class _SavingGoalWidgetState extends State<SavingGoalWidget> {
+  _SavingGoalWidgetState(this.savingGoal);
+  Map<String, dynamic> savingGoal;
   getDuration() {
     DateTime start = savingGoal['startTime'].toDate();
     DateTime end = savingGoal['endTime'].toDate();
@@ -18,6 +26,13 @@ class SavingGoalWidget extends StatelessWidget {
     int weeks = ((duration.inDays % 30) / 7).floor();
     int days = (duration.inDays % 30) % 7;
     return 'Còn lại ${months} months ${weeks} weeks ${days} days';
+  }
+
+  updateSavingGoal(Map<String, dynamic> newSavingGoal) {
+    widget.editSavingGoal(savingGoal, newSavingGoal);
+    setState(() {
+      savingGoal = newSavingGoal;
+    });
   }
 
   @override
@@ -31,7 +46,8 @@ class SavingGoalWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => GoalDetailScreen(savingGoal)));
+                builder: (context) =>
+                    GoalDetailScreen(savingGoal, updateSavingGoal)));
       },
       child: Container(
         padding: EdgeInsets.all(10),
@@ -49,7 +65,7 @@ class SavingGoalWidget extends StatelessWidget {
                               builder: (context) =>
                                   EditGoalScreen(savingGoal)));
                       if (newData != null && newData != savingGoal) {
-                        editSavingGoal(savingGoal, newData);
+                        widget.editSavingGoal(savingGoal, newData);
                       }
                     },
                     child: Text('Sửa'))

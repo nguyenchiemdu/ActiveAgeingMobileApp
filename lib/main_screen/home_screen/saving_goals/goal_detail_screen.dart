@@ -1,10 +1,19 @@
-import 'package:active_ageing_mobile_app/main_screen/home_screen/saving_goals/add_record_screen.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/saving_goals/record_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class GoalDetailScreen extends StatelessWidget {
-  GoalDetailScreen(this.savingGoal, {Key? key}) : super(key: key);
+class GoalDetailScreen extends StatefulWidget {
+  GoalDetailScreen(this.savingGoal, this.updateSavingGoal, {Key? key})
+      : super(key: key);
   final Map savingGoal;
+  final Function updateSavingGoal;
+  @override
+  _GoalDetailScreenState createState() => _GoalDetailScreenState(savingGoal);
+}
+
+class _GoalDetailScreenState extends State<GoalDetailScreen> {
+  _GoalDetailScreenState(this.savingGoal);
+  Map savingGoal;
   getDuration() {
     DateTime start = savingGoal['startTime'].toDate();
     DateTime end = savingGoal['endTime'].toDate();
@@ -16,8 +25,11 @@ class GoalDetailScreen extends StatelessWidget {
   }
 
   late int daysSaving;
+
   late int weeksSaving;
+
   late int monthsSaving;
+
   getSavingTactic() {
     DateTime start = savingGoal['startTime'].toDate();
     DateTime end = savingGoal['endTime'].toDate();
@@ -43,6 +55,13 @@ class GoalDetailScreen extends StatelessWidget {
     return 'Còn lại ${months} months ${weeks} weeks ${days} days';
   }
 
+  updateData(Map newSavingGoal) {
+    setState(() {
+      savingGoal = newSavingGoal;
+    });
+    widget.updateSavingGoal(newSavingGoal);
+  }
+
   @override
   Widget build(BuildContext context) {
     getSavingTactic();
@@ -50,7 +69,6 @@ class GoalDetailScreen extends StatelessWidget {
             .format(savingGoal['startTime'].toDate()) +
         " - " +
         DateFormat('EEE, dd MMM yyyy').format(savingGoal['endTime'].toDate());
-    print(savingGoal);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: 30),
@@ -81,14 +99,14 @@ class GoalDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-                width: MediaQuery.of(context).size.width,
+                // width: MediaQuery.of(context).size.width,
                 child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  AddRecordScreen(savingGoal)));
+                                  RecordScreen(savingGoal, updateData)));
                     },
                     child: Text('Nhật ký')))
           ],

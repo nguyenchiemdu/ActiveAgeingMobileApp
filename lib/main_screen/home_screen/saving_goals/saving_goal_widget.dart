@@ -2,11 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'edit_goal_screen.dart';
 import 'goal_detail_screen.dart';
 
 class SavingGoalWidget extends StatelessWidget {
-  SavingGoalWidget(this.savingGoal, {Key? key}) : super(key: key);
-  final Map savingGoal;
+  SavingGoalWidget(this.savingGoal, this.editSavingGoal, {Key? key})
+      : super(key: key);
+  final Map<String, dynamic> savingGoal;
+  final Function editSavingGoal;
   getDuration() {
     DateTime start = savingGoal['startTime'].toDate();
     DateTime end = savingGoal['endTime'].toDate();
@@ -38,7 +41,18 @@ class SavingGoalWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(timeDisplay),
-                OutlinedButton(onPressed: () {}, child: Text('Sửa'))
+                OutlinedButton(
+                    onPressed: () async {
+                      Map newData = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  EditGoalScreen(savingGoal)));
+                      if (newData != null && newData != savingGoal) {
+                        editSavingGoal(savingGoal, newData);
+                      }
+                    },
+                    child: Text('Sửa'))
               ],
             ),
             Text(savingGoal['name']),
@@ -46,8 +60,8 @@ class SavingGoalWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(savingGoal['savedMoney']),
-                Text(savingGoal['goal'])
+                Text(savingGoal['savedMoney'].toString()),
+                Text(savingGoal['goal'].toString())
               ],
             ),
             Text(getDuration())

@@ -1,20 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
-class AddGoalInfor extends StatefulWidget {
-  const AddGoalInfor(this.data, {Key? key}) : super(key: key);
+class EditGoalScreen extends StatefulWidget {
+  const EditGoalScreen(this.data, {Key? key}) : super(key: key);
   final Map<String, dynamic> data;
-
   @override
-  _AddGoalInforState createState() => _AddGoalInforState();
+  _EditGoalScreenState createState() => _EditGoalScreenState();
 }
 
 enum SingingCharacter { self, calculate }
 
-class _AddGoalInforState extends State<AddGoalInfor> {
+// selectedFrequency = widget.data['frequency'];
+class _EditGoalScreenState extends State<EditGoalScreen> {
+  @override
+  void initState() {
+    super.initState();
+    name = TextEditingController(text: widget.data['name']);
+    _goalType = widget.data['type'];
+    savingTarget = TextEditingController(text: widget.data['goal'].toString());
+    savedMoney =
+        TextEditingController(text: widget.data['savedMoney'].toString());
+    selectedCurrency = widget.data['currency'];
+    startTime = widget.data['startTime'].toDate();
+    _character = widget.data['isCalculated']
+        ? SingingCharacter.calculate
+        : SingingCharacter.self;
+    endTime = widget.data['endTime'].toDate();
+    if (_character == SingingCharacter.calculate) {
+      savingAverage =
+          TextEditingController(text: widget.data['savingAverage'].toString());
+      autoNoteFrequency = widget.data[autoNoteFrequency];
+      autoNote = widget.data['autoNote'];
+      autoNoteDate = widget.data['autoNoteDate'].toDate();
+      autoNoteFrequency = widget.data['autoNoteFrequency'];
+    }
+  }
+
   List<String> listCurrency = ['VND', 'USD', 'RUB'];
   List<String> listFrequency = ['Mỗi ngày', "Mỗi tuần", 'Mỗi tháng', 'Mỗi năm'];
   String selectedCurrency = 'VND';
@@ -24,10 +47,10 @@ class _AddGoalInforState extends State<AddGoalInfor> {
   bool autoNote = false;
   var autoNoteDate;
   String autoNoteFrequency = 'Mỗi ngày';
+  TextEditingController name = TextEditingController();
   TextEditingController savingAverage = TextEditingController();
   TextEditingController savingTarget = TextEditingController();
   TextEditingController savedMoney = TextEditingController();
-
   SingingCharacter? _character = SingingCharacter.self;
   bool _validate = true;
   final _formKey = GlobalKey<FormState>();
@@ -62,6 +85,20 @@ class _AddGoalInforState extends State<AddGoalInfor> {
     }
   }
 
+  //--------------------------
+  var _goalType = 'Learn';
+  final List<String> _listType = [
+    'Learn',
+    'Car',
+    'device',
+    'investment',
+    'retirement',
+    'house',
+    'gift',
+    'travel',
+    'entertainment'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,8 +116,45 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                     children: [
                       Text(widget.data['name']),
                       Text(widget.data['type']),
-                      Text(
-                          'Hoàn thành biểu mẫu sau và máy sẽ tính toán giúp bạn về mục tiêu về hưu.'),
+                      Text('Tên mục Tiêu'),
+                      TextFormField(
+                        controller: name,
+                        validator: (value) {
+                          if (value != '')
+                            return null;
+                          else
+                            return 'Tên mục tiêu k được để trống!';
+                        },
+                        decoration: InputDecoration(
+                            hintText: 'Tên mục tiêu',
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)))),
+                      ),
+                      Text('Mục tiêu'),
+                      DropdownButton<String>(
+                        value: _goalType,
+                        icon: const Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.deepPurple),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _goalType = newValue!;
+                          });
+                        },
+                        items: _listType
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                       Text('Số tiền mục tiêu'),
                       TextFormField(
                         validator: (value) {
@@ -514,39 +588,65 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    child: Text('Lưu mục tiêu'),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Map<String, dynamic> submitData = {
-                          'currency': selectedCurrency,
-                          'goal': double.parse(savingTarget.text),
-                          'savedMoney': double.parse(savedMoney.text),
-                          'startTime': Timestamp.fromDate(startTime),
-                          'endTime': Timestamp.fromDate(endTime),
-                          'autoNote': autoNote,
-                          'savingAverage':
-                              _character == SingingCharacter.calculate
-                                  ? double.parse(savingAverage.text)
-                                  : null,
-                          'frequency': selectedFrequency,
-                          'autoNoteDate': autoNoteDate == null
-                              ? null
-                              : Timestamp.fromDate(autoNoteDate),
-                          'autoNoteFrequency': autoNoteFrequency,
-                          'isCalculated':
-                              _character == SingingCharacter.calculate
-                                  ? true
-                                  : false
-                        };
-                        print('da toi day');
-                        submitData.addAll(widget.data);
-                        Navigator.pop(context, submitData);
-                      }
-                    },
-                  ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style:
+                              ElevatedButton.styleFrom(primary: Colors.white),
+                          child: Text(
+                            'Xoá',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context, {});
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          child: Text('Lưu mục tiêu'),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              Map<String, dynamic> submitData = {
+                                'name': name.text,
+                                'type': _goalType,
+                                'currency': selectedCurrency,
+                                'goal': double.parse(savingTarget.text),
+                                'savedMoney': double.parse(savedMoney.text),
+                                'startTime': Timestamp.fromDate(startTime),
+                                'endTime': Timestamp.fromDate(endTime),
+                                'autoNote': autoNote,
+                                'savingAverage':
+                                    _character == SingingCharacter.calculate
+                                        ? double.parse(savingAverage.text)
+                                        : null,
+                                'frequency': selectedFrequency,
+                                'autoNoteDate': autoNoteDate == null
+                                    ? null
+                                    : Timestamp.fromDate(autoNoteDate),
+                                'autoNoteFrequency': autoNoteFrequency,
+                                'isCalculated':
+                                    _character == SingingCharacter.calculate
+                                        ? true
+                                        : false
+                              };
+                              print(submitData);
+                              // submitData.addAll(widget.data);
+                              Navigator.pop(context, submitData);
+                            }
+                          },
+                        ),
+                      ),
+                    )
+                  ],
                 )
               ],
             ),

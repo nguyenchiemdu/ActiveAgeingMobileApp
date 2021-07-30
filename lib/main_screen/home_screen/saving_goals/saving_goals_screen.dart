@@ -18,9 +18,27 @@ class _SavingGoalsScreenState extends State<SavingGoalsScreen> {
   addSavingGoal(Map<String, dynamic> newData) {
     List tmp = listSavingGoals;
     tmp.add(newData);
-    UserDatabase().updateUserData({'listSavingGoals': tmp});
+    updateData(tmp);
+  }
+
+  editSavingGoal(Map oldData, Map newData) {
+    List tmp;
+    if (newData.length == 0) {
+      listSavingGoals.remove(oldData);
+      tmp = listSavingGoals;
+    } else {
+      tmp = listSavingGoals.map((goal) {
+        if (goal == oldData) return newData;
+        return goal;
+      }).toList();
+    }
+    updateData(tmp);
+  }
+
+  updateData(List newData) {
+    UserDatabase().updateUserData({'listSavingGoals': newData});
     setState(() {
-      listSavingGoals = tmp;
+      listSavingGoals = newData;
     });
   }
 
@@ -49,7 +67,7 @@ class _SavingGoalsScreenState extends State<SavingGoalsScreen> {
                   )
                 : Column(
                     children: listSavingGoals
-                        .map((goal) => SavingGoalWidget(goal))
+                        .map((goal) => SavingGoalWidget(goal, editSavingGoal))
                         .toList(),
                   )
           ],

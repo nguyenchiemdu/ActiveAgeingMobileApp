@@ -90,16 +90,38 @@ class RetirementReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+    final appBar = AppBar(
+              centerTitle: true,
+              titleTextStyle:TextStyle(
+              fontFamily: 'Inter',
+              color: Color(0xffecf9f4),
+              fontSize: 16 * curScaleFactor,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.normal,
+              ) ,
+              title: Text(data['namePlan'])
+              );
     calculate();
     return Scaffold(
+      appBar : AppBar(
+          centerTitle: true,
+          titleTextStyle:TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 16 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+          ) ,
+          title: Text(data['namePlan'])
+      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 30),
           child: Column(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 89,
-                height: MediaQuery.of(context).size.height / 333.5 * 12,
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 12,
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 171.5,
@@ -114,7 +136,7 @@ class RetirementReportScreen extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 89,
-                height: MediaQuery.of(context).size.height / 333.5 * 4,
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 4,
               ),
               DefaultTabController(
                 length: 2,
@@ -133,7 +155,7 @@ class RetirementReportScreen extends StatelessWidget {
                           ),
                         ]),
                     Container(
-                      height: MediaQuery.of(context).size.height / 333.5 * 298,
+                      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 298,
                       
                       child: TabBarView(
                         children: [

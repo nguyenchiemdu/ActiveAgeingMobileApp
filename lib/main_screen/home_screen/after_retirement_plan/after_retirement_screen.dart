@@ -70,26 +70,19 @@ class _AfterRetirementScreenState extends State<AfterRetirementScreen> {
           ) ,
           title: Text("Kế hoạch về hưu")
       ),
-      body: Container(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('Back')),
-                Text('Retirement Plan')
-              ],
-            ),
-            Container(
-              child: Column(
-                children: listRetirementWidget,
-              ),
-            )
-          ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: listRetirementWidget,
+                ),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

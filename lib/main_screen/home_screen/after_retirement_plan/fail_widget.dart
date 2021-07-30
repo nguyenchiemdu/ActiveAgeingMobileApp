@@ -38,7 +38,7 @@ class FailWidget extends StatelessWidget {
               fontSize: 14 * curScaleFactor,
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.normal,),),
-        )
+        ),
       ],
     );
   }

@@ -81,8 +81,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 187.5 * 8,
-                          height:
-                              MediaQuery.of(context).size.height / 333.5 * 8,
+                          height: MediaQuery.of(context).size.height / 333.5 * 8,
                         ),
                         Column(
                           children: [

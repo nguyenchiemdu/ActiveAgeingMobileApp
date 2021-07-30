@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:active_ageing_mobile_app/main_screen/home_screen/after_retirement_plan/fail_widget.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/after_retirement_plan/success_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'summary_widget.dart';
@@ -91,44 +92,65 @@ class RetirementReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     calculate();
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          children: [
-            Text(data['namePlan']),
-            DefaultTabController(
-              length: 2,
-              initialIndex: 1,
-              child: Column(
-                children: [
-                  TabBar(
-                      labelColor: Color(0xff12B281),
-                      unselectedLabelColor: Colors.black,
-                      tabs: [
-                        Tab(
-                          child: Text('Sumary'.toUpperCase()),
-                        ),
-                        Tab(
-                          child: Text('Suggestion'.toUpperCase()),
-                        ),
-                      ]),
-                  Container(
-                    height: 600,
-                    child: TabBarView(
-                      children: [
-                        SummaryWidget(data, retirementPaymentMoney, end),
-                        data['yearsRetirement'] >
-                                beginningRetirementBalance.length -
-                                    (data['retirementAge'] - data['currentAge'])
-                            ? FailWidget()
-                            : SuccessWidget()
-                      ],
-                    ),
-                  )
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(top: 30),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 89,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
               ),
-            ),
-          ],
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                child: Text(data['namePlan'],
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xff1a1a1a),
+                      fontSize: (24),
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                    )),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 89,
+                height: MediaQuery.of(context).size.height / 333.5 * 4,
+              ),
+              DefaultTabController(
+                length: 2,
+                initialIndex: 1,
+                child: Column(
+                  children: [
+                    TabBar(
+                        labelColor: Color(0xff12B281),
+                        unselectedLabelColor: Colors.black,
+                        tabs: [
+                          Tab(
+                            child: Text('TỔNG QUAN'.toUpperCase()),
+                          ),
+                          Tab(
+                            child: Text('GỢI Ý TIẾT KIỆM'.toUpperCase()),
+                          ),
+                        ]),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 333.5 * 298,
+                      
+                      child: TabBarView(
+                        children: [
+                          SingleChildScrollView(child: SummaryWidget(data, retirementPaymentMoney, end)),
+                          data['yearsRetirement'] >
+                                  beginningRetirementBalance.length -
+                                      (data['retirementAge'] - data['currentAge'])
+                              ? FailWidget()
+                              : SuccessWidget()
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

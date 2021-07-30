@@ -79,6 +79,9 @@ flutter:
     - assets/images/pig_icon.png
     - assets/images/amount_icon.png
     - assets/images/currency_icon.png
+    - assets/images/spending.png
+    - assets/images/current_income.png
+    - assets/images/success.png
 
 
 

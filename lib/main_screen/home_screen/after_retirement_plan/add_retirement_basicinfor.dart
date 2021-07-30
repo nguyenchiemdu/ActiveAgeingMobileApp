@@ -298,7 +298,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('4. Số dư quỹ tiết kiệm hưu trí hiện tại ',
+                                    Text('4. Tăng trưởng thu nhập hàng năm (%)',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           color: Color(0xff1a1a1a),
@@ -363,7 +363,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('5.Khoản tiết kiệm về hưu hàng năm',
+                                    Text('5.Số dư quỹ tiết kiệm hiện tại',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           color: Color(0xff1a1a1a),

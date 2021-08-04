@@ -44,33 +44,50 @@ class _SavingGoalsScreenState extends State<SavingGoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 50),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Saving goals'),
-              ],
-            ),
-            listSavingGoals.length == 0
-                ? Container(
-                    padding: EdgeInsets.all(40),
-                    child: Center(
-                      child: Text(
-                        "Bạn chưa có mục tiêu nào,Bấm “tạo mục tiêu” hoặc nút “+” để tạo mục tiêu mới.",
-                        textAlign: TextAlign.center,
+      appBar: AppBar(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 16 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+          ),
+          title: Text("Mục tiêu tiết kiệm")),
+      body: Center(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 89,
+                height: MediaQuery.of(context).size.height / 333.5 * 8,
+              ),
+              listSavingGoals.length == 0
+                  ? Container(
+                      padding: EdgeInsets.all(40),
+                      child: Center(
+                        child:  new Text("Bạn chưa có mục tiêu nào, Bấm “tạo mục tiêu” hoặc nút “+” để tạo mục tiêu mới.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff999999),
+                              fontSize: 16 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            )),
                       ),
-                    ),
-                  )
-                : Column(
-                    children: listSavingGoals
-                        .map((goal) => SavingGoalWidget(goal, editSavingGoal))
-                        .toList(),
-                  )
-          ],
+                    )
+                  : Column(
+                      children: listSavingGoals
+                          .map((goal) => SavingGoalWidget(goal, editSavingGoal))
+                          .toList(),
+                    )
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

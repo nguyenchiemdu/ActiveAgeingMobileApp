@@ -82,6 +82,15 @@ flutter:
     - assets/images/spending.png
     - assets/images/current_income.png
     - assets/images/success.png
+    - assets/images/car_icon.png
+    - assets/images/computer_icon.png
+    - assets/images/education_icon.png
+    - assets/images/flight_icon.png
+    - assets/images/gift_icon.png
+    - assets/images/house_icon.png
+    - assets/images/invest_icon.png
+    - assets/images/music_icon.png
+    - assets/images/retirement_icon.png
 
 
 

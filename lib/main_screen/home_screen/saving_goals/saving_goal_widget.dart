@@ -26,7 +26,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
     int months = (duration.inDays / 30).floor();
     int weeks = ((duration.inDays % 30) / 7).floor();
     int days = (duration.inDays % 30) % 7;
-    return 'Còn lại ${months} months ${weeks} weeks ${days} days';
+    return 'Còn lại ${months} tháng ${weeks} tuần ${days} ngày';
   }
 
   updateSavingGoal(Map<String, dynamic> newSavingGoal) {
@@ -38,10 +38,11 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String timeDisplay = DateFormat('EEE, dd MMM yyyy')
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+    String timeDisplay = DateFormat('yMd')
             .format(savingGoal['startTime'].toDate()) +
         " - " +
-        DateFormat('EEE, dd MMM yyyy').format(savingGoal['endTime'].toDate());
+        DateFormat('yMd').format(savingGoal['endTime'].toDate());
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -51,37 +52,89 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                     GoalDetailScreen(savingGoal, updateSavingGoal)));
       },
       child: Container(
-        padding: EdgeInsets.all(10),
+        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+        height: MediaQuery.of(context).size.height / 333.5 * 105,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12)
+        ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(timeDisplay),
-                OutlinedButton(
-                    onPressed: () async {
-                      Map newData = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  EditGoalScreen(savingGoal)));
-                      if (newData != null && newData != savingGoal) {
-                        widget.editSavingGoal(savingGoal, newData);
-                      }
-                    },
-                    child: Text('Sửa'))
-              ],
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(timeDisplay),
+                  OutlinedButton(
+                      onPressed: () async {
+                        Map newData = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditGoalScreen(savingGoal)));
+                        if (newData != null && newData != savingGoal) {
+                          widget.editSavingGoal(savingGoal, newData);
+                        }
+                      },
+                      child: Text('Sửa'))
+                ],
+              ),
             ),
-            Text(savingGoal['name']),
-            Text(savingGoal['type']),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(savingGoal['savedMoney'].toString()),
-                Text(savingGoal['goal'].toString())
-              ],
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 89,
+              height: MediaQuery.of(context).size.height / 333.5 * 4,
             ),
-            Text(getDuration())
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+              child: Text(savingGoal['name'],
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 16 * curScaleFactor,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                  )),
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                child: Text(savingGoal['type'])),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 89,
+              height: MediaQuery.of(context).size.height / 333.5 * 8,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(savingGoal['savedMoney'].toString(),
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xff12b281),
+                        fontSize: 14 * curScaleFactor,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                      )),
+                  Text(savingGoal['goal'].toString(),
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xff1a1a1a),
+                        fontSize: 14 * curScaleFactor,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                      ))
+                ],
+              ),
+            ),
+            Text(getDuration(),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  color: Color(0xff999999),
+                  fontSize: 14* curScaleFactor,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
+                ))
           ],
         ),
       ),

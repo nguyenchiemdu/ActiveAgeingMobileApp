@@ -7,19 +7,59 @@ import 'package:flutter/material.dart';
 
 import 'summary_widget.dart';
 
-class RetirementReportScreen extends StatelessWidget {
-  RetirementReportScreen(this.data, {Key? key}) : super(key: key);
+class RetirementReportScreen extends StatefulWidget {
+  RetirementReportScreen(this.data, this.addRetirementPlan,
+      {this.isAdded = false, Key? key})
+      : super(key: key);
+  final Function addRetirementPlan;
   final Map data;
+  final bool isAdded;
+
+  @override
+  _RetirementReportScreenState createState() =>
+      _RetirementReportScreenState(data);
+}
+
+class _RetirementReportScreenState extends State<RetirementReportScreen> {
+  _RetirementReportScreenState(this.data);
+  Map data;
   final listLabels = [];
+
   final beginningRetirementBalance = [];
+
   final investmentGrowth = [];
+
   final contributions = [];
+
   final retirementWithdrawals = [];
+
   final pension = [];
+
   final endingRetirementBalance = [];
+
   var start;
+
   var end;
+
   var retirementPaymentMoney;
+
+  @override
+  initState() {
+    super.initState();
+    calculate();
+    // _tabController = new TabController(vsync: this, length: myTabs.length);
+  }
+
+  // TabController _tabController;
+
+  changeInitialPage(int index) {
+    print(index);
+    // print(initialPage);
+    setState(() {
+      // initialPage = index;
+    });
+  }
+
   calculate() {
     data['inflation'] = 3.5;
     print(data);
@@ -90,38 +130,39 @@ class RetirementReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('rebuilt' + initialPage.toString());
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final appBar = AppBar(
-              centerTitle: true,
-              titleTextStyle:TextStyle(
-              fontFamily: 'Inter',
-              color: Color(0xffecf9f4),
-              fontSize: 16 * curScaleFactor,
-              fontWeight: FontWeight.w500,
-              fontStyle: FontStyle.normal,
-              ) ,
-              title: Text(data['namePlan'])
-              );
-    calculate();
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Inter',
+          color: Color(0xffecf9f4),
+          fontSize: 16 * curScaleFactor,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.normal,
+        ),
+        title: Text(data['namePlan']));
     return Scaffold(
-      appBar : AppBar(
+      appBar: AppBar(
           centerTitle: true,
-          titleTextStyle:TextStyle(
+          titleTextStyle: TextStyle(
             fontFamily: 'Inter',
             color: Color(0xffecf9f4),
             fontSize: 16 * curScaleFactor,
             fontWeight: FontWeight.w500,
             fontStyle: FontStyle.normal,
-          ) ,
-          title: Text(data['namePlan'])
-      ),
+          ),
+          title: Text(data['namePlan'])),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 89,
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 12,
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height) /
+                    333.5 *
+                    12,
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 171.5,
@@ -136,7 +177,10 @@ class RetirementReportScreen extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 89,
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 4,
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height) /
+                    333.5 *
+                    4,
               ),
               DefaultTabController(
                 length: 2,
@@ -155,16 +199,23 @@ class RetirementReportScreen extends StatelessWidget {
                           ),
                         ]),
                     Container(
-                      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height)/ 333.5 * 298,
-                      
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height) /
+                          333.5 *
+                          298,
                       child: TabBarView(
+                        // controller: ,
                         children: [
-                          SingleChildScrollView(child: SummaryWidget(data, retirementPaymentMoney, end)),
+                          SingleChildScrollView(
+                              child: SummaryWidget(
+                                  data, retirementPaymentMoney, end)),
                           data['yearsRetirement'] >
                                   beginningRetirementBalance.length -
-                                      (data['retirementAge'] - data['currentAge'])
+                                      (data['retirementAge'] -
+                                          data['currentAge'])
                               ? FailWidget()
-                              : SuccessWidget()
+                              : SuccessWidget(data, widget.addRetirementPlan,
+                                  widget.isAdded)
                         ],
                       ),
                     )

@@ -19,7 +19,8 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
   _SavingGoalWidgetState(this.savingGoal);
   Map<String, dynamic> savingGoal;
   getDuration() {
-    DateTime start = savingGoal['startTime'].toDate();
+    // DateTime start = savingGoal['startTime'].toDate();
+    DateTime start = DateTime.now();
     DateTime end = savingGoal['endTime'].toDate();
     Duration duration = end.difference(start);
     int months = (duration.inDays / 30).floor();

@@ -31,6 +31,8 @@ class _ListWalletState extends State<ListWallet> {
     var tmp = listWallet;
     tmp.remove(wallet);
     update(tmp);
+    UserDatabase().deleteHistoryWallet(wallet['id']);
+    UserDatabase().deleteTransactions(wallet['name']);
   }
 
   update(List tmp) async {
@@ -52,15 +54,14 @@ class _ListWalletState extends State<ListWallet> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          titleTextStyle:TextStyle(
+          titleTextStyle: TextStyle(
             fontFamily: 'Inter',
             color: Color(0xffecf9f4),
             fontSize: 14 * curScaleFactor,
             fontWeight: FontWeight.w500,
             fontStyle: FontStyle.normal,
-          ) ,
-          title: Text("Danh sách ví")
-      ),
+          ),
+          title: Text("Danh sách ví")),
       body: Container(
         child: Column(
           children: [
@@ -79,18 +80,20 @@ class _ListWalletState extends State<ListWallet> {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                   height: MediaQuery.of(context).size.height / 333.5 * 24,
-                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 333.5 * 16,),
+                  margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height / 333.5 * 16,
+                  ),
                   child: ElevatedButton(
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
-                            builder: (context) => BottomChooseWallet(addWallet));
+                            builder: (context) =>
+                                BottomChooseWallet(addWallet));
                       },
                       child: Text('Tạo ví mới'.toUpperCase())),
                 ),
               ),
             )
-
           ],
         ),
       ),

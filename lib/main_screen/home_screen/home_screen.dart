@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'after_retirement_plan/after_retirement_screen.dart';
+import 'money_management/money_management.dart';
 import 'saving_goals/saving_goals_screen.dart';
 import 'wallets_slider_card.dart';
 
@@ -81,7 +82,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 187.5 * 8,
-                          height: MediaQuery.of(context).size.height / 333.5 * 8,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 8,
                         ),
                         Column(
                           children: [
@@ -579,6 +581,15 @@ class HomeScreen extends StatelessWidget {
                           ))
                     ]),
                   ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MoneyManagementScreen(
+                                    docSnap.data()['listWallet'])));
+                      },
+                      child: Text('Quản lí chi tiêu'))
                 ],
               ),
             );

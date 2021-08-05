@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
   @override
@@ -24,6 +23,9 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     Container(
       color: Colors.red,
+    ),
+    Container(
+      color: Colors.green,
     ),
     Container(
       color: Colors.green,
@@ -53,11 +55,10 @@ class _MainScreenState extends State<MainScreen> {
       child: Scaffold(
           extendBody: true,
           body: listScreen[selectIndex],
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            child: Icon(Icons.add)
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton:
+              FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
             color: Colors.white.withAlpha(255),
@@ -74,7 +75,6 @@ class _MainScreenState extends State<MainScreen> {
                     Icons.home_outlined,
                   ),
                   label: "Trang chủ",
-
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(
@@ -82,11 +82,11 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     label: "Tài chính"),
                 BottomNavigationBarItem(
-                  icon : Icon(
-                    Icons.add, color: Colors.transparent,
-                  ),
-                  label: ""
-                ),
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.transparent,
+                    ),
+                    label: ""),
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.health_and_safety_outlined,
@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     label: "Ví của bạn"),
               ],
-              selectedLabelStyle: TextStyle (color: Color(0xff12b281)),
+              selectedLabelStyle: TextStyle(color: Color(0xff12b281)),
               selectedItemColor: Color(0xff12b281),
               unselectedItemColor: Color(0xff999999),
             ),

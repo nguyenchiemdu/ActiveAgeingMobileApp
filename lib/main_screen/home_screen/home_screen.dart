@@ -1,4 +1,6 @@
 // ignore: unused_import
+import 'package:active_ageing_mobile_app/main_screen/home_screen/recreational_slider_card.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/social_activity_slider_card.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -82,8 +84,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 187.5 * 8,
-                          height:
-                              MediaQuery.of(context).size.height / 333.5 * 8,
+                          height: MediaQuery.of(context).size.height / 333.5 * 8,
                         ),
                         Column(
                           children: [
@@ -360,7 +361,7 @@ class HomeScreen extends StatelessWidget {
                     child: Row(children: [
                       Image.asset("assets/images/healthcare-icon.png",
                           width: 40, height: 40),
-                      new Text("Health care",
+                      new Text("Sức khỏe",
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -556,10 +557,45 @@ class HomeScreen extends StatelessWidget {
                       color: Color(0xffebebeb)),
                   Container(
                     width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                      Image.asset("assets/images/social-activity-icon.png",
+                          width: 40, height: 40),
+                      new Text("Hoạt động xã hội",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff1a1a1a),
+                            fontSize: 14 * curScaleFactor,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.normal,
+                          )),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 187.5 * 59.5,
+                            height: MediaQuery.of(context).size.height / 333.5 * 0,
+                          ),
+                      new Text("Xem toàn bộ",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff00865d),
+                            fontSize: 12 * curScaleFactor,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.normal,
+                          ))
+                    ]),
+                  ),
+                  SocialActivitySliderCard(),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 333.5 * 8,
+                      color: Color(0xffebebeb)),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                     child: Row(children: [
                       Image.asset("assets/images/social-activity-icon.png",
                           width: 40, height: 40),
-                      new Text("Social Activities",
+                      new Text("Giải trí",
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -571,7 +607,7 @@ class HomeScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 187.5 * 69.5,
                         height: MediaQuery.of(context).size.height / 333.5 * 0,
                       ),
-                      new Text("View All",
+                      new Text("Xem toàn bộ",
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff00865d),
@@ -581,6 +617,11 @@ class HomeScreen extends StatelessWidget {
                           ))
                     ]),
                   ),
+                  RecreationalActivitySliderCard(),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 333.5 * 8,
+                      color: Color(0xffebebeb)),
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -589,7 +630,11 @@ class HomeScreen extends StatelessWidget {
                                 builder: (context) => MoneyManagementScreen(
                                     docSnap.data()['listWallet'])));
                       },
-                      child: Text('Quản lí chi tiêu'))
+                      child: Text('Quản lí chi tiêu')),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height / 333.5 *50
+                  )
                 ],
               ),
             );

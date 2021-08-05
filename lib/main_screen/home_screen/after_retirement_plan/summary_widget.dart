@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SummaryWidget extends StatelessWidget {
   SummaryWidget(this.data, this.retirementPaymentMoney, this.end, {Key? key})
@@ -13,6 +14,7 @@ class SummaryWidget extends StatelessWidget {
     return ((data['retirementAge']) - (data['currentAge'])).round().toString();
   }
 
+  NumberFormat formatter = NumberFormat('###,###,###,##0.#');
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -23,9 +25,7 @@ class SummaryWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 187.5 * 171.5,
             height: MediaQuery.of(context).size.height / 333.5 * 60,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: Column(
               children: [
                 Container(
@@ -35,7 +35,7 @@ class SummaryWidget extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(data['currentAge'].toString(),
+                      Text(formatter.format(data['currentAge']),
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -43,7 +43,7 @@ class SummaryWidget extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             fontStyle: FontStyle.normal,
                           )),
-                      Text(data['retirementAge'].toString(),
+                      Text(formatter.format(data['retirementAge']),
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -72,22 +72,24 @@ class SummaryWidget extends StatelessWidget {
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [Text('Tuổi hiện tại',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color(0xff999999),
-                          fontSize: 12 * curScaleFactor,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                        )), Text('Tuổi nghỉ hưu',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color(0xff999999),
-                          fontSize: 12 * curScaleFactor,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                        )
-                    )]),
+                    children: [
+                      Text('Tuổi hiện tại',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff999999),
+                            fontSize: 12 * curScaleFactor,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                          )),
+                      Text('Tuổi nghỉ hưu',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff999999),
+                            fontSize: 12 * curScaleFactor,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                          ))
+                    ]),
                 Container(
                   width: MediaQuery.of(context).size.width / 187.5 * 89,
                   height: MediaQuery.of(context).size.height / 333.5 * 8,
@@ -103,14 +105,15 @@ class SummaryWidget extends StatelessWidget {
                       fontStyle: FontStyle.normal,
                     ),
                     children: const <TextSpan>[
-                      TextSpan(text: ' năm cho đến khi nghỉ hưu',
+                      TextSpan(
+                          text: ' năm cho đến khi nghỉ hưu',
                           style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Color(0xff666666),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      )),
+                            fontFamily: 'Inter',
+                            color: Color(0xff666666),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal,
+                          )),
                     ],
                   ),
                 )
@@ -130,9 +133,8 @@ class SummaryWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 187.5 * 83.75,
                   height: MediaQuery.of(context).size.height / 333.5 * 105,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     children: [
                       Container(
@@ -144,37 +146,40 @@ class SummaryWidget extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 187.5 * 1,
                         height: MediaQuery.of(context).size.height / 333.5 * 12,
                       ),
-                      Text("Thu nhập năm cuối cùng",
+                      Text(
+                        "Thu nhập năm cuối cùng",
                         style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Color(0xff666666),
-                        fontSize: 12 * curScaleFactor,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,),
+                          fontFamily: 'Inter',
+                          color: Color(0xff666666),
+                          fontSize: 12 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 187.5 * 1,
                         height: MediaQuery.of(context).size.height / 333.5 * 10,
                       ),
-                      Text(double.parse(data['lastYearIncome'].toString()).toStringAsFixed(2),
+                      Text(
+                        double.parse(data['lastYearIncome'].toString())
+                            .toStringAsFixed(2),
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff00865D),
                           fontSize: 24 * curScaleFactor,
                           fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.normal,),
+                          fontStyle: FontStyle.normal,
+                        ),
                       )
                     ],
                   ),
                 ),
-
                 Container(
                   width: MediaQuery.of(context).size.width / 187.5 * 83.75,
                   height: MediaQuery.of(context).size.height / 333.5 * 105,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)
-                  ),
+                      borderRadius: BorderRadius.circular(12)),
                   child: Column(
                     children: [
                       Container(
@@ -186,27 +191,31 @@ class SummaryWidget extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 187.5 * 1,
                         height: MediaQuery.of(context).size.height / 333.5 * 10,
                       ),
-                      Text("Chi tiêu hàng năm\ndự kiến khi nghỉ hưu",
+                      Text(
+                        "Chi tiêu hàng năm\ndự kiến khi nghỉ hưu",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff666666),
                           fontSize: 12 * curScaleFactor,
                           fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,),
+                          fontStyle: FontStyle.normal,
+                        ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width / 187.5 * 1,
                         height: MediaQuery.of(context).size.height / 333.5 * 6,
                       ),
-                      Text(double.parse(retirementPaymentMoney.toString())
-                          .toStringAsFixed(2),
+                      Text(
+                        double.parse(retirementPaymentMoney.toString())
+                            .toStringAsFixed(2),
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xffEC5B5B),
                           fontSize: 24 * curScaleFactor,
                           fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.normal,),
+                          fontStyle: FontStyle.normal,
+                        ),
                       )
                     ],
                   ),
@@ -219,20 +228,24 @@ class SummaryWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text('Retirement savings runs out at the age of  ',
+                    Text(
+                      'Retirement savings runs out at the age of  ',
                       style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff666666),
                         fontSize: 14 * curScaleFactor,
                         fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,),),
-                    Text(end.toString(),
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    Text(formatter.format(end),
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff12B281),
                           fontSize: 24 * curScaleFactor,
                           fontWeight: FontWeight.w600,
-                          fontStyle: FontStyle.normal,))
+                          fontStyle: FontStyle.normal,
+                        ))
                   ],
                 ),
               ],

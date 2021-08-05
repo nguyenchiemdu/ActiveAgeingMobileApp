@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WalletCard extends StatefulWidget {
   const WalletCard(this.wallet, {Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class WalletCard extends StatefulWidget {
 
 class _WalletCardState extends State<WalletCard> {
   bool isVisibility = true;
+  NumberFormat formatter = NumberFormat('###,###,###,##0.#');
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -76,7 +78,7 @@ class _WalletCardState extends State<WalletCard> {
           Container(
               child: isVisibility
                   ? new Text(
-                      widget.wallet['money'].toString() +
+                      formatter.format(widget.wallet['money']) +
                           ' ' +
                           widget.wallet['currency'],
                       style: TextStyle(

@@ -10,7 +10,7 @@ class RetirementWIdget extends StatelessWidget {
       : super(key: key);
   final Map retirementData;
   final Function editRetirentPlan;
-  final formatter = NumberFormat('###,###,000.0#');
+  final formatter = NumberFormat('###,###,##0.#');
   String retireTime() {
     DateTime start;
     start = DateTime.now();

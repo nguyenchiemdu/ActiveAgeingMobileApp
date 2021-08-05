@@ -36,13 +36,15 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
     });
   }
 
+  final NumberFormat formatter = NumberFormat('##,###,###,##0.#');
+
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
-    String timeDisplay = DateFormat('yMd')
-            .format(savingGoal['startTime'].toDate()) +
-        " - " +
-        DateFormat('yMd').format(savingGoal['endTime'].toDate());
+    String timeDisplay =
+        DateFormat('yMd').format(savingGoal['startTime'].toDate()) +
+            " - " +
+            DateFormat('yMd').format(savingGoal['endTime'].toDate());
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -55,9 +57,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
         width: MediaQuery.of(context).size.width / 187.5 * 171.5,
         height: MediaQuery.of(context).size.height / 333.5 * 90,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12)
-        ),
+            color: Colors.white, borderRadius: BorderRadius.circular(12)),
         child: Column(
           children: [
             Container(
@@ -87,9 +87,8 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Color(0xffededed),
                           primary: Colors.white,
-                          side: BorderSide(width: 1.0, color: Color(0xffededed)),
-
-
+                          side:
+                              BorderSide(width: 1.0, color: Color(0xffededed)),
                         ),
                         child: Text('Sửa',
                             style: TextStyle(
@@ -130,7 +129,12 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(savingGoal['savedMoney'].toString() + " (" + (savingGoal['savedMoney']/savingGoal['goal']).toString() + "%)",
+                  Text(
+                      formatter.format(savingGoal['savedMoney']) +
+                          " (" +
+                          (savingGoal['savedMoney'] / savingGoal['goal'])
+                              .toString() +
+                          "%)",
                       style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff12b281),
@@ -138,7 +142,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                         fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.normal,
                       )),
-                  Text(savingGoal['goal'].toString(),
+                  Text(formatter.format(savingGoal['goal']),
                       style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff1a1a1a),
@@ -150,27 +154,26 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
               ),
             ),
             Container(
-                width: MediaQuery.of(context).size.width / 187.5 * 155.5,
-                height: MediaQuery.of(context).size.height / 333.5 * 2,
+              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+              height: MediaQuery.of(context).size.height / 333.5 * 2,
             ),
             Stack(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width / 187.5 * 155.5,
-                  height: MediaQuery.of(context).size.height / 333.5 * 2,
-                  decoration: BoxDecoration(
-                    color: Color(0xffdedede),
-                    borderRadius: BorderRadius.circular(12)
-                  )
-                ),
+                    width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 2,
+                    decoration: BoxDecoration(
+                        color: Color(0xffdedede),
+                        borderRadius: BorderRadius.circular(12))),
                 Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * (savingGoal['savedMoney']/savingGoal['goal']) * 155.5,
+                    width: MediaQuery.of(context).size.width /
+                        187.5 *
+                        (savingGoal['savedMoney'] / savingGoal['goal']) *
+                        155.5,
                     height: MediaQuery.of(context).size.height / 333.5 * 2,
                     decoration: BoxDecoration(
                         color: Color(0xff12b281),
-                        borderRadius: BorderRadius.circular(12)
-                    )
-                ),
+                        borderRadius: BorderRadius.circular(12))),
               ],
             ),
             Container(
@@ -181,7 +184,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                 style: TextStyle(
                   fontFamily: 'Inter',
                   color: Color(0xff999999),
-                  fontSize: 14* curScaleFactor,
+                  fontSize: 14 * curScaleFactor,
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.italic,
                 ))

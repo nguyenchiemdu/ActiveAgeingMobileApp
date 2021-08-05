@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'wallet_edit.dart';
 
 class Wallet extends StatelessWidget {
-  const Wallet(this.wallet, this.deleteWallet, this.editWallet, {Key? key})
+  Wallet(this.wallet, this.deleteWallet, this.editWallet, {Key? key})
       : super(key: key);
   final Map wallet;
   final Function deleteWallet;
   final Function editWallet;
+  final NumberFormat formatter = NumberFormat('###,###,###,##0.#');
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -59,7 +61,7 @@ class Wallet extends StatelessWidget {
                         height: MediaQuery.of(context).size.height / 333.5 * 2,
                       ),
                       new Text(
-                          wallet['money'].toString() +
+                          formatter.format(wallet['money']) +
                               " " +
                               wallet['currency'].toString(),
                           style: TextStyle(

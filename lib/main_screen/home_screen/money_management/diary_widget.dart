@@ -1,7 +1,9 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/time_picker_screen.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/transaction_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'add_transaction_screen.dart';
@@ -19,6 +21,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   List<String> listCurrency = ['VND', 'USD', 'RUB'];
   List<Widget> listTransactionWidgets = [];
   Map selectedWallet = {};
+  var timePicker;
   List listWallet = [];
   @override
   void initState() {
@@ -35,11 +38,18 @@ class _DiaryWidgetState extends State<DiaryWidget> {
   fetchData() async {
     String uid = FirebaseAuth.instance.currentUser.uid;
     String path = 'users/' + uid + '/listTransactions';
-    List<Widget> listNews = await FirebaseFirestore.instance
+    var query = FirebaseFirestore.instance
         .collection(path)
-        .where('idWallet', isEqualTo: selectedWallet['id'])
-        .get()
-        .then((querySnapshot) {
+        .where('idWallet', isEqualTo: selectedWallet['id']);
+    if (timePicker != null) {
+      query = query
+          .where('time',
+              isGreaterThanOrEqualTo:
+                  Timestamp.fromDate(timePicker['startTime']))
+          .where('time',
+              isLessThanOrEqualTo: Timestamp.fromDate(timePicker['endTime']));
+    }
+    List<Widget> listNews = await query.get().then((querySnapshot) {
       List<Widget> respond = [];
       querySnapshot.docs.forEach((snap) {
         respond.add(TransactionItem(snap.data()));
@@ -106,20 +116,36 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                         hint: Text("Select item")),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      Map result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TimePickerScreen()));
+                      if (result != null) {
+                        setState(() {
+                          timePicker = result;
+                        });
+                      }
+                      fetchData();
+                    },
                     child: Ink(
-                      // width: 100,
-                      // height: 100,
-                      // color: Colors.blue,
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Text('Tháng này'),
-                            Text('01/07/2021 - 31/07/2021')
-                          ],
-                        ),
-                      ),
-                    ),
+                        // width: 100,
+                        // height: 100,
+                        // color: Colors.blue,
+                        child: Container(
+                      child: timePicker != null
+                          ? Column(
+                              children: [
+                                Text(timePicker['duration']),
+                                Text(DateFormat('dd/MMM/yyy')
+                                        .format(timePicker['startTime']) +
+                                    '-' +
+                                    DateFormat('dd/MMM/yyy')
+                                        .format(timePicker['endTime']))
+                              ],
+                            )
+                          : Text('Chọn khoảng thời gian'),
+                    )),
                   )
                 ],
               ),

@@ -55,7 +55,7 @@ class _ListWalletState extends State<ListWallet> {
     Map<String, dynamic> transaction = {
       'money': double.parse(money),
       'name': 'Edit Wallet',
-      'nameWallet': oldWallet['name'],
+      'idWallet': oldWallet['id'],
       'note': " You changed wallet money from " +
           oldWallet['money'].toString() +
           ' to ' +

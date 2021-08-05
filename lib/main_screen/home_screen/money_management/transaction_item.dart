@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionItem extends StatelessWidget {
   TransactionItem(this.transaction, {Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class TransactionItem extends StatelessWidget {
           Text(transaction['name']),
           Text(transaction['money'].toString()),
           Text(transaction['note']),
+          Text(DateFormat('dd/MM/yyyy').format(transaction['time'].toDate()))
         ],
       ),
     );

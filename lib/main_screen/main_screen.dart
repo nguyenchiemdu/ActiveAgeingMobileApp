@@ -51,38 +51,56 @@ class _MainScreenState extends State<MainScreen> {
             initialData: null)
       ],
       child: Scaffold(
+          extendBody: true,
           body: listScreen[selectIndex],
-          bottomNavigationBar: Container(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add)
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            color: Colors.white.withAlpha(255),
+            elevation: 0,
             child: BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: Colors.white.withAlpha(0),
+              type: BottomNavigationBarType.fixed,
               onTap: _selectPage,
               currentIndex: selectIndex,
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home_rounded,
-                    color: Colors.red,
+                    Icons.home_outlined,
                   ),
-                  label: "HomePage",
+                  label: "Trang chủ",
+
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.money,
-                      color: Colors.red,
+                      Icons.pie_chart_outline,
                     ),
-                    label: "FinCare"),
+                    label: "Tài chính"),
+                BottomNavigationBarItem(
+                  icon : Icon(
+                    Icons.add, color: Colors.transparent,
+                  ),
+                  label: ""
+                ),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.bento_sharp,
-                      color: Colors.red,
+                      Icons.health_and_safety_outlined,
                     ),
-                    label: "Health Care"),
+                    label: "Sức khỏe"),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.wallet_giftcard,
-                      color: Colors.red,
+                      Icons.account_balance_wallet_outlined,
                     ),
-                    label: "Wallet"),
+                    label: "Ví của bạn"),
               ],
+              selectedLabelStyle: TextStyle (color: Color(0xff12b281)),
+              selectedItemColor: Color(0xff12b281),
+              unselectedItemColor: Color(0xff999999),
             ),
           )),
     );

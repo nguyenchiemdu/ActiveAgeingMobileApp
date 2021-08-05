@@ -53,7 +53,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-        height: MediaQuery.of(context).size.height / 333.5 * 105,
+        height: MediaQuery.of(context).size.height / 333.5 * 90,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12)
@@ -61,23 +61,45 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
         child: Column(
           children: [
             Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 89,
+              height: MediaQuery.of(context).size.height / 333.5 * 8,
+            ),
+            Container(
               width: MediaQuery.of(context).size.width / 187.5 * 155.5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(timeDisplay),
-                  OutlinedButton(
-                      onPressed: () async {
-                        Map newData = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EditGoalScreen(savingGoal)));
-                        if (newData != null && newData != savingGoal) {
-                          widget.editSavingGoal(savingGoal, newData);
-                        }
-                      },
-                      child: Text('Sửa'))
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 30.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 12,
+                    child: OutlinedButton(
+                        onPressed: () async {
+                          Map newData = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditGoalScreen(savingGoal)));
+                          if (newData != null && newData != savingGoal) {
+                            widget.editSavingGoal(savingGoal, newData);
+                          }
+                        },
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Color(0xffededed),
+                          primary: Colors.white,
+                          side: BorderSide(width: 1.0, color: Color(0xffededed)),
+
+
+                        ),
+                        child: Text('Sửa',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff4d4d4d),
+                              fontSize: 12 * curScaleFactor,
+                              fontWeight: FontWeight.w600,
+                              fontStyle: FontStyle.normal,
+                            ))),
+                  ),
                 ],
               ),
             ),
@@ -108,7 +130,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(savingGoal['savedMoney'].toString(),
+                  Text(savingGoal['savedMoney'].toString() + " (" + (savingGoal['savedMoney']/savingGoal['goal']).toString() + "%)",
                       style: TextStyle(
                         fontFamily: 'Inter',
                         color: Color(0xff12b281),
@@ -126,6 +148,34 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                       ))
                 ],
               ),
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 2,
+            ),
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 2,
+                  decoration: BoxDecoration(
+                    color: Color(0xffdedede),
+                    borderRadius: BorderRadius.circular(12)
+                  )
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * (savingGoal['savedMoney']/savingGoal['goal']) * 155.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 2,
+                    decoration: BoxDecoration(
+                        color: Color(0xff12b281),
+                        borderRadius: BorderRadius.circular(12)
+                    )
+                ),
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+              height: MediaQuery.of(context).size.height / 333.5 * 8,
             ),
             Text(getDuration(),
                 style: TextStyle(

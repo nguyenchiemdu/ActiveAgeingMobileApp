@@ -743,7 +743,6 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                             ),
                           ),
                           SizedBox(
-                            width: double.infinity,
                             child: Container(
                               width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                               height: MediaQuery.of(context).size.height / 333.5 * 24,

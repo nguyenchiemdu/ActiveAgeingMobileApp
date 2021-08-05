@@ -11,7 +11,6 @@ class TransactionItem extends StatelessWidget {
           Text(transaction['name']),
           Text(transaction['money'].toString()),
           Text(transaction['note']),
-          Text(transaction['nameWallet'])
         ],
       ),
     );

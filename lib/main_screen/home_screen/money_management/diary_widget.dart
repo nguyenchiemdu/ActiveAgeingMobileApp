@@ -37,7 +37,7 @@ class _DiaryWidgetState extends State<DiaryWidget> {
     String path = 'users/' + uid + '/listTransactions';
     List<Widget> listNews = await FirebaseFirestore.instance
         .collection(path)
-        .where('nameWallet', isEqualTo: selectedName)
+        .where('idWallet', isEqualTo: selectedWallet['id'])
         .get()
         .then((querySnapshot) {
       List<Widget> respond = [];

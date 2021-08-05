@@ -1,4 +1,5 @@
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'bottom_choose_wallet.dart';
@@ -17,7 +18,7 @@ class _ListWalletState extends State<ListWallet> {
     super.initState();
     listWallet = widget.listWallet;
     listWalletWidget = widget.listWallet
-        .map((wallet) => Wallet(wallet, deleteWallet))
+        .map((wallet) => Wallet(wallet, deleteWallet, editWallet))
         .toList();
   }
 
@@ -32,7 +33,37 @@ class _ListWalletState extends State<ListWallet> {
     tmp.remove(wallet);
     update(tmp);
     UserDatabase().deleteHistoryWallet(wallet['id']);
-    UserDatabase().deleteTransactions(wallet['name']);
+    UserDatabase().deleteTransactions(wallet['id']);
+  }
+
+  editWallet(Map oldWallet, Map newWallet) {
+    print(oldWallet);
+    print(newWallet);
+    print(listWallet);
+    var tmp = listWallet;
+    int index = tmp.indexOf(oldWallet);
+    tmp[index] = newWallet;
+    update(tmp);
+    Map<String, dynamic> historyWallet = {
+      'currency': newWallet['currency'],
+      'name': newWallet['name'],
+    };
+    String money = (newWallet['money'] - oldWallet['money']).toString();
+    UserDatabase userDatabase = UserDatabase();
+    userDatabase.updateHistoryWallets(oldWallet['id'], historyWallet);
+    userDatabase.addToHistory(DateTime.now(), oldWallet['id'], money, '+');
+    Map<String, dynamic> transaction = {
+      'money': double.parse(money),
+      'name': 'Edit Wallet',
+      'nameWallet': oldWallet['name'],
+      'note': " You changed wallet money from " +
+          oldWallet['money'].toString() +
+          ' to ' +
+          newWallet['money'].toString(),
+      'time': Timestamp.fromDate(DateTime.now()),
+      'typeWallet': newWallet
+    };
+    userDatabase.addTransaction(transaction);
   }
 
   update(List tmp) async {
@@ -40,8 +71,9 @@ class _ListWalletState extends State<ListWallet> {
     await UserDatabase().updateUserData(data);
     setState(() {
       listWallet = tmp;
-      listWalletWidget =
-          tmp.map((wallet) => Wallet(wallet, deleteWallet)).toList();
+      listWalletWidget = tmp
+          .map((wallet) => Wallet(wallet, deleteWallet, editWallet))
+          .toList();
     });
   }
 

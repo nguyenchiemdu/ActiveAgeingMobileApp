@@ -90,13 +90,13 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
   final List<String> _listType = [
     'Learn',
     'Car',
-    'device',
-    'investment',
-    'retirement',
-    'house',
-    'gift',
-    'travel',
-    'entertainment'
+    'Device',
+    'Investment',
+    'Retirement',
+    'House',
+    'Gift',
+    'Travel',
+    'Entertainment'
   ];
 
   @override

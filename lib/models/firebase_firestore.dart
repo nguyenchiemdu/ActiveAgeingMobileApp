@@ -80,12 +80,12 @@ class UserDatabase {
     firestore.collection(path).doc(historyWalletId).delete();
   }
 
-  Future deleteTransactions(String nameWallet) async {
+  Future deleteTransactions(String idWallet) async {
     String uid = FirebaseAuth.instance.currentUser.uid;
     String path = 'users/' + uid + '/listTransactions';
     firestore
         .collection(path)
-        .where('nameWallet', isEqualTo: nameWallet)
+        .where('idWallet', isEqualTo: idWallet)
         .get()
         .then((querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -107,4 +107,74 @@ class UserDatabase {
   }
 
   Future updateTransaction() async {}
+
+  addToHistory(
+    DateTime time,
+    String historyWalletId,
+    String money,
+    String method,
+  ) async {
+    int key = int.parse(DateFormat('yyyyMMdd').format(time));
+    // List listHistoryWallets = widget.listHistoryWallets;
+    // int index = listHistoryWallets.indexWhere(
+    //     (historyWallet) => historyWallet['name'] == selectedNameWallet);
+    // if (listHistoryWallets[index]['listHistory'] == null) {
+    //   listHistoryWallets[index]['listHistory'] = [];
+    // }
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String path = 'users/' + uid + '/historyWallets';
+    Map historyWallet = await firestore
+        .collection(path)
+        .doc(historyWalletId)
+        .get()
+        .then((docSnap) => docSnap.data());
+    List listHistory = historyWallet['listHistory'];
+    if (listHistory.indexWhere((history) => history['time'] == key) < 0) {
+      int index = listHistory.indexWhere((history) => history['time'] > key);
+      double startMoney;
+      if (index <= 0)
+        startMoney = 0;
+      else
+        startMoney = listHistory[index - 1]['money'];
+      if (index == -1) {
+        listHistory.add({'time': key, 'money': startMoney});
+      } else {
+        int date = minus1Day(listHistory[index]['time']);
+        while (!containDateInList(date, listHistory) && date >= key) {
+          Map newHistory = {};
+          newHistory['time'] = date;
+          newHistory['money'] = startMoney;
+          listHistory.insert(index, newHistory);
+          date = minus1Day(date);
+        }
+      }
+    }
+
+    listHistory = listHistory.map((history) {
+      if (history['time'] >= key) {
+        if (method == '-')
+          history['money'] -= double.parse(money);
+        else
+          history['money'] += double.parse(money);
+        return history;
+      }
+      return history;
+    }).toList();
+    updateHistoryWallets(historyWalletId, {'listHistory': listHistory});
+  }
+
+  int minus1Day(int time) {
+    int year = int.parse(time.toString().substring(0, 4));
+    int month = int.parse(time.toString().substring(4, 6));
+    int day = int.parse(time.toString().substring(6));
+    DateTime date = DateTime(year, month, day);
+    date = date.subtract(Duration(days: 1));
+    return int.parse(DateFormat('yyyyMMdd').format(date));
+  }
+
+  bool containDateInList(int date, List listHistory) {
+    int index = listHistory.indexWhere((history) => history['time'] == date);
+    if (index >= 0) return true;
+    return false;
+  }
 }

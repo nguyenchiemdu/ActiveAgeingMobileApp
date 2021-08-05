@@ -246,7 +246,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       'note': note.text,
                       'time': Timestamp.fromDate(time),
                       'typeWallet': selectedWallet,
-                      'nameWallet': selectedWallet['name']
+                      'idWallet': selectedWallet['id']
                     };
                     int index = listWallet.indexOf(selectedWallet);
                     await addToHistory();

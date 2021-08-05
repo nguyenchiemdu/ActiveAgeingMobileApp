@@ -52,38 +52,42 @@ class _MainScreenState extends State<MainScreen> {
       ],
       child: Scaffold(
           body: listScreen[selectIndex],
-          bottomNavigationBar: Container(
-            child: BottomNavigationBar(
-              onTap: _selectPage,
-              currentIndex: selectIndex,
-              items: [
-                BottomNavigationBarItem(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.add)
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: _selectPage,
+            currentIndex: selectIndex,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home_rounded,
+                  color: Colors.red,
+                ),
+                label: "HomePage",
+              ),
+              BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home_rounded,
+                    Icons.money,
                     color: Colors.red,
                   ),
-                  label: "HomePage",
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.money,
-                      color: Colors.red,
-                    ),
-                    label: "FinCare"),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.bento_sharp,
-                      color: Colors.red,
-                    ),
-                    label: "Health Care"),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.wallet_giftcard,
-                      color: Colors.red,
-                    ),
-                    label: "Wallet"),
-              ],
-            ),
+                  label: "FinCare"),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.bento_sharp,
+                    color: Colors.red,
+                  ),
+                  label: "Health Care"),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.wallet_giftcard,
+                    color: Colors.red,
+                  ),
+                  label: "Wallet"),
+            ],
           )),
     );
   }

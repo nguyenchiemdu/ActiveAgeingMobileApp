@@ -66,52 +66,327 @@ class _GoalDetailScreenState extends State<GoalDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     getSavingTactic();
-    String timeDisplay = DateFormat('EEE, dd MMM yyyy')
+    String timeDisplay = DateFormat('yMd')
             .format(savingGoal['startTime'].toDate()) +
         " - " +
-        DateFormat('EEE, dd MMM yyyy').format(savingGoal['endTime'].toDate());
+        DateFormat('yMd').format(savingGoal['endTime'].toDate());
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(timeDisplay),
-            Text(savingGoal['name']),
-            Text(savingGoal['type']),
-            Container(
-              child: Column(
-                children: [
-                  Text('Còn lại: ' + remainSaving().toStringAsFixed(2)),
-                  Text('Đã tích luỹ : ' + savingGoal['savedMoney'].toString()),
-                  Text('Mục tiêu : ' + savingGoal['goal'].toString()),
-                  Text(remainTime()),
-                ],
-              ),
+        appBar: AppBar(
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+              fontFamily: 'Inter',
+              color: Color(0xffecf9f4),
+              fontSize: 16 * curScaleFactor,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.normal,
             ),
-            Container(
-              child: Column(
-                children: [
-                  Text('Bạn cần tích luỹ'),
-                  Text(daysSaving.toString() + " / mỗi ngày"),
-                  Text(weeksSaving.toString() + " / mỗi tuần"),
-                  Text(monthsSaving.toString() + " / mỗi tháng")
-                ],
+            title: Text("Chi tiết mục tiêu")),
+      body: Center(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 8,
               ),
-            ),
-            SizedBox(
-                // width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  RecordScreen(savingGoal, updateData)));
-                    },
-                    child: Text('Nhật ký')))
-          ],
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171,
+                child: Text(timeDisplay,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xff999999),
+                      fontSize: 12 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    )
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 4,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171,
+                child: Text(savingGoal['name'],
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xff1a1a1a),
+                      fontSize: 16 * curScaleFactor,
+                      fontWeight: FontWeight.w600,
+                      fontStyle: FontStyle.normal,
+                    )),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171,
+                child: Text(savingGoal['type'],
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xff666666),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                    )),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
+              ),
+
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Còn lại: ',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff999999),
+                              fontSize: 14 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            )),
+                        Text(remainSaving().toStringAsFixed(2),
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff1a1a1a),
+                              fontSize: 14 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            )),
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 2,
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                            height: MediaQuery.of(context).size.height / 333.5 * 2,
+                            decoration: BoxDecoration(
+                                color: Color(0xffdedede),
+                                borderRadius: BorderRadius.circular(12))),
+                        Container(
+                            width: MediaQuery.of(context).size.width /
+                                187.5 *
+                                (savingGoal['savedMoney'] / savingGoal['goal']) *
+                                155.5,
+                            height: MediaQuery.of(context).size.height / 333.5 * 2,
+                            decoration: BoxDecoration(
+                                color: Color(0xff12b281),
+                                borderRadius: BorderRadius.circular(12))),
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 8,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Đã tích luỹ : ',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff666666),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                          Text(savingGoal['savedMoney'].toString() + " (" +
+                          (savingGoal['savedMoney'] / savingGoal['goal'])
+                              .toString() +
+                              "%)",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff12b281),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Mục tiêu : ',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff666666),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                          Text(savingGoal['goal'].toString() +" " + savingGoal['currency'].toString(),
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff12b281),
+                                fontSize: 16 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 8,
+                    ),
+                    Text(remainTime(),
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff999999),
+                          fontSize: 14 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        )),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 16,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171,
+                height: MediaQuery.of(context).size.height / 333.5 * 55,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155,
+                      child: Text('Bạn cần tích luỹ',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff1a1a1a),
+                            fontSize: 14 * curScaleFactor,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.normal,
+                          )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 4,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155,
+                      child: Row(
+                        children: [
+                          Text("• " + daysSaving.toString()+ " " + savingGoal['currency'].toString(),
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff12b281),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                          Text(" /mỗi ngày",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff999999),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              )),
+
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 4,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155,
+                      child: Row(
+                        children: [
+                          Text("• " + weeksSaving.toString() + " "+ savingGoal['currency'].toString(),
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff12b281),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                          Text(" /mỗi tuấn",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff999999),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              )),
+
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 1,
+                      height: MediaQuery.of(context).size.height / 333.5 * 4,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 155,
+                      child: Row(
+                        children: [
+                          Text("• " + monthsSaving.toString() + " "+ savingGoal['currency'].toString(),
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff12b281),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              )),
+                          Text(" /mỗi tháng",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff999999),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                              )),
+
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 24,
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 333.5 * 16,),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecordScreen(savingGoal, updateData)));
+                        },
+                        child: Text('Nhật ký'.toUpperCase())),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -9,57 +9,64 @@ import 'package:provider/provider.dart';
 import 'add_transaction_screen.dart';
 import 'list_transaction_item.dart';
 
-class DiaryWidget extends StatefulWidget {
-  const DiaryWidget(this.listWallets, {Key? key}) : super(key: key);
+class DiaryWidget extends StatelessWidget {
+  DiaryWidget(
+      this.listWallets,
+      this.setState,
+      this.fetchData,
+      this.listTransactionWidgets,
+      this.selectedName,
+      this.selectedWallet,
+      this.listWallet,
+      this.timePicker,
+      {Key? key})
+      : super(key: key);
   final List listWallets;
-  @override
-  _DiaryWidgetState createState() => _DiaryWidgetState();
-}
-
-class _DiaryWidgetState extends State<DiaryWidget> {
   String selectedName = 'VND';
   List<String> listCurrency = ['VND', 'USD', 'RUB'];
   List<Widget> listTransactionWidgets = [];
   Map selectedWallet = {};
   var timePicker;
   List listWallet = [];
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    listWallet = widget.listWallets;
-    List<String> listString =
-        listWallet.map<String>((wallet) => wallet['name']).toList();
-    selectedName = listString[0];
-    selectedWallet = listWallet[0];
-    fetchData();
-  }
+  final Function setState;
+  final Function fetchData;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   listWallet = widget.listWallets;
+  //   List<String> listString =
+  //       listWallet.map<String>((wallet) => wallet['name']).toList();
+  //   selectedName = listString[0];
+  //   selectedWallet = listWallet[0];
+  //   fetchData();
+  // }
 
-  fetchData() async {
-    String uid = FirebaseAuth.instance.currentUser.uid;
-    String path = 'users/' + uid + '/listTransactions';
-    var query = FirebaseFirestore.instance
-        .collection(path)
-        .where('idWallet', isEqualTo: selectedWallet['id']);
-    if (timePicker != null) {
-      query = query
-          .where('time',
-              isGreaterThanOrEqualTo:
-                  Timestamp.fromDate(timePicker['startTime']))
-          .where('time',
-              isLessThanOrEqualTo: Timestamp.fromDate(timePicker['endTime']));
-    }
-    List<Widget> listNews = await query.get().then((querySnapshot) {
-      List<Widget> respond = [];
-      querySnapshot.docs.forEach((snap) {
-        respond.add(TransactionItem(snap.data()));
-      });
-      return respond;
-    });
-    setState(() {
-      listTransactionWidgets = listNews;
-    });
-  }
+  // fetchData() async {
+  //   String uid = FirebaseAuth.instance.currentUser.uid;
+  //   String path = 'users/' + uid + '/listTransactions';
+  //   var query = FirebaseFirestore.instance
+  //       .collection(path)
+  //       .where('idWallet', isEqualTo: selectedWallet['id']);
+  //   if (timePicker != null) {
+  //     query = query
+  //         .where('time',
+  //             isGreaterThanOrEqualTo:
+  //                 Timestamp.fromDate(timePicker['startTime']))
+  //         .where('time',
+  //             isLessThanOrEqualTo: Timestamp.fromDate(timePicker['endTime']));
+  //   }
+  //   List<Widget> listNews = await query.get().then((querySnapshot) {
+  //     List<Widget> respond = [];
+  //     querySnapshot.docs.forEach((snap) {
+  //       respond.add(TransactionItem(snap.data()));
+  //     });
+  //     return respond;
+  //   });
+  //   setState(() {
+  //     listTransactionWidgets = listNews;
+  //   });
+  // }
 
   List<Map> listHistoryWallets = [];
 
@@ -107,9 +114,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                           listWallet.forEach((wallet) {
                             if (wallet['name'] == value) newWallet = wallet;
                           });
-                          setState(() {
-                            selectedName = value.toString();
-                            selectedWallet = newWallet;
+                          setState({
+                            'selectedName': value.toString(),
+                            'selectedWallet': newWallet
                           });
                           fetchData();
                         },
@@ -121,10 +128,9 @@ class _DiaryWidgetState extends State<DiaryWidget> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => TimePickerScreen()));
+                      print(result);
                       if (result != null) {
-                        setState(() {
-                          timePicker = result;
-                        });
+                        setState({'timePicker': result});
                       }
                       fetchData();
                     },

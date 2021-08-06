@@ -177,4 +177,18 @@ class UserDatabase {
     if (index >= 0) return true;
     return false;
   }
+
+  Future<List<String>> getListPersons() async {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String path = 'users/' + uid + '/listPersons';
+    List<String> respond =
+        await firestore.collection(path).get().then((querySnapshot) {
+      List<String> result = [];
+      querySnapshot.docs.forEach((element) {
+        result.add(element.data()['name']);
+      });
+      return result;
+    });
+    return respond;
+  }
 }

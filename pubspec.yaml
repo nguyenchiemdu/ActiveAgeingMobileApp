@@ -32,7 +32,7 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   intl: ^0.16.1
   flutter_screenutil: ^0.5.2
-
+  grouped_list: ^4.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

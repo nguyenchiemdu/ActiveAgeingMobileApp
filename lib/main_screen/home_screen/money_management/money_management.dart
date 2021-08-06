@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'report_widget.dart';
+import 'transaction_item.dart';
 
 class MoneyManagementScreen extends StatefulWidget {
   const MoneyManagementScreen(this.listWallets, {Key? key}) : super(key: key);
@@ -15,10 +16,91 @@ class MoneyManagementScreen extends StatefulWidget {
 }
 
 class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
+  List listWallets = [];
+  String selectedName = 'VND';
+  List<String> listCurrency = ['VND', 'USD', 'RUB'];
+  List<Widget> listTransactionWidgets = [];
+  Map selectedWallet = {};
+  Map timePicker = {
+    'startTime': new DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day),
+    'endTime': new DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
+    'duration': 'Hôm nay'
+  };
+  List listWallet = [];
+  List listHistory = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    listWallet = widget.listWallets;
+    List<String> listString =
+        listWallet.map<String>((wallet) => wallet['name']).toList();
+    selectedName = listString[0];
+    selectedWallet = listWallet[0];
+    fetchData();
+    fetchDataHistory();
+    super.initState();
+  }
+
+  fetchData() async {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String path = 'users/' + uid + '/listTransactions';
+    var query = FirebaseFirestore.instance
+        .collection(path)
+        .where('idWallet', isEqualTo: selectedWallet['id']);
+    if (timePicker != null) {
+      query = query
+          .where('time',
+              isGreaterThanOrEqualTo:
+                  Timestamp.fromDate(timePicker['startTime']))
+          .where('time',
+              isLessThanOrEqualTo: Timestamp.fromDate(timePicker['endTime']));
+    }
+    List<Widget> listNews = await query.get().then((querySnapshot) {
+      List<Widget> respond = [];
+      querySnapshot.docs.forEach((snap) {
+        respond.add(TransactionItem(snap.data()));
+      });
+      return respond;
+    });
+    setState(() {
+      listTransactionWidgets = listNews;
+    });
+  }
+
+  fetchDataHistory() async {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String path = 'users/' + uid + '/historyWallets';
+    List listHistoryTmp = await FirebaseFirestore.instance
+        .collection(path)
+        .doc(selectedWallet['id'])
+        .get()
+        .then((doc) => doc['listHistory']);
+    setState(() {
+      listHistory = listHistoryTmp;
+    });
+  }
+
+  fetchAllData() {
+    fetchData();
+    fetchDataHistory();
+  }
+
+  updateState(Map data) {
+    setState(() {
+      if (data.containsKey('selectedName')) selectedName = data['selectedName'];
+      if (data.containsKey('selectedWallet'))
+        selectedWallet = data['selectedWallet'];
+      if (data.containsKey('timePicker')) timePicker = data['timePicker'];
+    });
+  }
+
   String condition = 'Wallet';
   @override
   Widget build(BuildContext context) {
-    print('rebuilt');
+    print(selectedWallet);
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final appBar = AppBar(
         centerTitle: true,
@@ -69,8 +151,23 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
                         child: TabBarView(
                           // controller: _tabController ,
                           children: [
-                            ReportWidget(),
-                            DiaryWidget(widget.listWallets)
+                            ReportWidget(
+                                selectedName,
+                                timePicker,
+                                listWallet,
+                                selectedWallet,
+                                listHistory,
+                                fetchAllData,
+                                updateState),
+                            DiaryWidget(
+                                widget.listWallets,
+                                updateState,
+                                fetchAllData,
+                                listTransactionWidgets,
+                                selectedName,
+                                selectedWallet,
+                                listWallet,
+                                timePicker)
                           ],
                         ),
                       )

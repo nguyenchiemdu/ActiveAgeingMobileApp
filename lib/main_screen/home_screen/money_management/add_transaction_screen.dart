@@ -1,9 +1,12 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_categories.dart';
 import 'package:active_ageing_mobile_app/main_screen/wallet_screen/wallet.dart';
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+
+import 'add_person.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   AddTransactionScreen(this.listWallet, this.listHistoryWallets, this.fetchData,
@@ -26,13 +29,18 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       listHistoryWallets[index]['listHistory'] = [];
     }
     List listHistory = listHistoryWallets[index]['listHistory'];
+    // print(listHistory);
     if (listHistory.indexWhere((history) => history['time'] == key) < 0) {
-      int index = listHistory.indexWhere((history) => history['time'] > key);
+      int index = listHistory.length - 1;
+      while (index >= 0 && listHistory[index]['time'] >= key) {
+        index--;
+      }
+      // int index = listHistory.indexWhere((history) => history['time'] > key);
       double startMoney;
-      if (index <= 0)
+      if (index < 0)
         startMoney = 0;
       else
-        startMoney = listHistory[index - 1]['money'];
+        startMoney = listHistory[index]['money'];
       if (index == -1) {
         listHistory.add({'time': key, 'money': startMoney});
       } else {
@@ -57,6 +65,8 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       }
       return history;
     }).toList();
+    listHistory.sort((a, b) => a['time'] - b['time']);
+    print(listHistory);
     UserDatabase().updateHistoryWallets(
         selectedWallet['id'], {'listHistory': listHistory});
   }
@@ -89,13 +99,17 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   final _formKey = GlobalKey<FormState>();
   DateTime time = DateTime.now();
-  String name = 'Shopping';
+  var remindTime = DateTime.now();
+  var name;
+  var category;
+  TextEditingController person = TextEditingController();
   TextEditingController money = TextEditingController();
   TextEditingController note = TextEditingController();
   late Map selectedWallet;
   late String selectedNameWallet;
   late List listWallet;
   String method = '-';
+  TextEditingController interest = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -110,8 +124,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           fontStyle: FontStyle.normal,
         ),
         title: Text("Chi tiết giao dịch"));
-    // print(widget.listHistoryWallets);
-    // print(widget.listWallet);
 
     return Scaffold(
         appBar: appBar,
@@ -141,17 +153,99 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   child: Column(
                     children: [
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          Map result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ListCategories()));
+                          if (result != null)
+                            setState(() {
+                              name = result['selectedTitle'];
+                              category = result['selectedCategory'];
+                              method = result['method'];
+                            });
+                          print(name);
+                          print(category);
+                        },
                         child: Ink(
                           height: 50,
-                          child: Row(
-                            children: [
-                              Text('Tên hạng mục'),
-                              Icon(Icons.arrow_forward)
-                            ],
-                          ),
+                          child: category == null
+                              ? Row(
+                                  children: [
+                                    Text('Tên hạng mục'),
+                                    Icon(Icons.arrow_forward)
+                                  ],
+                                )
+                              : Text(category + ': ' + name),
                         ),
                       ),
+                      category == 'Đi vay và thu nợ (Tiền vào)' ||
+                              category == 'Cho vay và trả nợ (Tiền ra)'
+                          ? Container(
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    validator: (value) {
+                                      if (value == null || value.length == 0)
+                                        return 'mục này k được trống';
+                                      return null;
+                                    },
+                                    controller: person,
+                                    decoration: InputDecoration(
+                                        hintText: 'Người cho vay'),
+                                  ),
+                                  TextFormField(
+                                    controller: interest,
+                                    validator: (value) {
+                                      if (double.tryParse(value.toString()) ==
+                                          null) return 'input k hợp lệ';
+                                      return null;
+                                    },
+                                    decoration:
+                                        InputDecoration(hintText: 'Lãi suất'),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => {
+                                      DatePicker.showDatePicker(context,
+                                          showTitleActions: true,
+                                          // minTime: ,
+                                          minTime: DateTime.now(),
+                                          onChanged: (date) {},
+                                          onConfirm: (date) {
+                                        setState(() {
+                                          remindTime = date;
+                                        });
+                                      },
+                                          currentTime: remindTime,
+                                          locale: LocaleType.vi)
+                                    },
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.calendar_today_outlined,
+                                              color: Color(0xff12B281)),
+                                          Column(
+                                            children: [
+                                              Text('Ngày trả nợ'),
+                                              Text(
+                                                DateFormat.yMMMMEEEEd()
+                                                    .format(remindTime),
+                                                style: TextStyle(
+                                                    color: Color(0xff12B281)),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
                       TextFormField(
                         decoration: InputDecoration(hintText: 'Ghi chú'),
                         controller: note,
@@ -241,16 +335,30 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     Map<String, dynamic> transaction = {
+                      'method': method,
                       'money': double.parse(money.text),
                       'name': name,
+                      'category': category,
                       'note': note.text,
                       'time': Timestamp.fromDate(time),
                       'typeWallet': selectedWallet,
                       'idWallet': selectedWallet['id']
                     };
+
+                    if (category == 'Đi vay và thu nợ (Tiền vào)' ||
+                        category == 'Cho vay và trả nợ (Tiền ra)') {
+                      transaction['person'] = person.text;
+                      transaction['interest'] = double.parse(interest.text);
+                      transaction['remindTime'] =
+                          Timestamp.fromDate(remindTime);
+                    }
                     int index = listWallet.indexOf(selectedWallet);
                     await addToHistory();
-                    listWallet[index]['money'] -= transaction['money'];
+                    if (method == '-')
+                      listWallet[index]['money'] -= transaction['money'];
+                    else
+                      listWallet[index]['money'] += transaction['money'];
+
                     await UserDatabase()
                         .updateUserData({'listWallet': listWallet});
 

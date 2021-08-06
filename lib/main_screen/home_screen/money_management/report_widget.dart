@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class ReportWidget extends StatefulWidget {
-  const ReportWidget({Key? key}) : super(key: key);
+import 'time_picker_screen.dart';
 
-  @override
-  _ReportWidgetState createState() => _ReportWidgetState();
-}
-
-class _ReportWidgetState extends State<ReportWidget> {
-  String selectedCurrency = 'VND';
-  List<String> listCurrency = ['VND', 'USD', 'RUB'];
+class ReportWidget extends StatelessWidget {
+  ReportWidget(this.selectedName, this.timePicker, this.listWallet,
+      this.selectedWallet, this.listHistory, this.fetchData, this.setState,
+      {Key? key})
+      : super(key: key);
+  String selectedName = 'VND';
+  // List<Widget> listTransactionWidgets = [];
+  Map selectedWallet = {};
+  var timePicker;
+  List listWallet = [];
+  List listHistory;
+  final Function setState;
+  final Function fetchData;
+  final NumberFormat formatter = NumberFormat('###,###,##0.#');
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    print(listHistory);
+    double startMoney = listHistory[0]['money'];
+    double endMoney = listHistory[listHistory.length - 1]['money'];
     return SingleChildScrollView(
       child: Container(
         child: Column(
@@ -26,35 +36,56 @@ class _ReportWidgetState extends State<ReportWidget> {
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)))),
-                      value: selectedCurrency,
-                      items: listCurrency
-                          .map((value) => DropdownMenuItem(
-                                child: Text(value),
-                                value: value,
+                      value: selectedName,
+                      items: listWallet
+                          .map((wallet) => DropdownMenuItem(
+                                child: Text(wallet['name']),
+                                value: wallet['name'].toString(),
                               ))
                           .toList(),
                       onChanged: (String? value) {
-                        setState(() {
-                          selectedCurrency = value.toString();
+                        Map newWallet = {};
+                        listWallet.forEach((wallet) {
+                          if (wallet['name'] == value) newWallet = wallet;
                         });
+                        setState({
+                          'selectedName': value.toString(),
+                          'selectedWallet': newWallet
+                        });
+                        fetchData();
                       },
                       hint: Text("Select item")),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    Map result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TimePickerScreen()));
+                    print(result);
+                    if (result != null) {
+                      setState({'timePicker': result});
+                    }
+                    fetchData();
+                  },
                   child: Ink(
-                    // width: 100,
-                    // height: 100,
-                    // color: Colors.blue,
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Text('Tháng này'),
-                          Text('01/07/2021 - 31/07/2021')
-                        ],
-                      ),
-                    ),
-                  ),
+                      // width: 100,
+                      // height: 100,
+                      // color: Colors.blue,
+                      child: Container(
+                    child: timePicker != null
+                        ? Column(
+                            children: [
+                              Text(timePicker['duration']),
+                              Text(DateFormat('dd/MMM/yyy')
+                                      .format(timePicker['startTime']) +
+                                  '-' +
+                                  DateFormat('dd/MMM/yyy')
+                                      .format(timePicker['endTime']))
+                            ],
+                          )
+                        : Text('Chọn khoảng thời gian'),
+                  )),
                 )
               ],
             ),
@@ -65,10 +96,20 @@ class _ReportWidgetState extends State<ReportWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Column(
-                        children: [Text('Số dư đầu'), Text('0.00 đ')],
+                        children: [
+                          Text('Số dư đầu'),
+                          Text(formatter.format(startMoney) +
+                              ' ' +
+                              selectedWallet['currency'])
+                        ],
                       ),
                       Column(
-                        children: [Text('Số dư cuối'), Text('1,123,332.00 đ')],
+                        children: [
+                          Text('Số dư cuối'),
+                          Text(formatter.format(endMoney) +
+                              ' ' +
+                              selectedWallet['currency'])
+                        ],
                       )
                     ],
                   ),

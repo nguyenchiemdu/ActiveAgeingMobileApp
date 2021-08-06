@@ -37,9 +37,11 @@ class _GoalDetailScreenState extends State<GoalDetailScreen> {
     daysSaving = duration.inDays;
     weeksSaving = (duration.inDays / 7).round();
     monthsSaving = (duration.inDays / 30).round();
+
     daysSaving = (remainSaving() / daysSaving).round();
-    weeksSaving = (remainSaving() / weeksSaving).round();
-    monthsSaving = (remainSaving() / monthsSaving).round();
+    if (weeksSaving != 0) weeksSaving = (remainSaving() / weeksSaving).round();
+    if (monthsSaving != 0)
+      monthsSaving = (remainSaving() / monthsSaving).round();
   }
 
   double remainSaving() {

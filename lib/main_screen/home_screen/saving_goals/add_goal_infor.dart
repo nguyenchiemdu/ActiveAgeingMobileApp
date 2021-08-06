@@ -915,8 +915,7 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                 child: ElevatedButton(
                                   child: Text('Lưu mục tiêu'.toUpperCase()),
                                   onPressed: () {
-                                    if (_formKey.currentState!.validate() &&
-                                        autoNoteDate != null) {
+                                    if (_formKey.currentState!.validate()) {
                                       Map<String, dynamic> submitData = {
                                         'currency': selectedCurrency,
                                         'goal': double.parse(savingTarget.text),

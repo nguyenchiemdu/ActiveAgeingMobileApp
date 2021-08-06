@@ -33,7 +33,10 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
           TextEditingController(text: widget.data['savingAverage'].toString());
       autoNoteFrequency = widget.data[autoNoteFrequency];
       autoNote = widget.data['autoNote'];
-      autoNoteDate = widget.data['autoNoteDate'].toDate();
+      if (widget.data['autoNoteDate'] != null)
+        autoNoteDate = widget.data['autoNoteDate'].toDate();
+      else
+        autoNoteDate = null;
       autoNoteFrequency = widget.data['autoNoteFrequency'];
     }
   }

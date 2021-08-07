@@ -15,15 +15,6 @@ class RecordScreen extends StatefulWidget {
 class _RecordScreenState extends State<RecordScreen> {
   _RecordScreenState(this.savingGoal);
   Map savingGoal;
-  getDuration() {
-    DateTime start = savingGoal['startTime'].toDate();
-    DateTime end = savingGoal['endTime'].toDate();
-    Duration duration = end.difference(start);
-    int months = (duration.inDays / 30).floor();
-    int weeks = ((duration.inDays % 30) / 7).floor();
-    int days = (duration.inDays % 30) % 7;
-    return 'Còn lại ${months} months ${weeks} weeks ${days} days';
-  }
 
   double remainSaving() {
     return savingGoal['goal'] - savingGoal['savedMoney'];
@@ -61,14 +52,15 @@ class _RecordScreenState extends State<RecordScreen> {
     widget.updateData(tmp);
   }
 
+  NumberFormat formatter = NumberFormat('###,###,###,##0.##');
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    String timeDisplay = DateFormat('yMd')
-            .format(savingGoal['startTime'].toDate()) +
-        " - " +
-        DateFormat('yMd').format(savingGoal['endTime'].toDate());
+    String timeDisplay =
+        DateFormat('yMd').format(savingGoal['startTime'].toDate()) +
+            " - " +
+            DateFormat('yMd').format(savingGoal['endTime'].toDate());
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -116,7 +108,7 @@ class _RecordScreenState extends State<RecordScreen> {
                             fontWeight: FontWeight.w500,
                             fontStyle: FontStyle.normal,
                           )),
-                      Text(remainSaving().toStringAsFixed(2),
+                      Text(formatter.format(remainSaving()),
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -133,8 +125,10 @@ class _RecordScreenState extends State<RecordScreen> {
                   Stack(
                     children: [
                       Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 172,
-                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                          width:
+                              MediaQuery.of(context).size.width / 187.5 * 172,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 2,
                           decoration: BoxDecoration(
                               color: Color(0xffdedede),
                               borderRadius: BorderRadius.circular(12))),
@@ -143,7 +137,8 @@ class _RecordScreenState extends State<RecordScreen> {
                               187.5 *
                               (savingGoal['savedMoney'] / savingGoal['goal']) *
                               172,
-                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 2,
                           decoration: BoxDecoration(
                               color: Color(0xff12b281),
                               borderRadius: BorderRadius.circular(12))),
@@ -166,10 +161,13 @@ class _RecordScreenState extends State<RecordScreen> {
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
                             )),
-                        Text(savingGoal['savedMoney'].toString() + " (" +
-                            (savingGoal['savedMoney'] / savingGoal['goal'])
-                                .toString() +
-                            "%)",
+                        Text(
+                            formatter.format(savingGoal['savedMoney']) +
+                                " (" +
+                                formatter.format(savingGoal['savedMoney'] /
+                                    savingGoal['goal'] *
+                                    100) +
+                                "%)",
                             style: TextStyle(
                               fontFamily: 'Inter',
                               color: Color(0xff12b281),
@@ -193,7 +191,10 @@ class _RecordScreenState extends State<RecordScreen> {
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
                             )),
-                        Text(savingGoal['goal'].toString() +" " + savingGoal['currency'].toString(),
+                        Text(
+                            formatter.format(savingGoal['goal']) +
+                                " " +
+                                savingGoal['currency'].toString(),
                             style: TextStyle(
                               fontFamily: 'Inter',
                               color: Color(0xff12b281),
@@ -213,21 +214,21 @@ class _RecordScreenState extends State<RecordScreen> {
                       children: [
                         isOnSchedule()
                             ? Text('Bạn đúng tiến độ',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              color: Color(0xff18ce8c),
-                              fontSize: 14 * curScaleFactor,
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                            ))
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xff18ce8c),
+                                  fontSize: 14 * curScaleFactor,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ))
                             : Text('Bạn chậm tiến độ',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              color: Color(0xffff2d2d),
-                              fontSize: 14 * curScaleFactor,
-                              fontWeight: FontWeight.w400,
-                              fontStyle: FontStyle.normal,
-                            ))
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xffff2d2d),
+                                  fontSize: 14 * curScaleFactor,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ))
                       ],
                     ),
                   ),
@@ -238,35 +239,37 @@ class _RecordScreenState extends State<RecordScreen> {
                 ],
               ),
             ),
-
             Container(
               child: Column(
                 children: [
                   savingGoal.containsKey('listRecord') &&
-                      savingGoal['listRecord'] != null
+                          savingGoal['listRecord'] != null
                       ? Column(
-                    children: savingGoal['listRecord']
-                        .map<Widget>((record) => RecordDayWidget(record))
-                        .toList(),
-                  )
+                          children: savingGoal['listRecord']
+                              .map<Widget>((record) => RecordDayWidget(record))
+                              .toList(),
+                        )
                       : Column(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width / 187.5 * 1,
-                            height: MediaQuery.of(context).size.height / 333.5 * 40,
-                          ),
-                          Text(
-                          'Bạn chưa ghi nhật ký, bấm vào nút\ndấu “+” để thêm nhật ký.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff999999),
-                            fontSize: 14 * curScaleFactor,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                          )),
-                        ],
-                      )
+                          children: [
+                            Container(
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  40,
+                            ),
+                            Text(
+                                'Bạn chưa ghi nhật ký, bấm vào nút\ndấu “+” để thêm nhật ký.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xff999999),
+                                  fontSize: 14 * curScaleFactor,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.normal,
+                                )),
+                          ],
+                        )
                 ],
               ),
             )

@@ -26,7 +26,11 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
     int months = (duration.inDays / 30).floor();
     int weeks = ((duration.inDays % 30) / 7).floor();
     int days = (duration.inDays % 30) % 7;
-    return 'Còn lại ${months} tháng ${weeks} tuần ${days} ngày';
+    String title = 'Còn lại ';
+    if (months > 0) title += months.toString() + ' tháng ';
+    if (weeks > 0) title += weeks.toString() + ' tuần ';
+    if (days > 0) title += days.toString() + ' ngày ';
+    return title;
   }
 
   updateSavingGoal(Map<String, dynamic> newSavingGoal) {
@@ -59,8 +63,7 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
             width: MediaQuery.of(context).size.width / 187.5 * 171.5,
             height: MediaQuery.of(context).size.height / 333.5 * 90,
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12)),
+                color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: Column(
               children: [
                 Container(
@@ -90,8 +93,8 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                             style: OutlinedButton.styleFrom(
                               backgroundColor: Color(0xffededed),
                               primary: Colors.white,
-                              side:
-                                  BorderSide(width: 1.0, color: Color(0xffededed)),
+                              side: BorderSide(
+                                  width: 1.0, color: Color(0xffededed)),
                             ),
                             child: Text('Sửa',
                                 style: TextStyle(
@@ -135,8 +138,9 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                       Text(
                           formatter.format(savingGoal['savedMoney']) +
                               " (" +
-                              (savingGoal['savedMoney'] / savingGoal['goal'])
-                                  .toString() +
+                              formatter.format(savingGoal['savedMoney'] /
+                                  savingGoal['goal'] *
+                                  100) +
                               "%)",
                           style: TextStyle(
                             fontFamily: 'Inter',
@@ -163,7 +167,8 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                 Stack(
                   children: [
                     Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 155.5,
                         height: MediaQuery.of(context).size.height / 333.5 * 2,
                         decoration: BoxDecoration(
                             color: Color(0xffdedede),

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class RecordDayWidget extends StatelessWidget {
-  const RecordDayWidget(this.record, {Key? key}) : super(key: key);
+  RecordDayWidget(this.record, {Key? key}) : super(key: key);
   final Map record;
+  final NumberFormat formatter = NumberFormat('###,###,###,##0.##');
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +13,7 @@ class RecordDayWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(DateFormat.yMMMMEEEEd().format(record['time'].toDate())),
-          Text(record['money'].toString()),
+          Text(formatter.format(record['money'])),
           Text(record['note']),
         ],
       ),

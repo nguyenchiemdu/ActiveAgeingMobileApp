@@ -29,17 +29,12 @@ class DetailReportWidget extends StatelessWidget {
       );
       return data;
     }).toList();
-    chartData.forEach((element) {
-      print(element.name);
-    });
   }
 
   List<Data> chartData = [];
   @override
   Widget build(BuildContext context) {
-    // print(listPercentage);
     calculateChartData();
-    print(listvalue);
     double heightChart = 280;
     return SingleChildScrollView(
       child: Container(

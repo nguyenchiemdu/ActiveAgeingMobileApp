@@ -1,6 +1,8 @@
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/detail_report_widget.dart';
 import 'package:flutter/material.dart';
 
+import 'loan_detail_report_widget.dart';
+
 class DetailReportScreen extends StatelessWidget {
   DetailReportScreen(
       this.listPercentageIncome,
@@ -73,7 +75,7 @@ class DetailReportScreen extends StatelessWidget {
                         listPercentageIncome, listIncome, incomeValue, '+'),
                     DetailReportWidget(
                         listPercentageOutcome, listOutcome, outcomeValue, '-'),
-                    Text('tab2'),
+                    LoanDetailReportWidget(listLoanIncome, listLoanOutcome),
                   ],
                 ),
               )

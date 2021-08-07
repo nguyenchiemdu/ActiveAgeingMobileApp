@@ -63,10 +63,10 @@ class ReportWidget extends StatelessWidget {
 
   calculateLoan() {
     listIncome.forEach((transaction) {
-      if (transaction.containsKey('person')) listLoanIncome.add(transaction);
+      if (transaction['name'] == 'Đi vay') listLoanIncome.add(transaction);
     });
     listOutcome.forEach((transaction) {
-      if (transaction.containsKey('person')) listLoanOutcome.add(transaction);
+      if (transaction['name'] == 'Cho vay') listLoanOutcome.add(transaction);
     });
   }
 

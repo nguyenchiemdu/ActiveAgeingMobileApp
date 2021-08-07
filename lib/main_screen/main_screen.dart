@@ -21,14 +21,12 @@ class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
   List<Widget> listScreen = [
     HomeScreen(),
-    Container(
-      color: Colors.red,
-    ),
+    Container(),
     Container(
       color: Colors.green,
     ),
-    Container(
-      color: Colors.green,
+    PageView(
+      children: [],
     ),
     WalletScreen(),
   ];

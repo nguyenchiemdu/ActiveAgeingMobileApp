@@ -20,6 +20,7 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
   String selectedName = 'VND';
   List<String> listCurrency = ['VND', 'USD', 'RUB'];
   List<Widget> listTransactionWidgets = [];
+  List<Map> listTransaction = [];
   Map selectedWallet = {};
   Map timePicker = {
     'startTime': new DateTime(
@@ -58,14 +59,17 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
           .where('time',
               isLessThanOrEqualTo: Timestamp.fromDate(timePicker['endTime']));
     }
+    List<Map> newTransactions = [];
     List<Widget> listNews = await query.get().then((querySnapshot) {
       List<Widget> respond = [];
       querySnapshot.docs.forEach((snap) {
+        newTransactions.add(snap.data());
         respond.add(TransactionItem(snap.data()));
       });
       return respond;
     });
     setState(() {
+      listTransaction = newTransactions;
       listTransactionWidgets = listNews;
     });
   }
@@ -157,6 +161,7 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
                                 listWallet,
                                 selectedWallet,
                                 listHistory,
+                                listTransaction,
                                 fetchAllData,
                                 updateState),
                             DiaryWidget(

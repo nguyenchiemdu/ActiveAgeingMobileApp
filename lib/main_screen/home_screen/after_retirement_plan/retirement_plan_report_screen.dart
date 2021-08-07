@@ -207,8 +207,8 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
                         // controller: ,
                         children: [
                           SingleChildScrollView(
-                              child: SummaryWidget(
-                                  data, retirementPaymentMoney, end)),
+                              child: SummaryWidget(data, retirementPaymentMoney,
+                                  endingRetirementBalance, end)),
                           data['yearsRetirement'] >
                                   beginningRetirementBalance.length -
                                       (data['retirementAge'] -

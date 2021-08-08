@@ -10,7 +10,8 @@ import 'change_password.dart';
 import 'select_currency_unit.dart';
 
 class AccountManagement extends StatefulWidget {
-  AccountManagement({Key? key}) : super(key: key);
+  AccountManagement(this.userAuthen, {Key? key}) : super(key: key);
+  final UserAuthen userAuthen;
   @override
   _AccountManagementState createState() => _AccountManagementState();
 }
@@ -417,7 +418,7 @@ class _AccountManagementState extends State<AccountManagement> {
                     setState(() {
                       isSignout = true;
                     });
-                    await UserAuthen().signOut();
+                    await widget.userAuthen.signOut();
                     Navigator.pop(context);
                     // setState(() {
                     //   isSignout = false;

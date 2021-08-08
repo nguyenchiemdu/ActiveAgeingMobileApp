@@ -20,6 +20,8 @@ class WalletScreen extends StatelessWidget {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
+    final userAuthen = Provider.of<UserAuthen>(context);
+
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width / 187.5 * 171.5,
@@ -102,7 +104,7 @@ class WalletScreen extends StatelessWidget {
                                       .snapshots(),
                                   initialData: null,
                                   builder: (context, child) =>
-                                      AccountManagement(),
+                                      AccountManagement(userAuthen),
                                 ),
                               ),
                             );

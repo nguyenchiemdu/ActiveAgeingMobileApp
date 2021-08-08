@@ -21,6 +21,7 @@ class UserAuthen extends ChangeNotifier {
         _isUserEmailVerified = user.emailVerified;
       }
     }
+    print('init Email Verfication status:' + _isUserEmailVerified.toString());
   }
   bool get isSigningIn => _isSigningIn;
   set isSigningIn(bool isSigningIn) {
@@ -35,7 +36,7 @@ class UserAuthen extends ChangeNotifier {
   }
 
   changeEmailVerification(bool newstatus) {
-    print('changing Email Verfication status');
+    print('changing Email Verfication status :' + newstatus.toString());
     isUserEmailVerified = newstatus;
   }
 
@@ -98,6 +99,7 @@ class UserAuthen extends ChangeNotifier {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
         FirebaseAuth.instance.currentUser.sendEmailVerification();
+        // changeEmailVerification(false);
         Navigator.pop(context);
       });
       return '';

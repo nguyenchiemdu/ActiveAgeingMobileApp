@@ -16,6 +16,7 @@ class SignUpInforScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.only(top: 30),
         child: Column(
           children: [
             TextField(

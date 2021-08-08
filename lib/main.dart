@@ -40,13 +40,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => UserAuthen()),
-          StreamProvider<DocumentSnapshot?>(
-            create: (context) => FirebaseFirestore.instance
-                .collection('users')
-                .doc(FirebaseAuth.instance.currentUser.uid)
-                .snapshots(),
-            initialData: null,
-          ),
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
             initialData: null,
@@ -70,10 +63,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
   late bool isUserEmailVerified;
   Timer? timer = null;
 
-  cancelTimer() {
-    timer!.cancel();
-  }
-
   @override
   void dispose() {
     timer!.cancel();
@@ -94,29 +83,51 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     if (user != null) {
       // print('isUserEmailVerified : ' + provider.isUserEmailVerified.toString());
-      Map<String, dynamic>? userData =
-          Provider.of<DocumentSnapshot?>(context) != null
-              ? Provider.of<DocumentSnapshot?>(context)!.data()
-              : null;
-      if (provider.isUserEmailVerified != true &&
-          user.providerData[0].providerId != 'google.com') {
-        if (timer == null) {
-          timer = Timer.periodic(Duration(seconds: 5), (timer) async {
-            print('Timer is running');
-            var user = FirebaseAuth.instance.currentUser;
-            await user.reload();
-            if (user.emailVerified) {
-              cancelTimer();
-              provider.changeEmailVerification(true);
-            }
-          });
-        }
-
-        return VerificationScreen(cancelTimer);
-      }
-      if (userData == null) return SignUpInforScreen();
-      return MainScreen();
+      return StreamProvider<DocumentSnapshot?>(
+        create: (context) => FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .snapshots(),
+        initialData: null,
+        child: SignedInWrapper(),
+      );
     } else
       return LoginScreen();
+  }
+}
+
+class SignedInWrapper extends StatelessWidget {
+  SignedInWrapper({Key? key}) : super(key: key);
+  Timer? timer = null;
+  cancelTimer() {
+    timer!.cancel();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    final provider = Provider.of<UserAuthen>(context);
+    final userSnap = Provider.of<DocumentSnapshot?>(context);
+    Map<String, dynamic>? userData = userSnap == null ? null : userSnap.data();
+    print('isUserEmailVerified : ' + provider.isUserEmailVerified.toString());
+    if (provider.isUserEmailVerified != true &&
+        user!.providerData[0].providerId != 'google.com') {
+      if (timer == null) {
+        timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+          print('Timer is running');
+          var user = FirebaseAuth.instance.currentUser;
+          await user.reload();
+          if (user.emailVerified) {
+            cancelTimer();
+            provider.changeEmailVerification(true);
+          }
+        });
+      }
+
+      return VerificationScreen(cancelTimer);
+    }
+    print('userdata:' + userData.toString());
+    if (userData == null) return SignUpInforScreen();
+    return MainScreen();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:active_ageing_mobile_app/main_screen/wallet_screen/list_wallets.dart';
+import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +39,7 @@ class WalletScreen extends StatelessWidget {
                     fontSize: 24 * curScaleFactor,
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.normal,
-                  )
-              ),
+                  )),
             ),
             Container(
               width: MediaQuery.of(context).size.width / 187.5 * 8,
@@ -50,15 +50,16 @@ class WalletScreen extends StatelessWidget {
                 width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                 height: MediaQuery.of(context).size.height / 333.5 * 105,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xffffffff)
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffffffff)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/images/avatar.png",
+                    Image.asset(
+                      "assets/images/avatar.png",
                       width: MediaQuery.of(context).size.width / 187.5 * 82.5,
-                      height: MediaQuery.of(context).size.height / 333.5 * 45,),
+                      height: MediaQuery.of(context).size.height / 333.5 * 45,
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 4,
@@ -67,16 +68,15 @@ class WalletScreen extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff1a1a1a),
-                          fontSize: 16*curScaleFactor,
+                          fontSize: 16 * curScaleFactor,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                        )
-                    ),
+                        )),
                     Text(user['email'],
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff999999),
-                          fontSize: 12*curScaleFactor,
+                          fontSize: 12 * curScaleFactor,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                         )),
@@ -94,25 +94,27 @@ class WalletScreen extends StatelessWidget {
                               MaterialPageRoute(
                                 builder: (BuildContext context) =>
                                     StreamProvider<DocumentSnapshot?>(
-                                  create: (context) => FirebaseFirestore.instance
+                                  create: (context) => FirebaseFirestore
+                                      .instance
                                       .collection('users')
-                                      .doc(FirebaseAuth.instance.currentUser.uid)
+                                      .doc(
+                                          FirebaseAuth.instance.currentUser.uid)
                                       .snapshots(),
                                   initialData: null,
-                                  builder: (context, child) => AccountManagement(),
+                                  builder: (context, child) =>
+                                      AccountManagement(),
                                 ),
                               ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xffededed),
-                            shadowColor: Colors.transparent
-                          ),
+                              primary: Color(0xffededed),
+                              shadowColor: Colors.transparent),
                           child: Text('Quản lí tài khoản',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff4d4d4d),
-                                fontSize: 12*curScaleFactor,
+                                fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
                               ))),
@@ -128,7 +130,8 @@ class WalletScreen extends StatelessWidget {
             InkWell(
               // borderRadius: BorderRadius.all(Radius.circular(5)),
               onTap: () {
-                var param = user['listWallet'] == null ? [] : user['listWallet'];
+                var param =
+                    user['listWallet'] == null ? [] : user['listWallet'];
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ListWallet(param)));
               },
@@ -137,15 +140,16 @@ class WalletScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 333.5 * 33,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xffffffff)
-                ),                child: Row(
+                    color: Color(0xffffffff)),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
                     ),
-                    Image.asset("assets/images/wallet_icon.png",width:40,height:40),
+                    Image.asset("assets/images/wallet_icon.png",
+                        width: 40, height: 40),
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
@@ -161,11 +165,11 @@ class WalletScreen extends StatelessWidget {
                               fontSize: 14 * curScaleFactor,
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
-                            )
-                        ),
+                            )),
                         Container(
                           width: MediaQuery.of(context).size.width / 187.5 * 8,
-                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 2,
                         ),
                         new Text("Danh sách ví của bạn",
                             style: TextStyle(
@@ -174,15 +178,15 @@ class WalletScreen extends StatelessWidget {
                               fontSize: 12 * curScaleFactor,
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.normal,
-                            )
-                        )
+                            ))
                       ],
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 50,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
                     ),
-                    Image.asset("assets/images/next_icon.png",width:40,height:40),
+                    Image.asset("assets/images/next_icon.png",
+                        width: 40, height: 40),
                   ],
                 ),
               ),
@@ -199,54 +203,55 @@ class WalletScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 333.5 * 33,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xffffffff)
-                ),                child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 8,
-                    height: MediaQuery.of(context).size.height / 333.5 * 1,
-                  ),
-                  Image.asset("assets/images/wallet_icon.png",width:40,height:40),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 8,
-                    height: MediaQuery.of(context).size.height / 333.5 * 1,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      new Text("Xem báo cáo",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff1a1a1a),
-                            fontSize: 14 * curScaleFactor,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                          )
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 8,
-                        height: MediaQuery.of(context).size.height / 333.5 * 2,
-                      ),
-                      new Text("Báo cáo về giao dịch, tiết kiệm, đầu tư",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff999999),
-                            fontSize: 12 * curScaleFactor,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                          )
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 4,
-                    height: MediaQuery.of(context).size.height / 333.5 * 1,
-                  ),
-                  Image.asset("assets/images/next_icon.png",width:40,height:40),
-                ],
-              ),
+                    color: Color(0xffffffff)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Image.asset("assets/images/wallet_icon.png",
+                        width: 40, height: 40),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 8,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        new Text("Xem báo cáo",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff1a1a1a),
+                              fontSize: 14 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            )),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 187.5 * 8,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 2,
+                        ),
+                        new Text("Báo cáo về giao dịch, tiết kiệm, đầu tư",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff999999),
+                              fontSize: 12 * curScaleFactor,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            ))
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 187.5 * 4,
+                      height: MediaQuery.of(context).size.height / 333.5 * 1,
+                    ),
+                    Image.asset("assets/images/next_icon.png",
+                        width: 40, height: 40),
+                  ],
+                ),
               ),
             ),
           ],

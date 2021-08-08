@@ -1,3 +1,4 @@
+import 'package:active_ageing_mobile_app/login_screen/loading_screen.dart';
 import 'package:active_ageing_mobile_app/main_screen/wallet_screen/user_profile.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ import 'select_currency_unit.dart';
 
 class AccountManagement extends StatefulWidget {
   AccountManagement({Key? key}) : super(key: key);
-
   @override
   _AccountManagementState createState() => _AccountManagementState();
 }
@@ -23,7 +23,7 @@ class _AccountManagementState extends State<AccountManagement> {
     'email': 'Loading',
   };
   String currency = 'VND';
-
+  bool isSignout = false;
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -35,6 +35,7 @@ class _AccountManagementState extends State<AccountManagement> {
     };
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
+    if (isSignout) return buildLoading();
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -412,10 +413,15 @@ class _AccountManagementState extends State<AccountManagement> {
                 ),
                 InkWell(
                   // borderRadius: BorderRadius.all(Radius.circular(5)),
-                  onTap: () {
-                    UserAuthen().signOut().then((value) {
-                      Navigator.pop(context);
+                  onTap: () async {
+                    setState(() {
+                      isSignout = true;
                     });
+                    await UserAuthen().signOut();
+                    Navigator.pop(context);
+                    // setState(() {
+                    //   isSignout = false;
+                    // });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width / 187.5 * 171.5,

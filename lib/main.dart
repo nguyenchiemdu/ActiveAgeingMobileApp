@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:active_ageing_mobile_app/main_screen/main_screen.dart';
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
+import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'login_screen/loading_screen.dart';
 import 'login_screen/login_screen.dart';
 import 'login_screen/sign_up_screen/sign_up_infor.dart';
 import 'login_screen/sign_up_screen/verification_screen.dart';
@@ -21,8 +23,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   final MaterialColor myGreen = const MaterialColor(0xff12B281, const {
     50: const Color(0xffECF9F4),
     100: const Color(0xffECF9F4),
@@ -35,18 +35,11 @@ class MyApp extends StatelessWidget {
     800: const Color(0xff004832),
     900: const Color(0xff002D1F)
   });
-  Future<Map<String, dynamic>?> getUserData() async {
-    if (FirebaseAuth.instance.currentUser == null) return null;
-    //String uid = FirebaseAuth.instance.currentUser.uid;
-    return await UserDatabase().getUserData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          // FutureProvider<Map<String, dynamic>?>(
-          //     create: (context) => getUserData(), initialData: null),
+          ChangeNotifierProvider(create: (context) => UserAuthen()),
           StreamProvider<DocumentSnapshot?>(
             create: (context) => FirebaseFirestore.instance
                 .collection('users')
@@ -54,11 +47,10 @@ class MyApp extends StatelessWidget {
                 .snapshots(),
             initialData: null,
           ),
-          Provider(create: (context) => FirebaseAuth.instance.currentUser),
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
             initialData: null,
-          )
+          ),
         ],
         child: MaterialApp(
             title: 'Active Ageing Vietnam',
@@ -75,74 +67,56 @@ class AuthWrapper extends StatefulWidget {
 }
 
 class _AuthWrapperState extends State<AuthWrapper> {
-  bool isUserEmailVerified = FirebaseAuth.instance.currentUser != null
-      ? FirebaseAuth.instance.currentUser.emailVerified
-      : false;
-  late Timer timer;
-  @override
-  void initState() {
-    // print('dang init state');
-    // print(FirebaseAuth.instance.currentUser);
-    super.initState();
-  }
-
-  updateVerifyEmail(bool status) {
-    // print('updateVerifyEmail');
-    setState(() {
-      isUserEmailVerified = status;
-    });
-  }
+  late bool isUserEmailVerified;
+  Timer? timer = null;
 
   cancelTimer() {
-    print('dang cancel timer');
-    timer.cancel();
+    timer!.cancel();
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    timer!.cancel();
     super.dispose();
   }
 
   Future getUserData() async {
-    //String uid = FirebaseAuth.instance.currentUser.uid;
     return await UserDatabase().getUserData();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print('vong ngoai ' + isUserEmailVerified.toString());
-    // print(FirebaseAuth.instance.currentUser);
     final user = Provider.of<User?>(context);
+    final provider = Provider.of<UserAuthen>(context);
+    if (provider.isSigningIn) {
+      return buildLoading();
+    }
+
     if (user != null) {
-      print(isUserEmailVerified);
-      // print(user.providerData[0].providerId);
+      // print('isUserEmailVerified : ' + provider.isUserEmailVerified.toString());
       Map<String, dynamic>? userData =
           Provider.of<DocumentSnapshot?>(context) != null
               ? Provider.of<DocumentSnapshot?>(context)!.data()
               : null;
-      if (isUserEmailVerified != true &&
+      if (provider.isUserEmailVerified != true &&
           user.providerData[0].providerId != 'google.com') {
-        timer = Timer.periodic(Duration(seconds: 5), (timer) async {
-          print('Timer is still running');
-          var user = FirebaseAuth.instance.currentUser;
-          await user.reload();
-          if (user.emailVerified) {
-            print('sap setsate');
-            cancelTimer();
-            setState(() {
-              isUserEmailVerified = user.emailVerified;
-            });
-          }
-        });
+        if (timer == null) {
+          timer = Timer.periodic(Duration(seconds: 5), (timer) async {
+            print('Timer is running');
+            var user = FirebaseAuth.instance.currentUser;
+            await user.reload();
+            if (user.emailVerified) {
+              cancelTimer();
+              provider.changeEmailVerification(true);
+            }
+          });
+        }
 
         return VerificationScreen(cancelTimer);
       }
-      // print('userData :' + userData.toString());
-      // ignore: unnecessary_null_comparison
       if (userData == null) return SignUpInforScreen();
       return MainScreen();
     } else
-      return LoginScreen(updateVerifyEmail);
+      return LoginScreen();
   }
 }

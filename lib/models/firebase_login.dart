@@ -6,86 +6,113 @@ import 'firebase_firestore.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:google_sign_in/google_sign_in.dart';
 
-class UserAuthen {
+class UserAuthen extends ChangeNotifier {
+  late bool _isSigningIn;
+  late bool _isUserEmailVerified;
+  UserAuthen() {
+    _isSigningIn = false;
+    User user = FirebaseAuth.instance.currentUser;
+    if (user == null)
+      _isUserEmailVerified = false;
+    else {
+      if (user.providerData[0].providerId == 'google.com')
+        _isUserEmailVerified = true;
+      else {
+        _isUserEmailVerified = user.emailVerified;
+      }
+    }
+  }
+  bool get isSigningIn => _isSigningIn;
+  set isSigningIn(bool isSigningIn) {
+    _isSigningIn = isSigningIn;
+    notifyListeners();
+  }
+
+  bool get isUserEmailVerified => _isUserEmailVerified;
+  set isUserEmailVerified(bool isUserEmailVerified) {
+    _isUserEmailVerified = isUserEmailVerified;
+    notifyListeners();
+  }
+
+  changeEmailVerification(bool newstatus) {
+    print('changing Email Verfication status');
+    isUserEmailVerified = newstatus;
+  }
+
   String signInMethod() {
     if (FirebaseAuth.instance.currentUser != null)
-      //if (FirebaseAuth.instance.currentUser.providerData[0].providerId == 'password')
       return FirebaseAuth.instance.currentUser.providerData[0].providerId;
     return 'notSignIn';
   }
 
-  Future<bool> signInWithEmailPassword(String email, String password) async {
-    bool ok = true;
+  Future<String> signInWithEmailPassword(String email, String password) async {
+    // isSigningIn = true;
+    String message = '';
+
     try {
-      // UserCredential userCredential =
-      await FirebaseAuth.instance
+      UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      changeEmailVerification(userCredential.user.emailVerified);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
-        ok = false;
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
-        ok = false;
       }
+      message = 'email hoặc mật khẩu không chính xác!';
     }
-    return ok;
+    print('message:' + message);
+    // isSigningIn = false;
+    return message;
   }
 
   Future signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    isSigningIn = true;
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    if (userCredential.additionalUserInfo.isNewUser) {
-      print('isNewUser');
-      Map<String, dynamic> data = {
-        'name': userCredential.user.displayName,
-        'email': userCredential.user.email,
-        'photoURL': userCredential.user.photoURL,
-      };
-      await UserDatabase().firstUploadUserData(data);
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      // Once signed in, return the UserCredential
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      changeEmailVerification(true);
+    } catch (e) {
+      print('Error Sign in with Google :' + e.toString());
     }
+    isSigningIn = false;
   }
 
-  Future createUser(
-      String email, String password, String name, BuildContext context) async {
+  Future<String> createUser(
+      String email, String password, BuildContext context) async {
     try {
-      //UserCredential userCredential =
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        Map<String, dynamic> data = {
-          'email': value.user.email,
-          'password': password,
-          'name': name,
-          'photoURL':
-              "https://s3-alpha-sig.figma.com/img/a0b4/fd34/2210c5f7a9f72b3e284ed0769b35803a?Expires=1627862400&Signature=VX~evHwLNiL6QRjxX-EWTwDXyOrzkNvleJUZmo3H4VCvBbyigv6MsSlV9ATrdXhLghoWhmgGJeR6KCgO3Qd8Tf3zzzCGSWuwmRx1hdY04DSKk3eZ79mhG76oGuJWu5wQw9xLeljbqaAr8tH1St~hUzfg4QdJPQguJLjI-3UZtTVOCU~CvHgPT1POU6iYsrnesWmfQHXH71cQXQ19ggC5z01CYszg9lfHquhw4to-RRaOiY0oMvlCXjYGGVNC0YKR6qriBh1kFdSJ1U42SkjDiYkzGDDBzAEexCiyzBgRri8AxR8QYaQBV9Y7IDDnXLd4PLwOM6~k12bY6K1vegML4w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-        };
-        // UserDatabase().firstUploadUserData(data);
         FirebaseAuth.instance.currentUser.sendEmailVerification();
         Navigator.pop(context);
       });
+      return '';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
+        return 'Mật khẩu quá yếu!';
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
+        return 'Tài khoản cho email này đã tồn tại!';
       }
+      return (e.code);
     } catch (e) {
       print(e);
+      return (e.toString());
     }
   }
 
@@ -93,7 +120,6 @@ class UserAuthen {
     User user = FirebaseAuth.instance.currentUser;
     AuthCredential credential =
         EmailAuthProvider.credential(email: user.email, password: password);
-    //FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential);
     try {
       var authResult = await user.reauthenticateWithCredential(credential);
       return authResult.user != null;
@@ -116,8 +142,11 @@ class UserAuthen {
   }
 
   Future signOut() async {
+    isSigningIn = true;
     if (FirebaseAuth.instance.currentUser.providerData[0].providerId ==
         'google.com') await GoogleSignIn().disconnect();
     await FirebaseAuth.instance.signOut();
+    changeEmailVerification(false);
+    isSigningIn = false;
   }
 }

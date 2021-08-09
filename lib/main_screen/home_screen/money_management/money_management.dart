@@ -31,17 +31,22 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
   };
   List listWallet = [];
   List listHistory = [];
+  bool hadWallet = false;
   @override
   void initState() {
     // TODO: implement initState
 
     listWallet = widget.listWallets;
-    List<String> listString =
-        listWallet.map<String>((wallet) => wallet['name']).toList();
-    selectedName = listString[0];
-    selectedWallet = listWallet[0];
-    fetchData();
-    fetchDataHistory();
+    print(listWallet);
+    if (listWallet != null && listWallet.length != 0) {
+      hadWallet = true;
+      List<String> listString =
+          listWallet.map<String>((wallet) => wallet['name']).toList();
+      selectedName = listString[0];
+      selectedWallet = listWallet[0];
+      fetchData();
+      fetchDataHistory();
+    }
     super.initState();
   }
 
@@ -155,24 +160,28 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
                         child: TabBarView(
                           // controller: _tabController ,
                           children: [
-                            ReportWidget(
-                                selectedName,
-                                timePicker,
-                                listWallet,
-                                selectedWallet,
-                                listHistory,
-                                listTransaction,
-                                fetchAllData,
-                                updateState),
-                            DiaryWidget(
-                                widget.listWallets,
-                                updateState,
-                                fetchAllData,
-                                listTransactionWidgets,
-                                selectedName,
-                                selectedWallet,
-                                listWallet,
-                                timePicker)
+                            hadWallet
+                                ? ReportWidget(
+                                    selectedName,
+                                    timePicker,
+                                    listWallet,
+                                    selectedWallet,
+                                    listHistory,
+                                    listTransaction,
+                                    fetchAllData,
+                                    updateState)
+                                : Text('Bạn chưa có ví nào'),
+                            hadWallet
+                                ? DiaryWidget(
+                                    widget.listWallets,
+                                    updateState,
+                                    fetchAllData,
+                                    listTransactionWidgets,
+                                    selectedName,
+                                    selectedWallet,
+                                    listWallet,
+                                    timePicker)
+                                : Text('Bạn chưa có ví nào')
                           ],
                         ),
                       )

@@ -191,4 +191,17 @@ class UserDatabase {
     });
     return respond;
   }
+
+  Future updateSocialActivities(Map<String, dynamic> data) async {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    String id = data['id'];
+    if (!data.containsKey('listConcernedPersons'))
+      data['listConcernedPersons'] = [uid];
+    if (!data['listConcernedPersons'].contains(uid)) {
+      data['listConcernedPersons'].add(uid);
+    } else
+      data['listConcernedPersons'].remove(uid);
+    data.remove('id');
+    firestore.collection('socialActivities').doc(id).update(data);
+  }
 }

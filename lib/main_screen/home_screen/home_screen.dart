@@ -1,4 +1,5 @@
 // ignore: unused_import
+import 'package:active_ageing_mobile_app/login_screen/loading_screen.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/recreational_slider_card.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/social_activity_slider_card.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     return Consumer<DocumentSnapshot?>(builder: (context, docSnap, child) {
       return docSnap == null
-          ? Text('loading')
+          ? buildLoading()
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -84,7 +85,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width / 187.5 * 8,
-                          height: MediaQuery.of(context).size.height / 333.5 * 8,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 8,
                         ),
                         Column(
                           children: [
@@ -557,33 +559,35 @@ class HomeScreen extends StatelessWidget {
                       color: Color(0xffebebeb)),
                   Container(
                     width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                    child:
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                      Image.asset("assets/images/social-activity-icon.png",
-                          width: 40, height: 40),
-                      new Text("Hoạt động xã hội",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff1a1a1a),
-                            fontSize: 14 * curScaleFactor,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                          )),
+                          Image.asset("assets/images/social-activity-icon.png",
+                              width: 40, height: 40),
+                          new Text("Hoạt động xã hội",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff1a1a1a),
+                                fontSize: 14 * curScaleFactor,
+                                fontWeight: FontWeight.w600,
+                                fontStyle: FontStyle.normal,
+                              )),
                           Container(
-                            width: MediaQuery.of(context).size.width / 187.5 * 59.5,
-                            height: MediaQuery.of(context).size.height / 333.5 * 0,
+                            width: MediaQuery.of(context).size.width /
+                                187.5 *
+                                59.5,
+                            height:
+                                MediaQuery.of(context).size.height / 333.5 * 0,
                           ),
-                      new Text("Xem toàn bộ",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff00865d),
-                            fontSize: 12 * curScaleFactor,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                          ))
-                    ]),
+                          new Text("Xem toàn bộ",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                color: Color(0xff00865d),
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              ))
+                        ]),
                   ),
                   SocialActivitySliderCard(),
                   Container(
@@ -633,8 +637,7 @@ class HomeScreen extends StatelessWidget {
                       child: Text('Quản lí chi tiêu')),
                   Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height / 333.5 *50
-                  )
+                      height: MediaQuery.of(context).size.height / 333.5 * 50)
                 ],
               ),
             );

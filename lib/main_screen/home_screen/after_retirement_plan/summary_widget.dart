@@ -8,13 +8,14 @@ import 'package:intl/intl.dart';
 
 class SummaryWidget extends StatelessWidget {
   SummaryWidget(this.data, this.retirementPaymentMoney,
-      this.endingRetirementBalance, this.end,
+      this.endingRetirementBalance, this.end, this.isSuccess,
       {Key? key})
       : super(key: key);
   final Map data;
   final retirementPaymentMoney;
   final List endingRetirementBalance;
   final end;
+  final bool isSuccess;
   String getDuration() {
     return ((data['retirementAge']) - (data['currentAge'])).round().toString();
   }
@@ -265,29 +266,90 @@ class SummaryWidget extends StatelessWidget {
           Container(
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Retirement savings runs out at the age of  ',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Color(0xff666666),
-                        fontSize: 14 * curScaleFactor,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                      ),
-                    ),
-                    Text(formatter.format(end),
+                !isSuccess
+                    ? Container(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: [
+                              TextSpan(
+                                text:
+                                    'Quỹ tiết kiệm về hưu của bạn sẽ cạn kiệt vào năm bạn ',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xff666666),
+                                  fontSize: 14 * curScaleFactor,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                              TextSpan(
+                                  text: formatter.format(end),
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xff12B281),
+                                    fontSize: 24 * curScaleFactor,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                  )),
+                              TextSpan(
+                                text: ' tuổi.',
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xff666666),
+                                  fontSize: 14 * curScaleFactor,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                              ),
+                            ])),
+                      )
+                    // ? Stack(
+                    //     // mainAxisAlignment: MainAxisAlignment.center,
+                    //     overflow: Overflow.visible,
+                    //     clipBehavior: Clip.antiAlias,
+                    //     children: [
+                    //       Text(
+                    //         'Quỹ tiết kiệm về hưu của bạn sẽ cạn kiệt vào năm bạn ',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Inter',
+                    //           color: Color(0xff666666),
+                    //           fontSize: 14 * curScaleFactor,
+                    //           fontWeight: FontWeight.w400,
+                    //           fontStyle: FontStyle.normal,
+                    //         ),
+                    //       ),
+                    //       Text(formatter.format(end),
+                    //           style: TextStyle(
+                    //             fontFamily: 'Inter',
+                    //             color: Color(0xff12B281),
+                    //             fontSize: 24 * curScaleFactor,
+                    //             fontWeight: FontWeight.w600,
+                    //             fontStyle: FontStyle.normal,
+                    //           )
+                    // ),
+                    //       Text(
+                    //         ' tuổi.',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Inter',
+                    //           color: Color(0xff666666),
+                    //           fontSize: 14 * curScaleFactor,
+                    //           fontWeight: FontWeight.w400,
+                    //           fontStyle: FontStyle.normal,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   )
+                    : Text(
+                        'Bạn đã có một kế hoạch về hưu tuyệt vời',
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          color: Color(0xff12B281),
-                          fontSize: 24 * curScaleFactor,
-                          fontWeight: FontWeight.w600,
+                          color: Color(0xff666666),
+                          fontSize: 14 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
-                        )),
-                  ],
-                ),
+                        ),
+                      ),
                 Container(
                     // color: Colors.red,
                     child: BarChartPage(chartData, interval, maxY)),

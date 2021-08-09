@@ -24,29 +24,23 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
   _RetirementReportScreenState(this.data);
   Map data;
   final listLabels = [];
-
   final beginningRetirementBalance = [];
-
   final investmentGrowth = [];
-
   final contributions = [];
-
   final retirementWithdrawals = [];
-
   final pension = [];
-
   final endingRetirementBalance = [];
-
   var start;
-
   var end;
-
   var retirementPaymentMoney;
-
+  late bool isSuccess;
   @override
   initState() {
     super.initState();
     calculate();
+    isSuccess = data['yearsRetirement'] <=
+        beginningRetirementBalance.length -
+            (data['retirementAge'] - data['currentAge']);
     // _tabController = new TabController(vsync: this, length: myTabs.length);
   }
 
@@ -122,6 +116,8 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
     start = (data['currentAge']);
     end = (data['retirementAge']) + (data['yearsRetirement']);
     end = i - 2;
+
+    print(data);
   }
 
   dynamic lastValue(list) {
@@ -208,12 +204,12 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
                         children: [
                           SingleChildScrollView(
                               child: SummaryWidget(data, retirementPaymentMoney,
-                                  endingRetirementBalance, end)),
+                                  endingRetirementBalance, end, isSuccess)),
                           data['yearsRetirement'] >
                                   beginningRetirementBalance.length -
                                       (data['retirementAge'] -
                                           data['currentAge'])
-                              ? FailWidget()
+                              ? FailWidget(data)
                               : SuccessWidget(data, widget.addRetirementPlan,
                                   widget.isAdded)
                         ],

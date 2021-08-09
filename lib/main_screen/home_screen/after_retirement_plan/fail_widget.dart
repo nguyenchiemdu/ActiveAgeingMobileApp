@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FailWidget extends StatelessWidget {
-  const FailWidget({Key? key}) : super(key: key);
+  const FailWidget(this.data, {Key? key}) : super(key: key);
+  final Map data;
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -42,6 +43,42 @@ class FailWidget extends StatelessWidget {
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.normal,
             ),
+          ),
+        ),
+        Container(
+          child: Text('Hoãn tuổi nghỉ hưu của bạn đến sau khi bạn' +
+              data['retirementAge'].toString() +
+              ' tuổi'),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text('Tăng tỉ suất lợi nhuận trước khi về hưu'),
+              Text(data['rateBefore'].toString() + '% tới X%')
+            ],
+          ),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text('Tăng mức đóng góp cho khoản tiết kiệm hưu trí hàng năm'),
+              Text(data['annualSaving'].toString() + '% tới X%')
+            ],
+          ),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text(
+                  'Giảm thu nhập yêu cầu của bạn khi nghỉ hưu xuống còn X% thu nhập của năm cuối cùng trước khi về hưu của bạn.'),
+            ],
+          ),
+        ),
+        Container(
+          child: Column(
+            children: [
+              Text('Tăng lương hưu / thu nhập khác của bạn sau khi nghỉ hưu'),
+            ],
           ),
         ),
         ElevatedButton(

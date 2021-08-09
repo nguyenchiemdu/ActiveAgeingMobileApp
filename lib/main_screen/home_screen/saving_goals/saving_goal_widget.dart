@@ -81,13 +81,14 @@ class _SavingGoalWidgetState extends State<SavingGoalWidget> {
                         height: MediaQuery.of(context).size.height / 333.5 * 12,
                         child: OutlinedButton(
                             onPressed: () async {
-                              Map newData = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditGoalScreen(savingGoal)));
+                              Map<String, dynamic> newData =
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditGoalScreen(savingGoal)));
                               if (newData != null && newData != savingGoal) {
-                                widget.editSavingGoal(savingGoal, newData);
+                                updateSavingGoal(newData);
                               }
                             },
                             style: OutlinedButton.styleFrom(

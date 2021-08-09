@@ -1,3 +1,4 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/recreational_card.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/social_activity_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class RecreationalActivitySliderCard extends StatelessWidget {
               itemCount: 1,
               itemBuilder: (BuildContext context, int index, realIdx) =>
                   Container(
-                    child: SocialActivityCard(),
+                    child: RecreationalCard(),
                   ),
               options: CarouselOptions(
                 autoPlay: true,
@@ -24,7 +25,9 @@ class RecreationalActivitySliderCard extends StatelessWidget {
                 // enlargeCenterPage: false,
                 // viewportFraction: 0.65,
                 viewportFraction: 0.8,
-                aspectRatio: (MediaQuery.of(context).size.height / 333.5 * 155.5)/(MediaQuery.of(context).size.width / 187.5 * 168),
+                aspectRatio:
+                    (MediaQuery.of(context).size.height / 333.5 * 155.5) /
+                        (MediaQuery.of(context).size.width / 187.5 * 168),
                 scrollDirection: Axis.horizontal,
                 // enlargeCenterPage: true
               ))),

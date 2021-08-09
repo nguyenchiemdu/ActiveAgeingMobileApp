@@ -2,16 +2,27 @@ import 'package:flutter/material.dart';
 
 import 'retirement_plan_report_screen.dart';
 
-class AddRetirementFinancial extends StatelessWidget {
+class AddRetirementFinancial extends StatefulWidget {
   AddRetirementFinancial(this.data, this.addRetirementPlan, {Key? key})
       : super(key: key);
   final Function addRetirementPlan;
   final Map data;
+
+  @override
+  _AddRetirementFinancialState createState() => _AddRetirementFinancialState();
+}
+
+class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController annualSaving = TextEditingController();
+
   final TextEditingController retirementPay = TextEditingController();
+
   final TextEditingController rateBefore = TextEditingController();
+
   final TextEditingController rateAfter = TextEditingController();
+
   final TextEditingController pension = TextEditingController();
 
   @override
@@ -76,7 +87,7 @@ class AddRetirementFinancial extends StatelessWidget {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                      child: Text(data['namePlan'],
+                      child: Text(widget.data['namePlan'],
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
@@ -533,7 +544,7 @@ class AddRetirementFinancial extends StatelessWidget {
                           'rateAfter': double.parse(rateAfter.text),
                           'pension': double.parse(pension.text),
                         };
-                        data.addAll(tmp);
+                        widget.data.addAll(tmp);
                         // Navigator.pop(context);
                         // Navigator.pop(context);
                         // Navigator.pop(context);
@@ -541,7 +552,7 @@ class AddRetirementFinancial extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => RetirementReportScreen(
-                                    data, addRetirementPlan)));
+                                    widget.data, widget.addRetirementPlan)));
                         // addRetirementPlan(data);
                       }
                     },

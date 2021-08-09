@@ -9,23 +9,19 @@ class RecreationalCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 187.5 * 138,
       height: MediaQuery.of(context).size.height / 333.5 * 155.5,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(12),
               topLeft: Radius.circular(12),
-
             ),
             child: Image.asset("assets/images/test1.png",
-              width: MediaQuery.of(context).size.width / 187.5 * 138,
-              height: MediaQuery.of(context).size.height / 333.5 * 67.5,
-              alignment: Alignment.topCenter,
-              fit: BoxFit.fill
-            ),
+                width: MediaQuery.of(context).size.width / 187.5 * 138,
+                height: MediaQuery.of(context).size.height / 333.5 * 67.5,
+                alignment: Alignment.topCenter,
+                fit: BoxFit.fill),
           ),
           Container(
             width: MediaQuery.of(context).size.width / 187.5 * 1,
@@ -63,7 +59,7 @@ class RecreationalCard extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width / 187.5 * 130,
-            child: new Text("45 người khác quan tâm",
+            child: new Text("45 người khác quan tâm giải trí",
                 style: TextStyle(
                   fontFamily: 'Inter',
                   color: Color(0xff666666),
@@ -86,11 +82,9 @@ class RecreationalCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 333.5 * 20,
                   decoration: BoxDecoration(
                       color: Color(0xffededed),
-                      borderRadius: BorderRadius.circular(12)
-                  ),
+                      borderRadius: BorderRadius.circular(12)),
                   alignment: Alignment.center,
-                  child:
-                  new Text("Xem chi tiết",
+                  child: new Text("Xem chi tiết",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Inter',
@@ -101,19 +95,16 @@ class RecreationalCard extends StatelessWidget {
                       )),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width / 187.5 * 20,
-                  height: MediaQuery.of(context).size.height / 333.5 * 20,
-                  decoration: BoxDecoration(
-                      color: Color(0xffededed),
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(Icons.favorite_border_outlined)
-                )
+                    width: MediaQuery.of(context).size.width / 187.5 * 20,
+                    height: MediaQuery.of(context).size.height / 333.5 * 20,
+                    decoration: BoxDecoration(
+                        color: Color(0xffededed),
+                        borderRadius: BorderRadius.circular(12)),
+                    alignment: Alignment.center,
+                    child: Icon(Icons.favorite_border_outlined))
               ],
             ),
           )
-
         ],
       ),
     );

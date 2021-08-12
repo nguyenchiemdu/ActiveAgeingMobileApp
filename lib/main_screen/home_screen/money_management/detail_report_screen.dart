@@ -63,11 +63,11 @@ class DetailReportScreen extends StatelessWidget {
                       child: Text('Vay nợ'.toUpperCase()),
                     ),
                   ]),
-              Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height) /
-                    333.5 *
-                    298,
+              Expanded(
+                // height: (MediaQuery.of(context).size.height -
+                //         appBar.preferredSize.height) /
+                //     333.5 *
+                //     298,
                 child: TabBarView(
                   // controller: _tabController ,
                   children: [

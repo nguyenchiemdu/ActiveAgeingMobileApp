@@ -35,7 +35,7 @@ class DetailReportWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     calculateChartData();
-    double heightChart = 280;
+    // double heightChart = 280;
     return SingleChildScrollView(
       child: Container(
         color: Color(0xffE5E5E5),
@@ -61,6 +61,7 @@ class DetailReportWidget extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w500)),
                   ListView.builder(
+                      // scrollDirection: ,
                       shrinkWrap: true,
                       itemCount: listPercentage.length,
                       itemBuilder: (context, index) {

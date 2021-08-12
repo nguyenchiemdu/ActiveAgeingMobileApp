@@ -13,9 +13,10 @@ class RecordScreen extends StatefulWidget {
 }
 
 class _RecordScreenState extends State<RecordScreen> {
-  _RecordScreenState(this.savingGoal);
+  _RecordScreenState(this.savingGoal) {}
   Map savingGoal;
-
+  List<int> listDate = [];
+  Map<int, List> mapGroup = {};
   double remainSaving() {
     return savingGoal['goal'] - savingGoal['savedMoney'];
   }
@@ -52,6 +53,25 @@ class _RecordScreenState extends State<RecordScreen> {
     widget.updateData(tmp);
   }
 
+  calculateGroup(List list) {
+    if (list != null) {
+      DateFormat datetonum = DateFormat('yyyyMMdd');
+      Set<int> setDate = list.map((transaction) {
+        return int.parse(datetonum.format(transaction['time'].toDate()));
+      }).toSet();
+      listDate = setDate.toList();
+      listDate.sort();
+      listDate.forEach((numday) {
+        mapGroup[numday] = [];
+      });
+      list.forEach((transaction) {
+        int nd = int.parse(datetonum.format(transaction['time'].toDate()));
+        mapGroup[nd]!.add(transaction);
+      });
+    } else
+      print('list record null');
+  }
+
   NumberFormat formatter = NumberFormat('###,###,###,##0.##');
   @override
   Widget build(BuildContext context) {
@@ -61,6 +81,7 @@ class _RecordScreenState extends State<RecordScreen> {
         DateFormat('yMd').format(savingGoal['startTime'].toDate()) +
             " - " +
             DateFormat('yMd').format(savingGoal['endTime'].toDate());
+    calculateGroup(savingGoal['listRecord']);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -245,10 +266,40 @@ class _RecordScreenState extends State<RecordScreen> {
                   savingGoal.containsKey('listRecord') &&
                           savingGoal['listRecord'] != null
                       ? Column(
-                          children: savingGoal['listRecord']
-                              .map<Widget>((record) => RecordDayWidget(record))
-                              .toList(),
-                        )
+                          children: listDate.map((day) {
+                          DateTime time = mapGroup[day]![0]['time'].toDate();
+
+                          return Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(time.day.toString()),
+                                    Column(
+                                      children: [
+                                        Text(DateFormat('EEEE').format(time)),
+                                        Text(
+                                            DateFormat('MM/yyyy').format(time)),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  children:
+                                      mapGroup[day]!.map<Widget>((transaction) {
+                                    return Column(
+                                      children: [
+                                        Text(formatter
+                                            .format(transaction['money'])),
+                                        Text(transaction['note'])
+                                      ],
+                                    );
+                                  }).toList(),
+                                )
+                              ],
+                            ),
+                          );
+                        }).toList())
                       : Column(
                           children: [
                             Container(

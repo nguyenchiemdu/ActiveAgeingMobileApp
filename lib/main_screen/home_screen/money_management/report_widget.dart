@@ -1,23 +1,31 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/bar_chart_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'chart_management_widget.dart';
 import 'detail_report_screen.dart';
 import 'time_picker_screen.dart';
 
 class ReportWidget extends StatelessWidget {
   ReportWidget(
-      this.selectedName,
-      this.timePicker,
-      this.listWallet,
-      this.selectedWallet,
-      this.listHistory,
-      this.listTransaction,
-      this.fetchData,
-      this.setState,
-      {Key? key})
-      : super(key: key);
+    this.selectedName,
+    this.timePicker,
+    this.listWallet,
+    this.selectedWallet,
+    this.listHistory,
+    this.listTransaction,
+    this.fetchData,
+    this.setState,
+  ) {
+    calculateIncome();
+    calculateOutcome();
+    calculateLoan();
+    // calculateChartData();
+  }
   String selectedName = 'VND';
   // List<Widget> listTransactionWidgets = [];
   Map selectedWallet = {};
@@ -61,12 +69,23 @@ class ReportWidget extends StatelessWidget {
     return categories.toList();
   }
 
+  double sumIncomeLoan = 0;
+  double sumOutcomeLoan = 0;
   calculateLoan() {
     listIncome.forEach((transaction) {
       if (transaction['name'] == 'Đi vay') listLoanIncome.add(transaction);
     });
     listOutcome.forEach((transaction) {
       if (transaction['name'] == 'Cho vay') listLoanOutcome.add(transaction);
+    });
+
+    sumIncomeLoan = 0;
+    listLoanIncome.forEach((element) {
+      sumIncomeLoan += element['money'];
+    });
+    sumOutcomeLoan = 0;
+    listLoanOutcome.forEach((element) {
+      sumOutcomeLoan += element['money'];
     });
   }
 
@@ -86,22 +105,16 @@ class ReportWidget extends StatelessWidget {
     return listResult;
   }
 
-  // calculateChartData() {
-  //   Set list
-  //   listTransaction.forEach((transaction) {
-
-  //   })
-  // }
+  DateFormat df = DateFormat('dd/MM/yyy');
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     // double startMoney = listHistory[0]['money'];
     double endMoney = listHistory[listHistory.length - 1]['money'];
-    calculateIncome();
-    calculateOutcome();
-    print(getSetCategory(listIncome));
-    calculateLoan();
+    // calculateChartDataByDate();
+    // calculateChartDataByWeek();
+    // calculateChartDataByMonth();
     List listPercentageIncome = getListPercentage(listIncome, incomeValue);
     List listPercentageOutcome = getListPercentage(listOutcome, outcomeValue);
     double startMoney = endMoney + outcomeValue - incomeValue;
@@ -144,7 +157,6 @@ class ReportWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => TimePickerScreen()));
-                    print(result);
                     if (result != null) {
                       setState({'timePicker': result});
                     }
@@ -203,35 +215,32 @@ class ReportWidget extends StatelessWidget {
                           selectedWallet['currency'])
                     ],
                   ),
-                  Container(
-                    height: 100,
-                    color: Colors.blue,
-                  ),
+                  ChartManagementWidget(listTransaction, timePicker),
                   Row(
                     children: [
                       SizedBox(
                         width: width / 2,
-                        height: 500,
+                        // height: 500,
                         child: Column(
                           children: [
                             Text('Khoản thu'),
                             Text(formatter.format(incomeValue)),
                             Container(
-                              height: 200,
-                              child: ListView.builder(
-                                  itemCount:
-                                      min(4, listPercentageIncome.length),
-                                  itemBuilder: (context, index) => Text(
-                                      listPercentageIncome[index]
-                                              ['nameCategory'] +
-                                          ' ' +
-                                          formatter.format(
-                                              listPercentageIncome[index]
-                                                  ['percentage']) +
-                                          '%')),
+                              child: Column(
+                                  children: listPercentageIncome
+                                      .map<Widget>((element) {
+                                        return Text(element['nameCategory'] +
+                                            ' ' +
+                                            formatter
+                                                .format(element['percentage']) +
+                                            '%');
+                                      })
+                                      .toList()
+                                      .sublist(0,
+                                          min(4, listPercentageIncome.length))),
                             ),
-                            GestureDetector(
-                              onTap: () {
+                            TextButton(
+                              onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -257,27 +266,29 @@ class ReportWidget extends StatelessWidget {
                       ),
                       SizedBox(
                         width: width / 2,
-                        height: 500,
+                        // height: 500,
                         child: Column(
                           children: [
                             Text('Khoản chi'),
                             Text(formatter.format(outcomeValue)),
                             Container(
-                              height: 200,
-                              child: ListView.builder(
-                                  itemCount:
-                                      min(4, listPercentageOutcome.length),
-                                  itemBuilder: (context, index) => Text(
-                                      listPercentageOutcome[index]
-                                              ['nameCategory'] +
-                                          ' ' +
-                                          formatter.format(
-                                              listPercentageOutcome[index]
-                                                  ['percentage']) +
-                                          '%')),
+                              child: Column(
+                                  children: listPercentageOutcome
+                                      .map<Widget>((element) {
+                                        return Text(element['nameCategory'] +
+                                            ' ' +
+                                            formatter
+                                                .format(element['percentage']) +
+                                            '%');
+                                      })
+                                      .toList()
+                                      .sublist(
+                                          0,
+                                          min(4,
+                                              listPercentageOutcome.length))),
                             ),
-                            GestureDetector(
-                              onTap: () {
+                            TextButton(
+                              onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -303,7 +314,93 @@ class ReportWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text(listTransaction.length.toString())
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width / 2,
+                        // height: 500,
+                        child: Column(
+                          children: [
+                            Text('Cho vay (phải thu)'),
+                            Text(formatter.format(sumOutcomeLoan)),
+                            // Container(
+                            //   child: Text(formatter.format(sumIncomeLoan))
+                            // ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailReportScreen(
+                                                listPercentageIncome,
+                                                listIncome,
+                                                listPercentageOutcome,
+                                                listOutcome,
+                                                incomeValue,
+                                                outcomeValue,
+                                                listLoanIncome,
+                                                listLoanOutcome,
+                                                0)));
+                              },
+                              child: Text(
+                                'Xem chi tiết',
+                                style: TextStyle(color: Color(0xff12B281)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: width / 2,
+                        // height: 500,
+                        child: Column(
+                          children: [
+                            Text('Nợ (phải trả)'),
+                            Text(formatter.format(sumIncomeLoan)),
+                            // Container(
+                            //   child: Column(
+                            //       children: listPercentageOutcome
+                            //           .map<Widget>((element) {
+                            //             return Text(element['nameCategory'] +
+                            //                 ' ' +
+                            //                 formatter
+                            //                     .format(element['percentage']) +
+                            //                 '%');
+                            //           })
+                            //           .toList()
+                            //           .sublist(
+                            //               0,
+                            //               min(4,
+                            //                   listPercentageOutcome.length))),
+                            // ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetailReportScreen(
+                                                listPercentageIncome,
+                                                listIncome,
+                                                listPercentageOutcome,
+                                                listOutcome,
+                                                incomeValue,
+                                                outcomeValue,
+                                                listLoanIncome,
+                                                listLoanOutcome,
+                                                1)));
+                              },
+                              child: Text(
+                                'Xem chi tiết',
+                                style: TextStyle(color: Color(0xff12B281)),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             )

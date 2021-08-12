@@ -37,7 +37,6 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
     // TODO: implement initState
 
     listWallet = widget.listWallets;
-    print(listWallet);
     if (listWallet != null && listWallet.length != 0) {
       hadWallet = true;
       List<String> listString =
@@ -109,7 +108,6 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
   String condition = 'Wallet';
   @override
   Widget build(BuildContext context) {
-    print(selectedWallet);
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final appBar = AppBar(
         centerTitle: true,

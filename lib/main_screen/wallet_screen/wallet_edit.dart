@@ -277,6 +277,8 @@ class _WalletEditScreenState extends State<WalletEditScreen> {
                             });
                           else if (_formKey.currentState!.validate()) {
                             print('da toi day');
+
+                            print(money.text);
                             Map newWallet = new Map.from(widget.wallet);
                             newWallet['name'] = name.text;
                             newWallet['money'] = double.parse(money.text);

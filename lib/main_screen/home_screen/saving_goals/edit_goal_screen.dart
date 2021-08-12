@@ -129,13 +129,16 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                     color: Colors.white,
                     child: Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Text('Tên mục tiêu',
                                 style: TextStyle(
@@ -146,8 +149,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             TextFormField(
                               controller: name,
@@ -157,28 +163,30 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                 else
                                   return 'Tên mục tiêu không được để trống!';
                               },
-                                decoration: InputDecoration(
-                                  hintText: 'Tên mục tiêu',
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: BorderSide(
-                                      color: Color(0xff12b281),
-                                      width: 1.0,
-
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: BorderSide(
-                                      color: Color(0xffededed),
-                                      width: 1.0,
-                                    ),
+                              decoration: InputDecoration(
+                                hintText: 'Tên mục tiêu',
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: Color(0xff12b281),
+                                    width: 1.0,
                                   ),
                                 ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: Color(0xffededed),
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 14,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  14,
                             ),
                             Text('Mục tiêu',
                                 style: TextStyle(
@@ -189,8 +197,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             DropdownButton<String>(
                               value: _goalType,
@@ -207,8 +218,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   _goalType = newValue!;
                                 });
                               },
-                              items: _listType
-                                  .map<DropdownMenuItem<String>>((String value) {
+                              items: _listType.map<DropdownMenuItem<String>>(
+                                  (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -216,8 +227,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                               }).toList(),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 14,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  14,
                             ),
                             Text('Số tiền mục tiêu',
                                 style: TextStyle(
@@ -228,8 +242,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             TextFormField(
                               validator: (value) {
@@ -242,28 +259,30 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                 calculatEndtime();
                               },
                               controller: savingTarget,
-                                decoration: InputDecoration(
-                                  hintText: 'Nhập số tiền mục tiêu',
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: BorderSide(
-                                      color: Color(0xff12b281),
-                                      width: 1.0,
-
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    borderSide: BorderSide(
-                                      color: Color(0xffededed),
-                                      width: 1.0,
-                                    ),
+                              decoration: InputDecoration(
+                                hintText: 'Nhập số tiền mục tiêu',
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: Color(0xff12b281),
+                                    width: 1.0,
                                   ),
                                 ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderSide: BorderSide(
+                                    color: Color(0xffededed),
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 14,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  14,
                             ),
                             Text('Số tiền đã tích luỹ',
                                 style: TextStyle(
@@ -274,13 +293,17 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Container(
                               child: IntrinsicHeight(
                                 child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Expanded(
                                       flex: 6,
@@ -290,7 +313,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                             calculatEndtime();
                                           },
                                           validator: (value) {
-                                            if (double.tryParse(value.toString()) !=
+                                            if (double.tryParse(
+                                                    value.toString()) !=
                                                 null)
                                               return null;
                                             else
@@ -300,8 +324,10 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                           decoration: InputDecoration(
                                               hintText: 'Placeholder',
                                               border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(10)))),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)))),
                                         ),
                                       ),
                                     ),
@@ -312,18 +338,22 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                         child: DropdownButtonFormField<String>(
                                             decoration: InputDecoration(
                                                 border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10)))),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)))),
                                             value: selectedCurrency,
                                             items: listCurrency
-                                                .map((value) => DropdownMenuItem(
-                                                      child: Text(value),
-                                                      value: value,
-                                                    ))
+                                                .map(
+                                                    (value) => DropdownMenuItem(
+                                                          child: Text(value),
+                                                          value: value,
+                                                        ))
                                                 .toList(),
                                             onChanged: (String? value) {
                                               setState(() {
-                                                selectedCurrency = value.toString();
+                                                selectedCurrency =
+                                                    value.toString();
                                               });
                                             },
                                             hint: Text("Select item")),
@@ -335,7 +365,9 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                           ],
                         ),
@@ -351,13 +383,17 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                     color: Colors.white,
                     child: Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Text('Ngày bắt đầu',
                                 style: TextStyle(
@@ -368,13 +404,17 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             GestureDetector(
                               onTap: () => {
                                 DatePicker.showDatePicker(context,
-                                    showTitleActions: true, minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    minTime: DateTime.now(),
                                     // maxTime: DateTime(2019, 6, 7),
                                     onChanged: (date) {
                                   print(DateFormat.yMMMMEEEEd().format(date));
@@ -383,7 +423,9 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   setState(() {
                                     startTime = date;
                                   });
-                                }, currentTime: startTime, locale: LocaleType.vi)
+                                },
+                                    currentTime: startTime,
+                                    locale: LocaleType.vi)
                               },
                               child: Card(
                                 shape: RoundedRectangleBorder(
@@ -405,9 +447,10 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                             ),
                                           ),
                                           Text(
-                                            DateFormat.yMMMMEEEEd().format(startTime),
-                                            style:
-                                                TextStyle(color: Color(0xff12B281)),
+                                            DateFormat.yMMMMEEEEd()
+                                                .format(startTime),
+                                            style: TextStyle(
+                                                color: Color(0xff12B281)),
                                           )
                                         ],
                                       ),
@@ -417,8 +460,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 14,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  14,
                             ),
                             Text('Ngày kết thúc',
                                 style: TextStyle(
@@ -429,8 +475,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 1,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Column(
                               children: <Widget>[
@@ -448,7 +497,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   ),
                                 ),
                                 ListTile(
-                                  title: const Text('Giúp tôi tính ngày kết thúc'),
+                                  title:
+                                      const Text('Giúp tôi tính ngày kết thúc'),
                                   leading: Radio<SingingCharacter>(
                                     value: SingingCharacter.calculate,
                                     groupValue: _character,
@@ -467,16 +517,20 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                 ? GestureDetector(
                                     onTap: () => {
                                       DatePicker.showDatePicker(context,
-                                          showTitleActions: true, minTime: startTime,
+                                          showTitleActions: true,
+                                          minTime: startTime,
                                           // maxTime: DateTime(2019, 6, 7),
                                           onChanged: (date) {
-                                        print(DateFormat.yMMMMEEEEd().format(date));
+                                        print(DateFormat.yMMMMEEEEd()
+                                            .format(date));
                                       }, onConfirm: (date) {
                                         // print('confirm $date');
                                         setState(() {
                                           endTime = date;
                                         });
-                                      }, currentTime: endTime, locale: LocaleType.vi)
+                                      },
+                                          currentTime: endTime,
+                                          locale: LocaleType.vi)
                                     },
                                     child: Card(
                                       shape: RoundedRectangleBorder(
@@ -491,9 +545,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.only(right: 26),
+                                                  margin: EdgeInsets.only(
+                                                      right: 26),
                                                   child: Icon(
-                                                    Icons.calendar_today_outlined,
+                                                    Icons
+                                                        .calendar_today_outlined,
                                                     color: Color(0xff12B281),
                                                   ),
                                                 ),
@@ -514,9 +570,11 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   )
                                 : Container(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('Nhập số tiền tiết kiệm trung bình'),
+                                        Text(
+                                            'Nhập số tiền tiết kiệm trung bình'),
                                         Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -536,8 +594,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                   controller: savingAverage,
                                                   onChanged: (text) {
                                                     bool ok = false;
-                                                    if (double.tryParse(text) != null)
-                                                      ok = true;
+                                                    if (double.tryParse(text) !=
+                                                        null) ok = true;
                                                     calculatEndtime();
                                                     setState(() {
                                                       _validate = ok;
@@ -547,15 +605,17 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                       border: OutlineInputBorder(
                                                           borderRadius:
                                                               BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10)))),
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)))),
                                                 ),
                                               ),
                                             ),
                                             Expanded(
                                               flex: 4,
                                               child: Container(
-                                                margin: EdgeInsets.only(left: 10),
+                                                margin:
+                                                    EdgeInsets.only(left: 10),
                                                 child: DropdownButtonFormField<
                                                         String>(
                                                     decoration: InputDecoration(
@@ -568,7 +628,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                     items: listFrequency
                                                         .map((value) =>
                                                             DropdownMenuItem(
-                                                              child: Text(value),
+                                                              child:
+                                                                  Text(value),
                                                               value: value,
                                                             ))
                                                         .toList(),
@@ -593,8 +654,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                   ? DateFormat.yMMMMEEEEd()
                                                       .format(endTime)
                                                   : '',
-                                              style:
-                                                  TextStyle(color: Color(0xff12B281)),
+                                              style: TextStyle(
+                                                  color: Color(0xff12B281)),
                                             )
                                           ],
                                         ),
@@ -610,7 +671,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                   autoNote = value;
                                                 });
                                               },
-                                              activeTrackColor: Color(0xff18CE8C),
+                                              activeTrackColor:
+                                                  Color(0xff18CE8C),
                                               activeColor: Colors.white,
                                             ),
                                           ],
@@ -628,43 +690,49 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                       onTap: () {
                                                         DatePicker.showDatePicker(
                                                             context,
-                                                            showTitleActions: true,
-                                                            minTime: DateTime.now(),
+                                                            showTitleActions:
+                                                                true,
+                                                            minTime:
+                                                                DateTime.now(),
                                                             // maxTime: DateTime(2019, 6, 7),
                                                             onChanged: (date) {
-                                                          print(
-                                                              DateFormat.yMMMMEEEEd()
-                                                                  .format(date));
+                                                          print(DateFormat
+                                                                  .yMMMMEEEEd()
+                                                              .format(date));
                                                         }, onConfirm: (date) {
                                                           // print('confirm $date');
                                                           setState(() {
                                                             autoNoteDate = date;
                                                           });
                                                         },
-                                                            currentTime: startTime,
-                                                            locale: LocaleType.vi);
+                                                            currentTime:
+                                                                startTime,
+                                                            locale:
+                                                                LocaleType.vi);
                                                       },
                                                       child: Card(
-                                                        shape: RoundedRectangleBorder(
+                                                        shape:
+                                                            RoundedRectangleBorder(
                                                           borderRadius:
-                                                              BorderRadius.circular(
-                                                                  8),
+                                                              BorderRadius
+                                                                  .circular(8),
                                                         ),
                                                         child: Row(
                                                           children: [
                                                             Container(
                                                               padding: EdgeInsets
                                                                   .symmetric(
-                                                                      vertical: 12,
-                                                                      horizontal: 16),
+                                                                      vertical:
+                                                                          12,
+                                                                      horizontal:
+                                                                          16),
                                                               child: Row(
                                                                 children: [
                                                                   Container(
                                                                     // height: double.infinity,
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            right:
-                                                                                26),
+                                                                    margin: EdgeInsets.only(
+                                                                        right:
+                                                                            26),
                                                                     child: Icon(
                                                                       Icons
                                                                           .calendar_today_outlined,
@@ -675,10 +743,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                                   Text(
                                                                     autoNoteDate !=
                                                                             null
-                                                                        ? DateFormat(
-                                                                                'EEE, MMM dd, yyyy')
-                                                                            .format(
-                                                                                autoNoteDate)
+                                                                        ? DateFormat('EEE, MMM dd, yyyy')
+                                                                            .format(autoNoteDate)
                                                                         : '',
                                                                     style: TextStyle(
                                                                         color: Color(
@@ -696,24 +762,28 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                                 Expanded(
                                                   flex: 4,
                                                   child: Container(
-                                                    margin: EdgeInsets.only(left: 10),
-                                                    child: DropdownButtonFormField<
-                                                        String>(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10),
+                                                    child:
+                                                        DropdownButtonFormField<
+                                                            String>(
                                                       decoration: InputDecoration(
                                                           border: OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.all(
-                                                                      Radius.circular(
+                                                              borderRadius: BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
                                                                           10)))),
                                                       value: autoNoteFrequency,
                                                       items: listFrequency
                                                           .map((value) =>
                                                               DropdownMenuItem(
-                                                                child: Text(value),
+                                                                child:
+                                                                    Text(value),
                                                                 value: value,
                                                               ))
                                                           .toList(),
-                                                      onChanged: (String? value) {
+                                                      onChanged:
+                                                          (String? value) {
                                                         setState(() {
                                                           autoNoteFrequency =
                                                               value.toString();
@@ -728,13 +798,14 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                             ),
                                           ),
                                         ),
-
                                       ],
                                     ),
                                   ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 333.5 * 8,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  8,
                             ),
                           ],
                         ),
@@ -747,53 +818,71 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height/333.5 * 48,
+                    height: MediaQuery.of(context).size.height / 333.5 * 48,
                     color: Colors.white,
                     child: Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 83.25,
-                              height: MediaQuery.of(context).size.height / 333.5 * 24,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  83.25,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  24,
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Color(0xffff2d2d),width:1.0),
-                                borderRadius: BorderRadius.circular(12)
-                              ),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      color: Color(0xffff2d2d), width: 1.0),
+                                  borderRadius: BorderRadius.circular(12)),
                               child: ElevatedButton(
                                 child: Text(
                                   'Xoá'.toUpperCase(),
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                  shadowColor:  MaterialStateProperty.all<Color>(Colors.transparent)
-                                ),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent),
+                                    shadowColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent)),
                                 onPressed: () {
-                                  Navigator.pop(context, {});
+                                  Navigator.pop(context, <String, dynamic>{});
                                 },
                               ),
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 83.25,
-                              height: MediaQuery.of(context).size.height / 333.5 * 24,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  83.25,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  24,
                               decoration: BoxDecoration(
                                   color: Color(0xff12b281),
-                                  border: Border.all(color: Color(0xff12b281),width:1.0),
-                                  borderRadius: BorderRadius.circular(12)
-                              ),
+                                  border: Border.all(
+                                      color: Color(0xff12b281), width: 1.0),
+                                  borderRadius: BorderRadius.circular(12)),
                               child: ElevatedButton(
                                 child: Text('Lưu mục tiêu'.toUpperCase()),
                                 style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-                                    shadowColor:  MaterialStateProperty.all<Color>(Colors.transparent)
-                                ),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent),
+                                    shadowColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.transparent)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     Map<String, dynamic> submitData = {
@@ -801,23 +890,25 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                       'type': _goalType,
                                       'currency': selectedCurrency,
                                       'goal': double.parse(savingTarget.text),
-                                      'savedMoney': double.parse(savedMoney.text),
-                                      'startTime': Timestamp.fromDate(startTime),
+                                      'savedMoney':
+                                          double.parse(savedMoney.text),
+                                      'startTime':
+                                          Timestamp.fromDate(startTime),
                                       'endTime': Timestamp.fromDate(endTime),
                                       'autoNote': autoNote,
-                                      'savingAverage':
-                                          _character == SingingCharacter.calculate
-                                              ? double.parse(savingAverage.text)
-                                              : null,
+                                      'savingAverage': _character ==
+                                              SingingCharacter.calculate
+                                          ? double.parse(savingAverage.text)
+                                          : null,
                                       'frequency': selectedFrequency,
                                       'autoNoteDate': autoNoteDate == null
                                           ? null
                                           : Timestamp.fromDate(autoNoteDate),
                                       'autoNoteFrequency': autoNoteFrequency,
-                                      'isCalculated':
-                                          _character == SingingCharacter.calculate
-                                              ? true
-                                              : false
+                                      'isCalculated': _character ==
+                                              SingingCharacter.calculate
+                                          ? true
+                                          : false
                                     };
                                     print(submitData);
                                     // submitData.addAll(widget.data);

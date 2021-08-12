@@ -51,7 +51,8 @@ class _ListWalletState extends State<ListWallet> {
     String money = (newWallet['money'] - oldWallet['money']).toString();
     UserDatabase userDatabase = UserDatabase();
     userDatabase.updateHistoryWallets(oldWallet['id'], historyWallet);
-    userDatabase.addToHistory(DateTime.now(), oldWallet['id'], money, '+');
+    userDatabase.addToHistory(
+        DateTime.now(), oldWallet['id'], newWallet['money'].toString(), '+');
     Map<String, dynamic> transaction = {
       'money': double.parse(money),
       'name': 'Edit Wallet',

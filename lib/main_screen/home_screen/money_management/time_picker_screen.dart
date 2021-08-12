@@ -41,6 +41,7 @@ class _TimePickerScreenState extends State<TimePickerScreen> {
     });
   }
 
+  String nof = '';
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -177,7 +178,13 @@ class _TimePickerScreenState extends State<TimePickerScreen> {
                       ],
                     ),
                   )
-                : Container()
+                : Container(),
+            Container(
+              child: Text(
+                nof,
+                style: TextStyle(color: Colors.red),
+              ),
+            )
           ],
         ),
       ),
@@ -203,21 +210,29 @@ class _TimePickerScreenState extends State<TimePickerScreen> {
                   'endTime': endTime,
                   'duration': list[index] + ' tháng'
                 };
+                Navigator.pop(context, result);
               } else {
-                startTime =
-                    DateTime(startTime.year, startTime.month, startTime.day);
-                endTime =
-                    DateTime(endTime.year, endTime.month, endTime.day, 23, 59);
-                result = {
-                  'startTime': startTime,
-                  'endTime': endTime,
-                  'duration': ''
-                };
+                if (startTime == null || endTime == null)
+                  setState(() {
+                    nof = 'Dữ liệu chưa hợp lệ!';
+                  });
+                else {
+                  startTime =
+                      DateTime(startTime.year, startTime.month, startTime.day);
+                  endTime = DateTime(
+                      endTime.year, endTime.month, endTime.day, 23, 59);
+                  result = {
+                    'startTime': startTime,
+                    'endTime': endTime,
+                    'duration': ''
+                  };
+                  Navigator.pop(context, result);
+                }
               }
-
-              Navigator.pop(context, result);
             } else {
-              print('chua chon thoi gian');
+              setState(() {
+                nof = 'Dữ liệu chưa hợp lệ!';
+              });
             }
             // if (list[index] !='other')
           },

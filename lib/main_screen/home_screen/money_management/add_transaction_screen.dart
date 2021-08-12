@@ -20,6 +20,7 @@ class AddTransactionScreen extends StatefulWidget {
 }
 
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
+  String categoryNof = '';
   addToHistory() {
     int key = int.parse(DateFormat('yyyyMMdd').format(time));
     List listHistoryWallets = widget.listHistoryWallets;
@@ -179,6 +180,12 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                               : Text(category + ': ' + name),
                         ),
                       ),
+                      Container(
+                        child: Text(
+                          categoryNof,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
                       category == 'Đi vay và thu nợ (Tiền vào)' ||
                               category == 'Cho vay và trả nợ (Tiền ra)'
                           ? Container(
@@ -333,7 +340,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               child: ElevatedButton(
                 child: Text('Lưu'),
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() && category != null) {
                     Map<String, dynamic> transaction = {
                       'method': method,
                       'money': double.parse(money.text),
@@ -370,6 +377,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     }
                   } else
                     print('invalidate');
+                  if (category == null)
+                    setState(() {
+                      categoryNof = 'Trường này không được để trống';
+                    });
                 },
               ),
             ),

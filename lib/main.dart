@@ -109,7 +109,7 @@ class SignedInWrapper extends StatelessWidget {
     final provider = Provider.of<UserAuthen>(context);
     final userSnap = Provider.of<DocumentSnapshot?>(context);
     Map<String, dynamic>? userData = userSnap == null ? null : userSnap.data();
-    print('isUserEmailVerified : ' + provider.isUserEmailVerified.toString());
+    // print('isUserEmailVerified : ' + provider.isUserEmailVerified.toString());
     if (provider.isUserEmailVerified != true &&
         user!.providerData[0].providerId != 'google.com') {
       if (timer == null) {
@@ -126,7 +126,7 @@ class SignedInWrapper extends StatelessWidget {
 
       return VerificationScreen(cancelTimer);
     }
-    print('userdata:' + userData.toString());
+    // print('userdata:' + userData.toString());
     if (userData == null) return SignUpInforScreen();
     return MainScreen();
   }

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 import 'chart_management_widget.dart';
 import 'detail_report_screen.dart';
+import 'growth_report_widget.dart';
 import 'time_picker_screen.dart';
 
 class ReportWidget extends StatelessWidget {
@@ -24,6 +25,7 @@ class ReportWidget extends StatelessWidget {
     calculateIncome();
     calculateOutcome();
     calculateLoan();
+    calculateGrowthReport();
     // calculateChartData();
   }
   String selectedName = 'VND';
@@ -42,7 +44,10 @@ class ReportWidget extends StatelessWidget {
   List listLoanOutcome = [];
   double incomeValue = 0;
   double outcomeValue = 0;
-
+  List<DateTime> listMonths = [];
+  List listGrowthIncome = [];
+  List listGrowthOutcome = [];
+  List listGrowthNet = [];
   calculateIncome() {
     listTransaction.forEach((transaction) {
       if (transaction['method'] == '+') {
@@ -103,6 +108,37 @@ class ReportWidget extends StatelessWidget {
       return {'nameCategory': category, 'percentage': percent};
     }).toList();
     return listResult;
+  }
+
+  calculateGrowthReport() {
+    DateTime start = timePicker['startTime'];
+    DateTime end = timePicker['endTime'];
+    while (start.month != end.month || start.year != end.year) {
+      listMonths.add(start);
+      int currenMonth = start.month;
+      while (currenMonth == start.month) {
+        start = start.add(Duration(days: 1));
+      }
+    }
+    listMonths.add(end);
+
+    for (int i = 0; i < listMonths.length; i++) {
+      listGrowthIncome.add(0);
+      listIncome.forEach((income) {
+        if (IsEqual(listMonths[i], income['time'].toDate()).inMonth()) {
+          listGrowthIncome[i] += income['money'];
+        }
+      });
+      listGrowthOutcome.add(0);
+      listOutcome.forEach((outcome) {
+        if (IsEqual(listMonths[i], outcome['time'].toDate()).inMonth()) {
+          listGrowthOutcome[i] += outcome['money'];
+        }
+      });
+    }
+    for (int i = 0; i < listGrowthIncome.length; i++) {
+      listGrowthNet.add(listGrowthIncome[i] - listGrowthOutcome[i]);
+    }
   }
 
   DateFormat df = DateFormat('dd/MM/yyy');
@@ -398,9 +434,16 @@ class ReportWidget extends StatelessWidget {
                             )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
+                  Text('Báo cáo mức tăng trưởng'),
+                  GrowthReportWidget(listMonths, listGrowthIncome,
+                      'Tổng thu nhập', Color(0xff12B281)),
+                  GrowthReportWidget(listMonths, listGrowthOutcome,
+                      'Tổng chi tiêu', Color(0xffEC5B5B)),
+                  GrowthReportWidget(listMonths, listGrowthNet, 'Thu nhập ròng',
+                      Color(0xff1A1A1A))
                 ],
               ),
             )
@@ -409,4 +452,25 @@ class ReportWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class IsEqual {
+  DateTime a;
+  DateTime b;
+  bool inDay() {
+    DateFormat df = DateFormat('yyyyMMdd');
+    return df.format(a) == df.format(b);
+  }
+
+  bool inMonth() {
+    DateFormat df = DateFormat('yyyyMM');
+    return df.format(a) == df.format(b);
+  }
+
+  bool inYear() {
+    DateFormat df = DateFormat('yyyy');
+    return df.format(a) == df.format(b);
+  }
+
+  IsEqual(this.a, this.b);
 }

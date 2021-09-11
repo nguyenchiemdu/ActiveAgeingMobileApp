@@ -7,6 +7,20 @@ import 'package:flutter/material.dart';
 class LineChartWidget extends StatelessWidget {
   LineChartWidget(
       this.listMonths, this.listGrowth, this.interval, Color color) {
+    double minPoint = getMin(listGrowth);
+    double maxPoint = getMax(listGrowth);
+    // interval = max(
+    //     interval, pow(10, (log(maxPoint - minPoint) / ln10).floor()).toInt());
+    // print(maxPoint - minPoint);
+    // print((log(maxPoint - minPoint) / ln10).floor());
+
+    if (maxPoint - minPoint != 0) {
+      int cap = (log(maxPoint - minPoint) / ln10).floor();
+      if (cap - log(maxPoint - minPoint) / ln10 == 0) cap--;
+      interval = max(interval, pow(10, cap).toInt());
+    }
+    // print(interval);
+    // print(pow(10, (log(maxPoint - minPoint) / ln10).floor()).toInt());
     gradientColors.add(color);
     linedata = [];
     for (int i = 0; i < listGrowth.length; i++) {
@@ -38,6 +52,8 @@ class LineChartWidget extends StatelessWidget {
       if (value != false && min >= value.toDouble()) min = value.toDouble();
     });
     if (min > 0) min = 0;
+
+    while (min % interval != 0) min--;
     return min;
   }
 

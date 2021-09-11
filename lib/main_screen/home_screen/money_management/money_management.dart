@@ -1,8 +1,10 @@
 import 'package:active_ageing_mobile_app/main_screen/home_screen/after_retirement_plan/fail_widget.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/diary_widget.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_transactions_by_date.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'report_widget.dart';
@@ -49,6 +51,24 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
     super.initState();
   }
 
+  Map<int, List> mapGroup = {};
+  List<int> listDate = [];
+  calculateGroup(List list) {
+    DateFormat datetonum = DateFormat('yyyyMMdd');
+    Set<int> setDate = list.map((transaction) {
+      return int.parse(datetonum.format(transaction['time'].toDate()));
+    }).toSet();
+    listDate = setDate.toList();
+    listDate.sort();
+    listDate.forEach((numday) {
+      mapGroup[numday] = [];
+    });
+    list.forEach((transaction) {
+      int nd = int.parse(datetonum.format(transaction['time'].toDate()));
+      mapGroup[nd]!.add(transaction);
+    });
+  }
+
   fetchData() async {
     String uid = FirebaseAuth.instance.currentUser.uid;
     String path = 'users/' + uid + '/listTransactions';
@@ -70,6 +90,8 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
         newTransactions.add(snap.data());
         respond.add(TransactionItem(snap.data()));
       });
+      calculateGroup(newTransactions);
+      respond = listTransactionsByDate(listDate, mapGroup);
       return respond;
     });
     setState(() {

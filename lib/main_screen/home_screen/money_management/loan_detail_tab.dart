@@ -1,3 +1,5 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_loans_by_date.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_transactions_by_date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -41,41 +43,8 @@ class LoanDetailTab extends StatelessWidget {
           Container(
             color: Colors.blue,
             child: Column(
-                children: listDate.map((day) {
-              DateTime time = mapGroup[day]![0]['time'].toDate();
-
-              return Container(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(time.day.toString()),
-                        Column(
-                          children: [
-                            Text(DateFormat('EEEE').format(time)),
-                            Text(DateFormat('MM/yyyy').format(time)),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: mapGroup[day]!.map<Widget>((transaction) {
-                        return Column(
-                          children: [
-                            Text(transaction['category'] +
-                                ":" +
-                                transaction['name']),
-                            Text(transaction['person'] +
-                                "  " +
-                                formatter.format(transaction['money']))
-                          ],
-                        );
-                      }).toList(),
-                    )
-                  ],
-                ),
-              );
-            }).toList()),
+              children: listLoansByDate(listDate, mapGroup),
+            ),
           )
         ],
       ),

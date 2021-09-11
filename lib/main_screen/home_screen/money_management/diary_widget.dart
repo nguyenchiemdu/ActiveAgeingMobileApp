@@ -124,6 +124,7 @@ class DiaryWidget extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () async {
+                      print('pick time');
                       Map result = await Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -131,8 +132,8 @@ class DiaryWidget extends StatelessWidget {
                       print(result);
                       if (result != null) {
                         setState({'timePicker': result});
+                        fetchData();
                       }
-                      fetchData();
                     },
                     child: Ink(
                         // width: 100,

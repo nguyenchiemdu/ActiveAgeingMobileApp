@@ -244,6 +244,31 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
     maxYbyWeek = 1;
     minYbyWeek = 0;
     int i = 0;
+    // Map data = {
+    //   'title': listDay[i]['time'].day.toString(),
+    //   'listMoney': [
+    //     {
+    //       'value': listDay[i]['listMoney'][0]['value'],
+    //       'color': Color(0xff12B281)
+    //     },
+    //     {
+    //       'value': listDay[i]['listMoney'][1]['value'],
+    //       'color': Color(0xffF89595)
+    //     }
+    //   ]
+    // };
+    // i++;
+    // DateTime now = DateTime.now();
+    // while (listDay[i]['time'].weekday != 1) {
+    //   data['listMoney'][0]['value'] += listDay[i]['listMoney'][0]['value'];
+    //   data['listMoney'][1]['value'] += listDay[i]['listMoney'][1]['value'];
+    //   i++;
+    // }
+    // data['title'] += '-' +
+    //     listDay[i - 1]['time'].day.toString() +
+    //     '/' +
+    //     listDay[i - 1]['time'].month.toString();
+    // listWeek.add(data);
     while (i < listDay.length) {
       Map data = {
         'title': listDay[i]['time'].day.toString(),
@@ -259,7 +284,7 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
         ]
       };
       i++;
-      while (i % 7 != 0 && i < listDay.length) {
+      while (i < listDay.length && listDay[i]['time'].weekday != 1) {
         data['listMoney'][0]['value'] += listDay[i]['listMoney'][0]['value'];
         data['listMoney'][1]['value'] += listDay[i]['listMoney'][1]['value'];
         i++;
@@ -311,7 +336,7 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
         ]
       };
       i++;
-      while (i % 7 != 0 && i < listDay.length) {
+      while (i < listDay.length && listDay[i]['time'].weekday != 1) {
         data['listMoney'][0]['value'] += listDay[i]['listMoney'][0]['value'];
         data['listMoney'][1]['value'] += listDay[i]['listMoney'][1]['value'];
         i++;

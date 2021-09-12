@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pop_up.dart';
 import 'retirement_plan_report_screen.dart';
 
 class AddRetirementFinancial extends StatefulWidget {
@@ -28,7 +29,13 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
-
+    List<String> listContent = [
+      "Phần trăm thu nhập hàng năm sẽ được đóng góp vào quỹ tiết kiệm hưu trí của bạn mỗi năm. Nếu thu nhập hàng năm của bạn là 180 triệu VNĐ và tỷ lệ đóng góp hàng năm của bạn là 8%, vui lòng nhập '8'. Như vậy, mức đóng góp hàng năm bằng 180 x 8% = 14.4 triệu VNĐ.",
+      "Tỷ lệ phần trăm thu nhập hộ gia đình sau khi nghỉ hưu mà bạn nghĩ rằng bạn sẽ cần để trang trải các chi phí của mình khi nghỉ hưu. Số tiền này dựa trên thu nhập hộ gia đình trong năm làm việc cuối cùng của bạn (năm ngay trước khi bạn nghỉ hưu). Giả sử bạn dự định về hưu ở tuổi 60, thu nhập năm bạn 59 tuổi là 210 triệu VNĐ, và bạn tin rằng tỷ lệ này là 60%, vui lòng nhập '60'. Khi đó, số tiền mà bạn cần để chi tiêu vào năm 60 tuổi bằng 210 x 60% = 126 triệu VNĐ.",
+      "Tỷ suất lợi nhuận kỳ vọng hàng năm trên quỹ tiết kiệm hưu trí của bạn trước khi nghỉ hưu. Lưu ý rằng tỷ lệ này có xu hướng giảm theo thời gian. Nếu bạn kỳ vọng tỷ suất trên là 7%, vui lòng nhập '7'.",
+      "Tỷ suất lợi nhuận kỳ vọng hàng năm trên quỹ tiết kiệm hưu trí của bạn sau khi nghỉ hưu. Lưu ý rằng tỷ lệ này có xu hướng giảm theo thời gian. Nếu bạn kỳ vọng tỷ suất trên là 4%, vui lòng nhập '4'.",
+      "Thu nhập dự kiến từ lương hưu hoặc các nguồn khác. Nếu bạn dự đoán mức lương hưu của mình là 2 triệu VNĐ mỗi tháng hay 24 triệu VNĐ mỗi năm, vui lòng nhập '24'."
+    ];
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -152,7 +159,10 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => showPopUp(
+                                        context,
+                                        ' Khoản tiết kiệm về hưu hàng năm (%)',
+                                        listContent[0]),
                                     child: Text('Hướng dẫn',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
@@ -229,7 +239,10 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => showPopUp(
+                                        context,
+                                        'Thu nhập yêu cầu khi về hưu (%)',
+                                        listContent[1]),
                                     child: Text('Hướng dẫn',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
@@ -307,7 +320,10 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => showPopUp(
+                                        context,
+                                        'Lợi suất ước tính trước khi về hưu (%)',
+                                        listContent[2]),
                                     child: Text('Hướng dẫn',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
@@ -384,7 +400,10 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => showPopUp(
+                                        context,
+                                        'Lợi suất ước tính khi về hưu (%)',
+                                        listContent[3]),
                                     child: Text('Hướng dẫn',
                                         style: TextStyle(
                                           fontFamily: 'Inter',
@@ -462,7 +481,10 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () => showPopUp(
+                                        context,
+                                        'Lương hưu và thu nhập sau về hưu khác',
+                                        listContent[4]),
                                     child: Text('Hướng dẫn',
                                         style: TextStyle(
                                           fontFamily: 'Inter',

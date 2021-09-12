@@ -1,3 +1,4 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/after_retirement_plan/pop_up.dart';
 import 'package:flutter/material.dart';
 
 import 'add_retirement_financial.dart';
@@ -18,7 +19,12 @@ class AddRetirementBacisInfor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
-
+    List<String> listContent = [
+      "Tổng thu nhập của bạn trong năm hiện tại. Nếu thu nhập trong năm nay của bạn là 180 triệu VND, vui lòng nhập '180'.",
+      "Tỷ lệ thu nhập ước tính tăng hàng năm cho đến năm nghỉ hưu dự kiến của bạn. Nếu bạn ước tính mức lương hàng năm của bạn sẽ tăng 2%, vui lòng nhập '2'",
+      "Số dư tài khoản tiết kiệm về hưu hiện tại của bạn. Giả sử bạn đã tích góp được 700 triệu VNĐ cho quỹ tiết kiệm hưu trí của mình, vui lòng nhập '700'.",
+      "Tổng số năm bạn dự định sử dụng quỹ tiết kiệm hưu trí của mình để chi tiêu kể từ năm bạn nghỉ hưu. Giả sử bạn dự định về hưu ở tuổi 60 và mong muốn duy trì mức sống thoải mái trong vòng 30 năm nữa nhờ quỹ tiết kiệm hưu trí của mình, vui lòng nhập '30'. Nói cách khác, tuổi thọ dự kiến của bạn trong trường hợp này là 60 + 30 = 90 (tuổi)."
+    ];
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -276,7 +282,8 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                           fontStyle: FontStyle.normal,
                                         )),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () => showPopUp(context,
+                                          'Thu nhập hàng năm', listContent[0]),
                                       child: Text('Hướng dẫn',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -355,7 +362,10 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                           fontStyle: FontStyle.normal,
                                         )),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () => showPopUp(
+                                          context,
+                                          'Tăng trưởng thu nhập hàng năm (%)',
+                                          listContent[1]),
                                       child: Text('Hướng dẫn',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -434,7 +444,10 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                           fontStyle: FontStyle.normal,
                                         )),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () => showPopUp(
+                                          context,
+                                          'Số dư quỹ tiết kiệm hiện tại',
+                                          listContent[2]),
                                       child: Text('Hướng dẫn',
                                           style: TextStyle(
                                             fontFamily: 'Inter',
@@ -514,7 +527,10 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                           fontStyle: FontStyle.normal,
                                         )),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () => showPopUp(
+                                          context,
+                                          'Số năm dùng khoản tiết kiệm hưu trí',
+                                          listContent[3]),
                                       child: Text('Hướng dẫn',
                                           style: TextStyle(
                                             fontFamily: 'Inter',

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:active_ageing_mobile_app/main_screen/home_screen/home_screen.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/navigation_popup.dart';
 import 'package:active_ageing_mobile_app/main_screen/wallet_screen/wallet_screen.dart';
 import 'package:active_ageing_mobile_app/models/firebase_firestore.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
@@ -19,6 +20,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
+  bool isNavigationFloating = false;
   List<Widget> listScreen = [
     HomeScreen(),
     Container(),
@@ -31,9 +33,10 @@ class _MainScreenState extends State<MainScreen> {
     WalletScreen(),
   ];
   void _selectPage(int index) {
-    setState(() {
-      selectIndex = index;
-    });
+    if (index != 2)
+      setState(() {
+        selectIndex = index;
+      });
   }
 
   @override
@@ -52,9 +55,20 @@ class _MainScreenState extends State<MainScreen> {
       ],
       child: Scaffold(
           extendBody: true,
-          body: listScreen[selectIndex],
-          floatingActionButton:
-              FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+          body: Stack(
+            children: [
+              listScreen[selectIndex],
+              isNavigationFloating ? NavigationPopUp() : Container()
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                // print('tapped');
+                setState(() {
+                  isNavigationFloating = !isNavigationFloating;
+                });
+              },
+              child: Icon(Icons.add)),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomAppBar(

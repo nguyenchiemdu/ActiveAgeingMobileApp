@@ -22,6 +22,7 @@ class AddTransactionScreen extends StatefulWidget {
 class _AddTransactionScreenState extends State<AddTransactionScreen> {
   String categoryNof = '';
   addToHistory() {
+    print(widget.listHistoryWallets);
     int key = int.parse(DateFormat('yyyyMMdd').format(time));
     List listHistoryWallets = widget.listHistoryWallets;
     int index = listHistoryWallets.indexWhere(

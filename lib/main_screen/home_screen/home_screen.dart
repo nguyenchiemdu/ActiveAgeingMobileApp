@@ -697,15 +697,17 @@ class HomeScreen extends StatelessWidget {
                           height:
                               MediaQuery.of(context).size.height / 333.5 * 8,
                           color: Color(0xffebebeb)),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MoneyManagementScreen(
-                                        docSnap.data()['listWallet'])));
-                          },
-                          child: Text('Quản lí chi tiêu')),
+                      // ElevatedButton(
+                      //     onPressed: () {
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => MoneyManagementScreen(
+                      //                   docSnap.data()['listWallet'],
+                      //                   false,
+                      //                   1)));
+                      //     },
+                      //     child: Text('Quản lí chi tiêu')),
                       Container(
                           width: MediaQuery.of(context).size.width,
                           height:

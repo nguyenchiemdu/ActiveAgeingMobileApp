@@ -1,4 +1,5 @@
 import 'package:active_ageing_mobile_app/main_screen/home_screen/after_retirement_plan/fail_widget.dart';
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/add_transaction_screen.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/diary_widget.dart';
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_transactions_by_date.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,10 +12,15 @@ import 'report_widget.dart';
 import 'transaction_item.dart';
 
 class MoneyManagementScreen extends StatefulWidget {
-  const MoneyManagementScreen(this.listWallets, {Key? key}) : super(key: key);
+  MoneyManagementScreen(this.listWallets, this.isShortcut, this.initIndex,
+      {Key? key})
+      : super(key: key);
   final List listWallets;
+  final bool isShortcut;
+  final int initIndex;
+  final state = _MoneyManagementScreenState();
   @override
-  _MoneyManagementScreenState createState() => _MoneyManagementScreenState();
+  _MoneyManagementScreenState createState() => state;
 }
 
 class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
@@ -127,10 +133,30 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
     });
   }
 
+  late DiaryWidget diaryWidget;
+  bool openedAddWidget = false;
   String condition = 'Wallet';
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // executes after build
+      if (widget.isShortcut && !openedAddWidget) {
+        diaryWidget.addTransactionScreen();
+        setState(() {
+          openedAddWidget = true;
+        });
+      }
+    });
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+    diaryWidget = DiaryWidget(
+        widget.listWallets,
+        updateState,
+        fetchAllData,
+        listTransactionWidgets,
+        selectedName,
+        selectedWallet,
+        listWallet,
+        timePicker);
     final appBar = AppBar(
         centerTitle: true,
         titleTextStyle: TextStyle(
@@ -155,7 +181,7 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
               children: [
                 DefaultTabController(
                   length: 2,
-                  initialIndex: 1,
+                  initialIndex: widget.initIndex,
                   child: Column(
                     children: [
                       TabBar(
@@ -191,17 +217,7 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
                                     fetchAllData,
                                     updateState)
                                 : Text('Bạn chưa có ví nào'),
-                            hadWallet
-                                ? DiaryWidget(
-                                    widget.listWallets,
-                                    updateState,
-                                    fetchAllData,
-                                    listTransactionWidgets,
-                                    selectedName,
-                                    selectedWallet,
-                                    listWallet,
-                                    timePicker)
-                                : Text('Bạn chưa có ví nào')
+                            hadWallet ? diaryWidget : Text('Bạn chưa có ví nào')
                           ],
                         ),
                       )

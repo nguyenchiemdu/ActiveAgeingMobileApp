@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'money_management/add_transaction_screen.dart';
+import 'money_management/money_management.dart';
 
 class NavigationPopUp extends StatelessWidget {
   const NavigationPopUp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    DocumentSnapshot? docsnap = Provider.of<DocumentSnapshot?>(context);
     return Padding(
       padding: EdgeInsets.only(bottom: 98),
       child: Align(
@@ -25,7 +27,13 @@ class NavigationPopUp extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('tapped');
-                  // DocumentSnapshot? docsnap = Provider.of<DocumentSnapshot?>(context);
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MoneyManagementScreen(
+                              docsnap!.data()['listWallet'], true, 1)));
+
                   // Navigator.push(context, MaterialPageRoute(builder: (context) => AddTransactionScreen(docsnap.data()['listWallet'])))
                 },
                 child: Container(
@@ -68,6 +76,14 @@ class NavigationPopUp extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print('tapped');
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MoneyManagementScreen(
+                              docsnap!.data()['listWallet'], false, 1)));
+
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => AddTransactionScreen(docsnap.data()['listWallet'])))
                 },
                 child: Container(
                   padding:

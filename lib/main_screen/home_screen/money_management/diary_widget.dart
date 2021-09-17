@@ -30,6 +30,7 @@ class DiaryWidget extends StatelessWidget {
   List listWallet = [];
   final Function setState;
   final Function fetchData;
+  late BuildContext buildContext;
   // @override
   // void initState() {
   //   // TODO: implement initState
@@ -69,9 +70,28 @@ class DiaryWidget extends StatelessWidget {
   // }
 
   List<Map> listHistoryWallets = [];
+  addTransactionScreen() async {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    List<Map> listHistoryWalletsTmp = await FirebaseFirestore.instance
+        .collection('users/' + uid + '/historyWallets')
+        .get()
+        .then((querySnapshot) {
+      List<Map> result = [];
+      querySnapshot.docs.forEach((doc) {
+        result.add(doc.data());
+      });
+      return result;
+    });
+    Navigator.push(
+        buildContext,
+        MaterialPageRoute(
+            builder: (context) => AddTransactionScreen(
+                listWallet, listHistoryWalletsTmp, fetchData)));
+  }
 
   @override
   Widget build(BuildContext context) {
+    buildContext = context;
     double width = MediaQuery.of(context).size.width;
     // var querySnapshot = Provider.of<QuerySnapshot?>(context);
     // if (querySnapshot != null) {

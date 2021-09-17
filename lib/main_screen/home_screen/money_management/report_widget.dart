@@ -147,7 +147,10 @@ class ReportWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     // double startMoney = listHistory[0]['money'];
-    double endMoney = listHistory[listHistory.length - 1]['money'];
+    print(listHistory);
+    double endMoney = listHistory.length == 0
+        ? 0
+        : listHistory[listHistory.length - 1]['money'];
     // calculateChartDataByDate();
     // calculateChartDataByWeek();
     // calculateChartDataByMonth();

@@ -1,3 +1,4 @@
+import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/money_management.dart';
 import 'package:active_ageing_mobile_app/main_screen/wallet_screen/list_wallets.dart';
 import 'package:active_ageing_mobile_app/models/firebase_login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -199,7 +200,13 @@ class WalletScreen extends StatelessWidget {
             ),
             InkWell(
               // borderRadius: BorderRadius.all(Radius.circular(5)),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MoneyManagementScreen(
+                            docSnap!.data()['listWallet'], false, 0)));
+              },
               child: Container(
                 width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                 height: MediaQuery.of(context).size.height / 333.5 * 33,

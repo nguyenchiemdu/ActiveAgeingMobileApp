@@ -11,7 +11,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Lương, thưởng, trợ cấp',
       'icon': Icon(
         Icons.local_atm,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -19,7 +19,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Quà tặng',
       'icon': Icon(
         Icons.redeem,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -27,7 +27,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Trúng thưởng',
       'icon': Icon(
         Icons.confirmation_number_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -35,7 +35,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Thừa kế',
       'icon': Icon(
         Icons.terrain_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -43,7 +43,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Tiền lãi',
       'icon': Icon(
         Icons.tune,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -51,7 +51,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Thu nhập từ đầu tư vốn',
       'icon': Icon(
         Icons.pie_chart_outline_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [
         'Tiền gửi tiết kiệm',
@@ -67,7 +67,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Thanh lý',
       'icon': Icon(
         Icons.receipt_long_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -75,7 +75,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Thu nhập khác',
       'icon': Icon(
         Icons.attach_money_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },
@@ -83,7 +83,7 @@ class InComeCategoryTab extends StatelessWidget {
       'groupName': 'Giải thưởng',
       'icon': Icon(
         Icons.emoji_events_outlined,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [],
     },

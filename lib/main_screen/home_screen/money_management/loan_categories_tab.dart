@@ -11,7 +11,7 @@ class LoanCategoriesTab extends StatelessWidget {
       'groupName': 'Đi vay và thu nợ (Tiền vào)',
       'icon': Icon(
         Icons.local_atm,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [
         'Đi vay',
@@ -22,7 +22,7 @@ class LoanCategoriesTab extends StatelessWidget {
       'groupName': 'Cho vay và trả nợ (Tiền ra)',
       'icon': Icon(
         Icons.local_atm,
-        color: Color(0xff12B281),
+        color: Color(0xffffffff),
       ),
       'listTitle': [
         'Cho vay',

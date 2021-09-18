@@ -62,6 +62,10 @@ class SummaryWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            width: MediaQuery.of(context).size.width / 187.5 * 187.5,
+            height: (MediaQuery.of(context).size.height) / 333.5 * 8,
+          ),
+          Container(
             width: MediaQuery.of(context).size.width / 187.5 * 171.5,
             height: MediaQuery.of(context).size.height / 333.5 * 60,
             decoration: BoxDecoration(
@@ -264,8 +268,21 @@ class SummaryWidget extends StatelessWidget {
             ),
           ),
           Container(
+            width: MediaQuery.of(context).size.width / 187.5 * 1,
+            height: MediaQuery.of(context).size.height / 333.5 * 4,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+            height: MediaQuery.of(context).size.height / 333.5 * 150,
+            decoration: BoxDecoration(
+                color: Color(0xffFFFFFF),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             child: Column(
               children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 1,
+                  height: MediaQuery.of(context).size.height / 333.5 * 10,
+                ),
                 !isSuccess
                     ? Container(
                         padding: EdgeInsets.symmetric(horizontal: 40),
@@ -340,16 +357,32 @@ class SummaryWidget extends StatelessWidget {
                     //       ),
                     //     ],
                     //   )
-                    : Text(
-                        'Bạn đã có một kế hoạch về hưu tuyệt vời',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color(0xff666666),
-                          fontSize: 14 * curScaleFactor,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
+                    : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            'Tiền tiết kiệm hưu trí sẽ hết vào tuổi ',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              color: Color(0xff666666),
+                              fontSize: 14 * curScaleFactor,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        Text(
+                          formatter.format(end),
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff12B281),
+                            fontSize: 24 * curScaleFactor,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.normal,
+                          ),
+
                         ),
-                      ),
+                      ],
+                    ),
                 Container(
                     // color: Colors.red,
                     child: BarChartPage(chartData, interval, maxY)),

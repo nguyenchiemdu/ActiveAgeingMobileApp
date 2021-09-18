@@ -154,29 +154,32 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
           child: Column(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width / 187.5 * 89,
+                color: Color(0xffFFFFFF),
+                width: MediaQuery.of(context).size.width / 187.5 * 187.5,
                 height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height) /
-                    333.5 *
-                    12,
+                        appBar.preferredSize.height) / 333.5 * 12,
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                child: Text(data['namePlan'],
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Color(0xff1a1a1a),
-                      fontSize: (24),
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.normal,
-                    )),
+                color: Color(0xffFFFFFF),
+                width: MediaQuery.of(context).size.width / 187.5 * 187.5,
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                    child: Text(data['namePlan'],
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff1a1a1a),
+                          fontSize: (24),
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        )),
+                  ),
+                ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width / 187.5 * 89,
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height) /
-                    333.5 *
-                    4,
+                color: Color(0xffFFFFFF),
+                width: MediaQuery.of(context).size.width / 187.5 * 187.5,
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height) / 333.5 * 4,
               ),
               DefaultTabController(
                 length: 2,
@@ -218,6 +221,7 @@ class _RetirementReportScreenState extends State<RetirementReportScreen> {
                   ],
                 ),
               ),
+
             ],
           ),
         ),

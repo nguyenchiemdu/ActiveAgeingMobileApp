@@ -91,6 +91,7 @@ class DiaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     buildContext = context;
     double width = MediaQuery.of(context).size.width;
     // var querySnapshot = Provider.of<QuerySnapshot?>(context);
@@ -113,71 +114,160 @@ class DiaryWidget extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 4,
+                height: MediaQuery.of(context).size.height / 333.5 * 6,
+              ),
               Row(
                 children: [
                   Container(
-                    width: width / 2,
-                    child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)))),
-                        value: selectedName,
-                        items: listWallet
-                            .map((wallet) => DropdownMenuItem(
-                                  child: Text(wallet['name']),
-                                  value: wallet['name'].toString(),
-                                ))
-                            .toList(),
-                        onChanged: (String? value) {
-                          Map newWallet = {};
-                          listWallet.forEach((wallet) {
-                            if (wallet['name'] == value) newWallet = wallet;
-                          });
-                          setState({
-                            'selectedName': value.toString(),
-                            'selectedWallet': newWallet
-                          });
-                          fetchData();
-                        },
-                        hint: Text("Select item")),
+                    width: MediaQuery.of(context).size.width / 187.5 * 8,
+                    height: MediaQuery.of(context).size.height / 333.5 * 2,
                   ),
-                  InkWell(
-                    onTap: () async {
-                      print('pick time');
-                      Map result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TimePickerScreen()));
-                      print(result);
-                      if (result != null) {
-                        setState({'timePicker': result});
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
+                    height: MediaQuery.of(context).size.height / 333.5 * 24,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: Color(0xffdedede),
+                            width: 1
+                        )
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 187.5 * 4,
+                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                        ),
+                        Icon(Icons.payments_rounded, color:  Color(0xff12b281),),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 187.5 * 4,
+                          height: MediaQuery.of(context).size.height / 333.5 * 2,
+                        ),
+                        Flexible(
+                          child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                              ),
+                              value: selectedName,
+                              items: listWallet
+                                  .map((wallet) => DropdownMenuItem(
+                                child: Text(wallet['name'],
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xff4d4d4d),
+                                    fontSize: 12 * curScaleFactor,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.normal,
+                                  ),),
+                                value: wallet['name'].toString(),
+                              ))
+                                  .toList(),
+
+                              onChanged: (String? value) {
+                                Map newWallet = {};
+                                listWallet.forEach((wallet) {
+                                  if (wallet['name'] == value) newWallet = wallet;
+                                });
+                                setState({
+                                  'selectedName': value.toString(),
+                                  'selectedWallet': newWallet
+                                });
+                                fetchData();
+                              },
+                              hint: Text("Select item")),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 4,
+                    height: MediaQuery.of(context).size.height / 333.5 * 4,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
+                    height: MediaQuery.of(context).size.height / 333.5 * 24,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: Color(0xffdedede),
+                            width: 1
+                        )
+                    ),
+                    child: InkWell(
+                      onTap: () async {
+                        Map result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TimePickerScreen()));
+                        if (result != null) {
+                          setState({'timePicker': result});
+                        }
                         fetchData();
-                      }
-                    },
-                    child: Ink(
+                      },
+                      child: Ink(
                         // width: 100,
                         // height: 100,
                         // color: Colors.blue,
-                        child: Container(
-                      child: timePicker != null
-                          ? Column(
+                          child: Container(
+                            child: timePicker != null
+                                ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+
                               children: [
-                                Text(timePicker['duration']),
-                                Text(DateFormat('dd/MMM/yyy')
-                                        .format(timePicker['startTime']) +
+                                Text(timePicker['duration'] +" gần nhất",
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xff1a1a1a),
+                                    fontSize: 12 * curScaleFactor,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                ),
+                                Text(DateFormat('yMd')
+                                    .format(timePicker['startTime']) +
                                     '-' +
-                                    DateFormat('dd/MMM/yyy')
-                                        .format(timePicker['endTime']))
+                                    DateFormat('yMd')
+                                        .format(timePicker['endTime']),
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xff999999),
+                                    fontSize: 12 * curScaleFactor,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal,
+                                  ),)
                               ],
                             )
-                          : Text('Chọn khoảng thời gian'),
-                    )),
+                                : Text('Chọn khoảng thời gian'),
+                          )),
+                    ),
                   )
                 ],
               ),
               Container(
-                color: Colors.blue,
+                width: MediaQuery.of(context).size.width / 187.5 * 4,
+                height: MediaQuery.of(context).size.height / 333.5 * 6,
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 333.5 * 0.75,
+                  color: Color(0xffdedede)
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                  color: Color(0xffededed)
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 333.5 * 0.75,
+                  color: Color(0xffdedede)
+              ),
+              Container(
+                color: Color(0xffFFFFFF),
                 child: Column(
                   children: listTransactionWidgets,
                 ),

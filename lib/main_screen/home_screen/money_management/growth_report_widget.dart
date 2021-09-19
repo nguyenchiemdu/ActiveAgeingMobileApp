@@ -34,13 +34,39 @@ class GrowthReportWidget extends StatelessWidget {
   String title;
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Container(
       child: Column(
         children: [
           Row(
             children: [
-              Text(title),
-              TextButton(onPressed: () {}, child: Text('Xem cách tính')),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 8,
+                height: MediaQuery.of(context).size.height / 333.5 * 1,
+              ),
+              Text(title,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  color: Color(0xff666666),
+                  fontSize: 18 * curScaleFactor,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                ),),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 69,
+                height: MediaQuery.of(context).size.height / 333.5 * 1,
+              ),
+              TextButton(onPressed: () {},
+                child: Text('Xem cách tính',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff00865D),
+                    fontSize: 12 * curScaleFactor,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                  ),),
+              ),
             ],
           ),
           Container(
@@ -53,20 +79,48 @@ class GrowthReportWidget extends StatelessWidget {
               initialIndex: 0,
               child: Column(
                 children: [
-                  TabBar(
-                      // onTap: (index) {
-                      //   //your currently selected index
-                      // },
-                      labelColor: Color(0xff12B281),
-                      unselectedLabelColor: Colors.black,
-                      tabs: [
-                        Tab(
-                          child: Text('Chỉ số tăng trưởng'),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 179.5,
+                    height: MediaQuery.of(context).size.height / 333.5 * 14,
+                    decoration: BoxDecoration(
+                        color: Color(0xffededed),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: Color(0xffededed),
+                            width: 0.75
+                        )
+                    ),
+                    child: TabBar(
+                        // onTap: (index) {
+                        //   //your currently selected index
+                        // },
+                        labelColor: Color(0xff12B281),
+                        unselectedLabelColor: Color(0xff999999),
+                        indicator: ShapeDecoration(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          color: Color(0xffffffff),
                         ),
-                        Tab(
-                          child: Text('% tăng trưởng'),
-                        ),
-                      ]),
+                        tabs: [
+                          Tab(
+                            child: Text('Chỉ số tăng trưởng',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              ),),
+                          ),
+                          Tab(
+                            child: Text('% tăng trưởng',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              ),),
+                          ),
+                        ]),
+                  ),
                   Expanded(
                     child: TabBarView(
                       // controller: _tabController ,
@@ -78,7 +132,15 @@ class GrowthReportWidget extends StatelessWidget {
                               child: listIndexGrowth.length > 1
                                   ? LineChartWidget(
                                       listMonths, listIndexGrowth, 25, color)
-                                  : Text('Dữ liệu k hợp lệ')),
+                                  : Text('Dữ liệu hiện tại chưa đủ để chúng tôi thống kê báo cáo này.',
+                                      style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        color: Color(0xff4d4d4d),
+                                        fontSize: 14 * curScaleFactor,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FontStyle.normal,
+                                      ),
+                              )),
                         ),
                         Container(
                           child: Container(
@@ -87,7 +149,15 @@ class GrowthReportWidget extends StatelessWidget {
                               child: listPercentageGrowth.length > 1
                                   ? LineChartWidget(listMonths,
                                       listPercentageGrowth, 1, color)
-                                  : Text('Dữ liệu k hợp lệ')),
+                                  : Text('Dữ liệu hiện tại chưa đủ để chúng tôi thống kê báo cáo này.',
+                                      style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        color: Color(0xff4d4d4d),
+                                        fontSize: 14 * curScaleFactor,
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FontStyle.normal,
+                                      ),
+                              )),
                         ),
                       ],
                     ),

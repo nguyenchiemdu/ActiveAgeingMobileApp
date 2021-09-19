@@ -549,6 +549,7 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     if (selectedChartType == 'Thu nhập ròng') {
       factor = 40;
       calculateChartDataByNetDate();
@@ -564,14 +565,39 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
+        Container(
+          width: MediaQuery.of(context).size.width / 187.5 * 4,
+          height: MediaQuery.of(context).size.height / 333.5 * 4,
+        ),
         Row(
           children: [
             Container(
-              width: width * 2 / 3,
+              width: MediaQuery.of(context).size.width / 187.5 * 4,
+              height: MediaQuery.of(context).size.height / 333.5 * 1,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 187.5 * 83.75,
+              height: MediaQuery.of(context).size.height / 333.5 * 24,
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 4,),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      color: Color(0xffdedede),
+                      width: 1
+                  )
+              ),
               child: DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 12 * curScaleFactor,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                  ),
                   value: selectedChartType,
                   items: listChartType
                       .map((chartType) => DropdownMenuItem(
@@ -589,29 +615,71 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
           ],
         ),
         Container(
+          width: MediaQuery.of(context).size.width / 187.5 * 4,
+          height: MediaQuery.of(context).size.height / 333.5 * 8,
+        ),
+        Container(
           height: 500,
           child: DefaultTabController(
             length: 3,
             initialIndex: 0,
             child: Column(
               children: [
-                TabBar(
-                    onTap: (index) {
-                      //your currently selected index
-                    },
-                    labelColor: Color(0xff12B281),
-                    unselectedLabelColor: Colors.black,
-                    tabs: [
-                      Tab(
-                        child: Text('Theo ngày'.toUpperCase()),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 179.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 14,
+                  decoration: BoxDecoration(
+                    color: Color(0xffededed),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Color(0xffededed),
+                      width: 0.75
+                    )
+                  ),
+                  child: TabBar(
+                      onTap: (index) {
+                        //your currently selected index
+                      },
+
+                      labelColor: Color(0xff12B281),
+                      unselectedLabelColor: Color(0xff999999),
+                      indicator: ShapeDecoration(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          color: Color(0xffffffff),
                       ),
-                      Tab(
-                        child: Text('Theo tuần'.toUpperCase()),
-                      ),
-                      Tab(
-                        child: Text('Theo tháng'.toUpperCase()),
-                      ),
-                    ]),
+                      tabs: [
+                        Container(
+                          height: MediaQuery.of(context).size.height / 333.5 * 12,
+                          child: Tab(
+                            child: Text('Theo ngày',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 12 * curScaleFactor,
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FontStyle.normal,
+                              ),),
+                          ),
+                        ),
+                        Tab(
+                          child: Text('Theo tuần',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            ),),
+                        ),
+                        Tab(
+                          child: Text('Theo tháng',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 12 * curScaleFactor,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FontStyle.normal,
+                            ),),
+                        ),
+                      ]),
+                ),
                 Expanded(
                   // height: (MediaQuery.of(context).size.height -
                   //         appBar.preferredSize.height) /
@@ -671,7 +739,18 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Color(0xff12B281)),
                 ),
-                Text('Thu')
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 4,
+                  height: MediaQuery.of(context).size.height / 333.5 * 1,
+                ),
+                Text('Thu',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff000000),
+                    fontSize: 12 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),)
               ],
             ),
             Row(
@@ -682,7 +761,18 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: Color(0xffF89595)),
                 ),
-                Text('Chi')
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 4,
+                  height: MediaQuery.of(context).size.height / 333.5 * 1,
+                ),
+                Text('Chi',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff000000),
+                    fontSize: 12 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),)
               ],
             )
           ],

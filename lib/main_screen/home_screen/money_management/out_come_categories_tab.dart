@@ -151,6 +151,7 @@ class OutComeCategoriesTab extends StatelessWidget {
                     selectedCategory, selectedTitle, selectTitle, method))
                 .toList(),
           )),
+
         ],
       ),
     );

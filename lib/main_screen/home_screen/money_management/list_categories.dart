@@ -83,12 +83,15 @@ class _ListCategoriesState extends State<ListCategories> {
                         ],
                       ),
                     ),
+
                   ],
                 ),
               ),
             ),
+
             Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+              height: MediaQuery.of(context).size.height / 333.5 * 24,
               child: ElevatedButton(
                   onPressed: () {
                     if (selectedCategory != '') {
@@ -101,7 +104,14 @@ class _ListCategoriesState extends State<ListCategories> {
                       Navigator.pop(context, result);
                     }
                   },
-                  child: Text('Lưu')),
+                  child: Text('LƯU',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffFFFFFF),
+                      fontSize: 16 * curScaleFactor,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                    ),)),
             ),
           ],
         ),

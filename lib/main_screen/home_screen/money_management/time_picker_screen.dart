@@ -44,6 +44,7 @@ class _TimePickerScreenState extends State<TimePickerScreen> {
   String nof = '';
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
@@ -189,9 +190,17 @@ class _TimePickerScreenState extends State<TimePickerScreen> {
         ),
       ),
       floatingActionButton: Container(
-        width: width,
+        width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+        height: MediaQuery.of(context).size.height / 333.5 * 24,
         child: ElevatedButton(
-          child: Text('Lưu'),
+          child: Text('LƯU',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              color: Color(0xffFFFFFF),
+              fontSize: 16 * curScaleFactor,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.normal,
+            ),),
           onPressed: () {
             int index = listSelectStatus.indexOf(true);
             Map result = {};

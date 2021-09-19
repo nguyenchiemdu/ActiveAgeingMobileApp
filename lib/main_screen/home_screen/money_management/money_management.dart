@@ -97,7 +97,7 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
         respond.add(TransactionItem(snap.data()));
       });
       calculateGroup(newTransactions);
-      respond = listTransactionsByDate(listDate, mapGroup);
+      respond = listTransactionsByDate(listDate, mapGroup,context);
       return respond;
     });
     setState(() {

@@ -211,12 +211,11 @@ class HomeScreen extends StatelessWidget {
                         width:
                             MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Row(children: [
-                          Image.asset("assets/images/fincare-icon.png",
-                              width: 40, height: 40),
-                          new Text("FinCare",
+                          Icon(Icons.monetization_on_outlined, color: Color(0xff999999)),
+                          new Text("Tài chính",
                               style: TextStyle(
                                 fontFamily: 'Inter',
-                                color: Color(0xff1a1a1a),
+                                color: Color(0xff999999),
                                 fontSize: 14 * curScaleFactor,
                                 fontWeight: FontWeight.w600,
                                 fontStyle: FontStyle.normal,
@@ -224,165 +223,211 @@ class HomeScreen extends StatelessWidget {
                         ]),
                       ),
                       Container(
+                        width: MediaQuery.of(context).size.width / 187.5 * 4,
+                        height: MediaQuery.of(context).size.height / 333.5 * 4,
+                      ),
+                      Container(
                         width:
                             MediaQuery.of(context).size.width / 187.5 * 171.5,
-                        child: Row(children: [
-                          InkWell(
-                            customBorder: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                        child: Column(
+                          children: [
+                            Container(
+                              width:
+                              MediaQuery.of(context).size.width / 187.5 * 4,
+                              height:
+                              MediaQuery.of(context).size.height / 333.5 * 0,
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          AfterRetirementScreen(docSnap.data()[
-                                                      'listRetirement'] ==
-                                                  null
-                                              ? []
-                                              : docSnap
-                                                  .data()['listRetirement'])));
-                            },
-                            child: Ink(
-                                width: MediaQuery.of(context).size.width /
-                                    187.5 *
-                                    54.5,
-                                height: MediaQuery.of(context).size.height /
-                                    333.5 *
-                                    44,
-                                decoration: BoxDecoration(
-                                    color: Color(0xffffffff),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                          "assets/images/smaller_retirement_icon.png",
-                                          width: 25,
-                                          height: 25),
-                                      Container(
-                                        width:
+                            Row(children: [
+                              InkWell(
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                onTap: () {},
+                                child: Ink(
+                                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
+                                    height: MediaQuery.of(context).size.height / 333.5 * 44,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffffff),
+                                        borderRadius: BorderRadius.circular(12)),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.calendar_today_rounded, color: Color(0xffFF800B)),
+                                          Container(
+                                            width:
                                             MediaQuery.of(context).size.width /
                                                 187.5 *
                                                 4,
-                                        height:
+                                            height:
                                             MediaQuery.of(context).size.height /
                                                 333.5 *
                                                 4,
-                                      ),
-                                      new Text("After-\nRetirement Plan",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            color: Color(0xff666666),
-                                            fontSize: 12 * curScaleFactor,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.normal,
-                                          ))
-                                    ])),
-                          ),
-                          Container(
-                            width:
+                                          ),
+                                          new Text("Nhật ký\nchi tiêu",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 12 * curScaleFactor,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                              ))
+                                        ])),
+                              ),
+                              Container(
+                                width:
                                 MediaQuery.of(context).size.width / 187.5 * 4,
-                            height:
+                                height:
                                 MediaQuery.of(context).size.height / 333.5 * 0,
-                          ),
-                          InkWell(
-                            customBorder: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            onTap: () {
-                              var data =
+                              ),
+                              InkWell(
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                onTap: () {
+                                  var data =
                                   docSnap.data()['listSavingGoals'] == null
                                       ? []
                                       : docSnap.data()['listSavingGoals'];
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SavingGoalsScreen(data)));
-                            },
-                            child: Ink(
-                                width: MediaQuery.of(context).size.width /
-                                    187.5 *
-                                    54.5,
-                                height: MediaQuery.of(context).size.height /
-                                    333.5 *
-                                    44,
-                                decoration: BoxDecoration(
-                                    color: Color(0xffffffff),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                          "assets/images/smaller_saving_icon.png",
-                                          width: 25,
-                                          height: 25),
-                                      Container(
-                                        width:
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SavingGoalsScreen(data)));
+                                },
+                                child: Ink(
+                                    width: MediaQuery.of(context).size.width /
+                                        187.5 * 83.75,
+                                    height: MediaQuery.of(context).size.height /
+                                        333.5 * 44,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffffff),
+                                        borderRadius: BorderRadius.circular(12)),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.savings_rounded, color: Color(0xff565cf7)),
+                                          Container(
+                                            width:
                                             MediaQuery.of(context).size.width /
                                                 187.5 *
                                                 4,
-                                        height:
+                                            height:
                                             MediaQuery.of(context).size.height /
                                                 333.5 *
                                                 4,
-                                      ),
-                                      new Text("Saving\nGoals",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            color: Color(0xff666666),
-                                            fontSize: 12 * curScaleFactor,
-                                            fontWeight: FontWeight.w400,
-                                            fontStyle: FontStyle.normal,
-                                          ))
-                                    ])),
-                          ),
-                          Container(
-                            width:
-                                MediaQuery.of(context).size.width / 187.5 * 4,
-                            height:
-                                MediaQuery.of(context).size.height / 333.5 * 0,
-                          ),
-                          Container(
-                              width: MediaQuery.of(context).size.width /
-                                  187.5 *
-                                  54.5,
-                              height: MediaQuery.of(context).size.height /
-                                  333.5 *
-                                  44,
-                              decoration: BoxDecoration(
-                                  color: Color(0xffffffff),
-                                  borderRadius: BorderRadius.circular(12)),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                        "assets/images/smaller_invest_icon.png",
-                                        width: 25,
-                                        height: 25),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width /
-                                          187.5 *
-                                          4,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              333.5 *
-                                              4,
-                                    ),
-                                    new Text("Investment-\nRecommendation",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'Inter',
-                                          color: Color(0xff666666),
-                                          fontSize: 12 * curScaleFactor,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal,
-                                        ))
-                                  ])),
-                        ]),
+                                          ),
+                                          new Text("Mục tiêu\ntiết kiệm",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 12 * curScaleFactor,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                              ))
+                                        ])),
+                              ),
+                            ]),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 187.5 * 4,
+                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                            ),
+                            Row(children: [
+                              InkWell(
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AfterRetirementScreen(docSnap.data()[
+                                                          'listRetirement'] ==
+                                                      null
+                                                  ? []
+                                                  : docSnap
+                                                      .data()['listRetirement'])));
+                                },
+                                child: Ink(
+                                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
+                                    height: MediaQuery.of(context).size.height / 333.5 * 44,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffffff),
+                                        borderRadius: BorderRadius.circular(12)),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.wheelchair_pickup_rounded, color: Color(0xff12b281)),
+                                          Container(
+                                            width:
+                                                MediaQuery.of(context).size.width /
+                                                    187.5 *
+                                                    4,
+                                            height:
+                                                MediaQuery.of(context).size.height /
+                                                    333.5 *
+                                                    4,
+                                          ),
+                                          new Text("Kế hoạch\nvề hưu",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 12 * curScaleFactor,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                              ))
+                                        ])),
+                              ),
+                              Container(
+                                width:
+                                    MediaQuery.of(context).size.width / 187.5 * 4,
+                                height:
+                                    MediaQuery.of(context).size.height / 333.5 * 0,
+                              ),
+                              InkWell(
+                                customBorder: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                onTap: () {},
+                                child: Ink(
+                                    width: MediaQuery.of(context).size.width /
+                                        187.5 * 83.75,
+                                    height: MediaQuery.of(context).size.height /
+                                        333.5 * 44,
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffffff),
+                                        borderRadius: BorderRadius.circular(12)),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.compare, color: Color(0xffEC5B5B)),
+                                          Container(
+                                            width:
+                                                MediaQuery.of(context).size.width /
+                                                    187.5 *
+                                                    4,
+                                            height:
+                                                MediaQuery.of(context).size.height /
+                                                    333.5 *
+                                                    4,
+                                          ),
+                                          new Text("Gợi ý\nđầu tư",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 12 * curScaleFactor,
+                                                fontWeight: FontWeight.w400,
+                                                fontStyle: FontStyle.normal,
+                                              ))
+                                        ])),
+                              ),
+                            ]),
+                          ],
+                        ),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -394,20 +439,31 @@ class HomeScreen extends StatelessWidget {
                               MediaQuery.of(context).size.height / 333.5 * 8,
                           color: Color(0xffebebeb)),
                       Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 333.5 * 4,
+                      ),
+                      Container(
                         width:
                             MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Row(children: [
-                          Image.asset("assets/images/healthcare-icon.png",
-                              width: 40, height: 40),
+                          Icon(Icons.favorite_border_rounded, color: Color(0xff999999)),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 187.5 * 4,
+                            height: MediaQuery.of(context).size.height / 333.5 * 1,
+                          ),
                           new Text("Sức khỏe",
                               style: TextStyle(
                                 fontFamily: 'Inter',
-                                color: Color(0xff1a1a1a),
+                                color: Color(0xff999999),
                                 fontSize: 14 * curScaleFactor,
                                 fontWeight: FontWeight.w600,
                                 fontStyle: FontStyle.normal,
                               ))
                         ]),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 333.5 * 4,
                       ),
                       Column(
                         children: [
@@ -430,10 +486,7 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                            "assets/images/check_up_icon.png",
-                                            width: 25,
-                                            height: 25),
+                                        Icon(Icons.remember_me_rounded, color: Color(0xffEC5B5B)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -446,11 +499,11 @@ class HomeScreen extends StatelessWidget {
                                               333.5 *
                                               4,
                                         ),
-                                        new Text("Health check-up\nreminder",
+                                        new Text("Nhắc lịch khám\nsức khỏe",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Inter',
-                                              color: Color(0xff666666),
+                                              color: Color(0xff999999),
                                               fontSize: 12 * curScaleFactor,
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,
@@ -478,10 +531,7 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                            "assets/images/community_icon.png",
-                                            width: 25,
-                                            height: 25),
+                                        Icon(Icons.group_rounded, color: Color(0xff565cf7)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -494,11 +544,11 @@ class HomeScreen extends StatelessWidget {
                                               333.5 *
                                               4,
                                         ),
-                                        new Text("Healthcare\nCommunity",
+                                        new Text("Cộng đồng chăm sóc\nsức khỏe",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Inter',
-                                              color: Color(0xff666666),
+                                              color: Color(0xff999999),
                                               fontSize: 12 * curScaleFactor,
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,
@@ -530,10 +580,7 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                            "assets/images/products_icon.png",
-                                            width: 25,
-                                            height: 25),
+                                        Icon(Icons.health_and_safety_rounded, color: Color(0xff12b281)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -546,11 +593,11 @@ class HomeScreen extends StatelessWidget {
                                               333.5 *
                                               4,
                                         ),
-                                        new Text("Health check-up\nproducts",
+                                        new Text("Sản phẩm chăm sóc\nsức khỏe",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Inter',
-                                              color: Color(0xff666666),
+                                              color: Color(0xff999999),
                                               fontSize: 12 * curScaleFactor,
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,
@@ -578,10 +625,8 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                            "assets/images/workshops_icon.png",
-                                            width: 25,
-                                            height: 25),
+                                        Icon(Icons.book_rounded, color: Color(0xffff800b)),
+
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -594,11 +639,11 @@ class HomeScreen extends StatelessWidget {
                                               333.5 *
                                               4,
                                         ),
-                                        new Text("Healthcare\nworkshops",
+                                        new Text("Hội thảo về\nsức khỏe",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Inter',
-                                              color: Color(0xff666666),
+                                              color: Color(0xff999999),
                                               fontSize: 12 * curScaleFactor,
                                               fontWeight: FontWeight.w400,
                                               fontStyle: FontStyle.normal,

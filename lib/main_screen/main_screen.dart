@@ -12,6 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'financial_screen.dart';
+import 'health_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
   @override
@@ -23,13 +26,14 @@ class _MainScreenState extends State<MainScreen> {
   bool isNavigationFloating = false;
   List<Widget> listScreen = [
     HomeScreen(),
-    Container(),
+    FinanceScreen(),
     Container(
       color: Colors.green,
     ),
-    PageView(
-      children: [],
-    ),
+    HealthScreen(),
+    // PageView(
+    //   children: [],
+    // ),
     WalletScreen(),
   ];
   void _selectPage(int index) {
@@ -90,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.pie_chart_outline,
+                      Icons.stacked_bar_chart_outlined,
                     ),
                     label: "Tài chính"),
                 BottomNavigationBarItem(

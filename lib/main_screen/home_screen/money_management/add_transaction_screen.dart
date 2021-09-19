@@ -141,7 +141,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     height: MediaQuery.of(context).size.height / 333.5 * 8,
                   ),
                   Container(
-
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: MediaQuery.of(context).size.width / 187.5 * 8),
                     width: MediaQuery.of(context).size.width / 187.5 * 171.5,
                     height: MediaQuery.of(context).size.height / 333.5 * 46,

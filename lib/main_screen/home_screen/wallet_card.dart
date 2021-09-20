@@ -22,7 +22,7 @@ class _WalletCardState extends State<WalletCard> {
       decoration: BoxDecoration(
           color: Color(0xffffffff),
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          border: Border.all(color: Colors.white, width: 1)),
+          border: Border.all(color: Color(0xff12b281), width: 1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -39,6 +39,11 @@ class _WalletCardState extends State<WalletCard> {
                       fontStyle: FontStyle.normal,
                     )),
                 OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          width: 1.0,
+                          color: Color(0xff12b281)),
+                    ),
                     onPressed: () {
                       setState(() {
                         isVisibility = !isVisibility;

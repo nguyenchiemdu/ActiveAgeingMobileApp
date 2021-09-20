@@ -125,12 +125,24 @@ class HomeScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                                "assets/images/retirement_planning_icon.png",
-                                                width: 50,
-                                                height: 50),
+                                            Container(
+                                              width: 40,
+                                              height: 40,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                color: Color(0xffffffff)
+                                              ),
+                                              child: Icon(Icons.wheelchair_pickup_rounded, color: Color(0xff12B281))
+                                            ),
+                                            Container(
+                                              width:
+                                              MediaQuery.of(context).size.width / 187.5 * 8,
+                                              height: MediaQuery.of(context).size.height /
+                                                  333.5 *
+                                                  4,
+                                            ),
                                             new Text(
-                                                "AFTER-RETIREMENT\nPLANNING",
+                                                "KẾ HOẠCH VỀ HƯU",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',
@@ -167,11 +179,23 @@ class HomeScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                                "assets/images/saving_icon.png",
-                                                width: 50,
-                                                height: 50),
-                                            new Text("YOUR SAVING\nGOALS",
+                                            Container(
+                                                width: 40,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Color(0xffffffff)
+                                                ),
+                                                child: Icon(Icons.savings_rounded, color: Color(0xff12B281))
+                                            ),
+                                            Container(
+                                              width:
+                                              MediaQuery.of(context).size.width / 187.5 * 8,
+                                              height: MediaQuery.of(context).size.height /
+                                                  333.5 *
+                                                  4,
+                                            ),
+                                            new Text("MỤC TIÊU TIẾT KIỆM",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',

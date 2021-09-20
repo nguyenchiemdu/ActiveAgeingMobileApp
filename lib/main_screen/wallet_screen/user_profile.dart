@@ -29,6 +29,7 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     final docSnap = Provider.of<DocumentSnapshot?>(context);
     final user = docSnap != null ? docSnap.data() : userSample;
     name = TextEditingController(text: user['name']);
@@ -38,34 +39,234 @@ class UserProfile extends StatelessWidget {
     phone = TextEditingController(text: user['phone']);
 
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: 40),
-        width: double.infinity,
-        child: Column(
-          children: [
-            TextField(
-              controller: name,
-            ),
-            TextField(
-              controller: email,
-            ),
-            TextField(
-              controller: address,
-            ),
-            TextField(
-              controller: job,
-            ),
-            TextField(
-              controller: phone,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  UserDatabase().updateUserData(newUserInfor()).then((value) {
-                    Navigator.pop(context);
-                  });
-                },
-                child: Text('Lưu thông tin')),
-          ],
+      appBar: AppBar(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 16 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+          ),
+          title: Text("Thông tin cá nhân")),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: 40),
+          width: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 8),
+                decoration: new BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(12),
+                    border:
+                    Border.all(width: 1.0, color: Color(0xffededed))),
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: "Tên",
+                    hintStyle:
+                    TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffdedede),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 14 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+                  controller: name,
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 5,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 8),
+                decoration: new BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(12),
+                    border:
+                    Border.all(width: 1.0, color: Color(0xffededed))),
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: "Email",
+                    hintStyle:
+                    TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffdedede),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 14 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+                  controller: email,
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 5,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 8),
+                decoration: new BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(12),
+                    border:
+                    Border.all(width: 1.0, color: Color(0xffededed))),
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: "Nơi ở",
+                    hintStyle:
+                    TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffdedede),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 14 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+                  controller: address,
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 5,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 8),
+                decoration: new BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(12),
+                    border:
+                    Border.all(width: 1.0, color: Color(0xffededed))),
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: "Nghề nghiệp",
+                    hintStyle:
+                    TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffdedede),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 14 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+
+                  controller: job,
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 5,
+                height: MediaQuery.of(context).size.height / 333.5 * 12,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 8),
+                decoration: new BoxDecoration(
+                    color: Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(12),
+                    border:
+                    Border.all(width: 1.0, color: Color(0xffededed))),
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    hintText: "Số điện thoại",
+                    hintStyle:
+                    TextStyle(
+                      fontFamily: 'Inter',
+                      color: Color(0xffdedede),
+                      fontSize: 14 * curScaleFactor,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Color(0xff1a1a1a),
+                    fontSize: 14 * curScaleFactor,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+                  controller: phone,
+
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 5,
+                height: MediaQuery.of(context).size.height / 333.5 * 70,
+              ),
+
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                height: MediaQuery.of(context).size.height / 333.5 * 24,
+                decoration: BoxDecoration(
+                  color: Color(0xff12b281),
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: ElevatedButton(
+                    onPressed: () {
+                      UserDatabase().updateUserData(newUserInfor()).then((value) {
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: Text('LƯU THÔNG TIN',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xffffffff),
+                        fontSize: 15 * curScaleFactor,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                      ),)),
+              ),
+            ],
+          ),
         ),
       ),
     );

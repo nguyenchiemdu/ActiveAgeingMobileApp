@@ -26,133 +26,165 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     if (isSignUp) return buildLoading();
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-              child: new Text("Đăng ký tài khoản",
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    color: Color(0xff1a1a1a),
-                    fontSize: 18 * curScaleFactor,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                  )),
-            ),
+      appBar: AppBar(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontFamily: 'Inter',
+            color: Color(0xffecf9f4),
+            fontSize: 16 * curScaleFactor,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
           ),
-          Container(
-            width: MediaQuery.of(context).size.width / 187.5 * 1,
-            height: MediaQuery.of(context).size.height / 333.5 * 8,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 187.5 * 1,
-            height: MediaQuery.of(context).size.height / 333.5 * 8,
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-              height: MediaQuery.of(context).size.height / 333.5 * 28,
-              decoration: new BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 1.0, color: Color(0xffededed))),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextField(
-                  textAlignVertical: TextAlignVertical.center,
-                  controller: email,
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.transparent, width: 0.0),
+          title: Text("Đăng ký tài khoản")),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color(0xffd3f1e7),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 4,
+                height:
+                MediaQuery.of(context).size.height / 333.5 * 24,
+              ),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  child: new Text("Đăng ký tài khoản",
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Color(0xff1a1a1a),
+                        fontSize: 18 * curScaleFactor,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                      )),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 8,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 8,
+              ),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 28,
+                  decoration: new BoxDecoration(
+                      color: Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(width: 1.0, color: Color(0xff98E8CB))),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: email,
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0.0),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0.0),
+                        ),
+                        hintText: "Địa chỉ email",
+                        hintStyle: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff999999),
+                          fontSize: 14 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                    hintText: "Địa chỉ email",
-                    hintStyle: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Color(0xff999999),
-                      fontSize: 14 * curScaleFactor,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                    ),
-                    border: OutlineInputBorder(),
                   ),
                 ),
               ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 187.5 * 1,
-            height: MediaQuery.of(context).size.height / 333.5 * 8,
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-              height: MediaQuery.of(context).size.height / 333.5 * 28,
-              decoration: new BoxDecoration(
-                  color: Color(0xffffffff),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(width: 1.0, color: Color(0xffededed))),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextField(
-                  textAlignVertical: TextAlignVertical.center,
-                  controller: password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.transparent, width: 0.0),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 8,
+              ),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 28,
+                  decoration: new BoxDecoration(
+                      color: Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(width: 1.0, color: Color(0xff98E8CB))),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: password,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0.0),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0.0),
+                        ),
+                        hintText: "Nhập mật khẩu",
+                        hintStyle: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff999999),
+                          fontSize: 14 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                    hintText: "Nhập mật khẩu",
-                    hintStyle: TextStyle(
-                      fontFamily: 'Inter',
-                      color: Color(0xff999999),
-                      fontSize: 14 * curScaleFactor,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                    ),
-                    border: OutlineInputBorder(),
                   ),
                 ),
               ),
-            ),
-          ),
-          Container(
-            child: Text(
-              message,
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 187.5 * 1,
-            height: MediaQuery.of(context).size.height / 333.5 * 103,
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-              height: MediaQuery.of(context).size.height / 333.5 * 24,
-              decoration: new BoxDecoration(
-                borderRadius: BorderRadius.circular(12 * curScaleFactor),
+              Container(
+                child: Text(
+                  message,
+                  style: TextStyle(color: Colors.red),
+                ),
               ),
-              child: ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    isSignUp = true;
-                  });
-                  String respondMessage = await widget.userAuthen
-                      .createUser(email.text, password.text, context);
-                  setState(() {
-                    isSignUp = false;
-                    message = respondMessage;
-                  });
-                },
-                child: Text('ĐĂNG KÝ'),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 138,
               ),
-            ),
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 24,
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(12 * curScaleFactor),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        isSignUp = true;
+                      });
+                      String respondMessage = await widget.userAuthen
+                          .createUser(email.text, password.text, context);
+                      setState(() {
+                        isSignUp = false;
+                        message = respondMessage;
+                      });
+                    },
+                    child: Text('ĐĂNG KÝ'),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 187.5 * 1,
+                height: MediaQuery.of(context).size.height / 333.5 * 50,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

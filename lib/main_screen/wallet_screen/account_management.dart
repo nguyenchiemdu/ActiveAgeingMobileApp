@@ -354,11 +354,11 @@ class _AccountManagementState extends State<AccountManagement> {
                           context: context,
                           builder: (context) => AlertDialog(
                                 title: Text(
-                                  'Error',
+                                  'Lỗi',
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 content: Text(
-                                    "You are sign in with Google account. So we can't change your password"),
+                                    "Bạn đang đăng nhập với tài khoản Google, vì vậy chúng tôi không thể thay đổi mật khẩu được"),
                               ));
                   },
                   child: Container(

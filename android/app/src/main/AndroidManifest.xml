@@ -2,7 +2,7 @@
     package="com.example.active_ageing_mobile_app">
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="active_ageing_mobile_app"
+        android:label="Active Ageing"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

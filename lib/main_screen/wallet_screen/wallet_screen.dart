@@ -151,8 +151,7 @@ class WalletScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
                     ),
-                    Image.asset("assets/images/wallet_icon.png",
-                        width: 40, height: 40),
+                    Icon(Icons.account_balance_wallet_rounded, color: Color(0xff12b281), size: 40),
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
@@ -220,8 +219,7 @@ class WalletScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,
                     ),
-                    Image.asset("assets/images/wallet_icon.png",
-                        width: 40, height: 40),
+                    Icon(Icons.insert_chart, color: Color(0xff12b281), size: 40),
                     Container(
                       width: MediaQuery.of(context).size.width / 187.5 * 8,
                       height: MediaQuery.of(context).size.height / 333.5 * 1,

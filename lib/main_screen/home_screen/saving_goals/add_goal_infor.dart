@@ -197,6 +197,21 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                     },
                                     controller: savingTarget,
                                     decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      disabledBorder: InputBorder.none,
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        borderSide: BorderSide(
+                                          color: Colors.red,
+                                          width: 1,
+                                        ),
+                                      ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
@@ -216,12 +231,8 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                     ),
                                   ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width /
-                                        187.5 *
-                                        1,
-                                    height: MediaQuery.of(context).size.height /
-                                        333.5 *
-                                        10,
+                                    width: MediaQuery.of(context).size.width / 187.5 * 1,
+                                    height: MediaQuery.of(context).size.height / 333.5 * 10,
                                   ),
                                   Text('Số tiền đã tích luỹ',
                                       style: TextStyle(
@@ -232,126 +243,124 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                         fontStyle: FontStyle.normal,
                                       )),
                                   Container(
-                                    width: MediaQuery.of(context).size.width /
-                                        187.5 *
-                                        1,
-                                    height: MediaQuery.of(context).size.height /
-                                        333.5 *
-                                        4,
+                                    width: MediaQuery.of(context).size.width / 187.5 * 1,
+                                    height: MediaQuery.of(context).size.height / 333.5 * 4,
                                   ),
                                   Container(
-                                    height: MediaQuery.of(context).size.height /
-                                        333.5 *
-                                        28,
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Expanded(
-                                            flex: 5,
-                                            child: Container(
-                                              child: TextFormField(
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onChanged: (value) {
-                                                    calculatEndtime();
-                                                  },
-                                                  validator: (value) {
-                                                    if (double.tryParse(
-                                                            value.toString()) !=
-                                                        null)
-                                                      return null;
-                                                    else
-                                                      return 'Hãy nhập vào 1 số';
-                                                  },
-                                                  controller: savedMoney,
-                                                  decoration: InputDecoration(
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xff12b281),
-                                                        width: 1.0,
-                                                      ),
-                                                    ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xffededed),
-                                                        width: 1.0,
-                                                      ),
-                                                    ),
-                                                  )),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context).size.width / 187.5 * 120,
+                                          child: Flexible(
+                                            child: TextFormField(
+                                                keyboardType:
+                                                    TextInputType.number,
+                                                onChanged: (value) {
+                                                  calculatEndtime();
+                                                },
+                                                validator: (value) {
+                                                  if (double.tryParse(
+                                                          value.toString()) !=
+                                                      null)
+                                                    return null;
+                                                  else
+                                                    return 'Hãy nhập vào 1 số';
+                                                },
+                                                controller: savedMoney,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                                disabledBorder: InputBorder.none,
+                                                errorBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xff12b281),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xffededed),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  187.5 *
-                                                  47.5,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height /
-                                                  333.5 *
-                                                  28,
-                                              child: DropdownButtonFormField<
-                                                      String>(
-                                                  decoration: InputDecoration(
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xff12b281),
-                                                        width: 1.0,
-                                                      ),
-                                                    ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xffededed),
-                                                        width: 1.0,
-                                                      ),
-                                                    ),
+                                        ),
+                                        Flexible(
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width / 187.5 * 47.5,
+                                            height: MediaQuery.of(context).size.height / 333.5 * 28,
+                                            child: DropdownButtonFormField<
+                                                    String>(
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1,
                                                   ),
-                                                  value: selectedCurrency,
-                                                  items: listCurrency
-                                                      .map((value) =>
-                                                          DropdownMenuItem(
-                                                            child: Text(value),
-                                                            value: value,
-                                                          ))
-                                                      .toList(),
-                                                  onChanged: (String? value) {
-                                                    setState(() {
-                                                      selectedCurrency =
-                                                          value.toString();
-                                                    });
-                                                  },
-                                                  hint: Text("Select item")),
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                                ),
+                                                disabledBorder: InputBorder.none,
+                                                errorBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.red,
+                                                    width: 1,
+                                                  ),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xff12b281),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xffededed),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                                value: selectedCurrency,
+                                                items: listCurrency
+                                                    .map((value) =>
+                                                        DropdownMenuItem(
+                                                          child: Text(value),
+                                                          value: value,
+                                                        ))
+                                                    .toList(),
+                                                onChanged: (String? value) {
+                                                  setState(() {
+                                                    selectedCurrency =
+                                                        value.toString();
+                                                  });
+                                                },),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],
@@ -406,36 +415,40 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                           currentTime: startTime,
                                           locale: LocaleType.vi)
                                     },
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                                      height: MediaQuery.of(context).size.height / 333.5 * 24,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: Color(0xffededed),
+                                        )
                                       ),
                                       child: Row(
                                         children: [
-                                          Expanded(
-                                              child: Container(
+                                          Container(
                                             padding: EdgeInsets.symmetric(
-                                                vertical: 12, horizontal: 16),
+                                            vertical: 12, horizontal: 16),
                                             child: Row(
-                                              children: [
-                                                Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 26),
-                                                  child: Icon(
-                                                    Icons
-                                                        .calendar_today_outlined,
-                                                    color: Color(0xff12B281),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  DateFormat.yMMMMEEEEd()
-                                                      .format(startTime),
-                                                  style: TextStyle(
-                                                      color: Color(0xff12B281)),
-                                                )
-                                              ],
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  right: 26),
+                                              child: Icon(
+                                                Icons
+                                                    .calendar_today_outlined,
+                                                color: Color(0xff12B281),
+                                              ),
                                             ),
-                                          ))
+                                            Text(
+                                              DateFormat.yMMMMEEEEd()
+                                                  .format(startTime),
+                                              style: TextStyle(
+                                                  color: Color(0xff12B281)),
+                                            )
+                                          ],
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -522,14 +535,18 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                                 currentTime: endTime,
                                                 locale: LocaleType.vi)
                                           },
-                                          child: Card(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                                            height: MediaQuery.of(context).size.height / 333.5 * 26,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(12),
+                                              border: Border.all(
+                                                color: Color(0xffededed)
+                                              )
                                             ),
                                             child: Row(
                                               children: [
-                                                Expanded(
+                                                Flexible(
                                                     child: Container(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: 12,
@@ -579,96 +596,150 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                                     fontStyle: FontStyle.normal,
                                                   )),
                                               Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    187.5 *
-                                                    1,
+                                                width: MediaQuery.of(context).size.width / 187.5 * 1,
                                                 height: MediaQuery.of(context)
                                                         .size
                                                         .height /
                                                     333.5 *
                                                     4,
                                               ),
-                                              Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    flex: 6,
-                                                    child: Container(
-                                                      child: TextFormField(
-                                                        keyboardType:
-                                                            TextInputType
-                                                                .number,
-                                                        validator: (value) {
-                                                          if (double.tryParse(value
-                                                                  .toString()) !=
-                                                              null)
-                                                            return null;
-                                                          else
-                                                            return 'Hãy nhập vào 1 số';
-                                                        },
-                                                        controller:
-                                                            savingAverage,
-                                                        onChanged: (text) {
-                                                          bool ok = false;
-                                                          if (double.tryParse(
-                                                                  text) !=
-                                                              null) ok = true;
-                                                          calculatEndtime();
-                                                          setState(() {
-                                                            _validate = ok;
-                                                          });
-                                                        },
-                                                        decoration: InputDecoration(
+                                              Container(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      width: MediaQuery.of(context).size.width / 187.5 * 100,
+                                                      child: Flexible(
+                                                        child: TextFormField(
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          validator: (value) {
+                                                            if (double.tryParse(value
+                                                                    .toString()) !=
+                                                                null)
+                                                              return null;
+                                                            else
+                                                              return 'Hãy nhập vào 1 số';
+                                                          },
+                                                          controller:
+                                                              savingAverage,
+                                                          onChanged: (text) {
+                                                            bool ok = false;
+                                                            if (double.tryParse(
+                                                                    text) !=
+                                                                null) ok = true;
+                                                            calculatEndtime();
+                                                            setState(() {
+                                                              _validate = ok;
+                                                            });
+                                                          },
+                                                          decoration: InputDecoration(
                                                             border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            10)))),
+                                                              borderRadius: BorderRadius.circular(12.0),
+                                                              borderSide: BorderSide(
+                                                                color: Colors.red,
+                                                                width: 1,
+                                                              ),
+                                                            ),
+                                                            disabledBorder: InputBorder.none,
+                                                            errorBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(12.0),
+                                                              borderSide: BorderSide(
+                                                                color: Colors.red,
+                                                                width: 1,
+                                                              ),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(12.0),
+                                                              borderSide: BorderSide(
+                                                                color: Color(0xff12b281),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                            enabledBorder: OutlineInputBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(12.0),
+                                                              borderSide: BorderSide(
+                                                                color: Color(0xffededed),
+                                                                width: 1.0,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 4,
-                                                    child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          left: 10),
-                                                      child: DropdownButtonFormField<
-                                                              String>(
-                                                          decoration: InputDecoration(
+                                                    Flexible(
+                                                      child: Container(
+                                                        width: MediaQuery.of(context).size.width / 187.5 * 67.5,
+                                                        height: MediaQuery.of(context).size.height / 333.5 * 26,
+                                                        child: DropdownButtonFormField<
+                                                                String>(
+                                                          icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+                                                            decoration: InputDecoration(
+                                                              labelStyle: TextStyle(
+                                                                fontSize: 12 * curScaleFactor,
+                                                              ),
                                                               border: OutlineInputBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)))),
-                                                          value:
-                                                              selectedFrequency,
-                                                          items: listFrequency
-                                                              .map((value) =>
-                                                                  DropdownMenuItem(
-                                                                    child: Text(
-                                                                        value),
-                                                                    value:
-                                                                        value,
-                                                                  ))
-                                                              .toList(),
-                                                          onChanged:
-                                                              (String? value) {
-                                                            setState(() {
-                                                              selectedFrequency =
-                                                                  value
-                                                                      .toString();
-                                                            });
-                                                            if (_validate)
-                                                              calculatEndtime();
-                                                          },
-                                                          hint: Text(
-                                                              "Select item")),
-                                                    ),
-                                                  )
-                                                ],
+                                                                borderRadius: BorderRadius.circular(12.0),
+                                                                borderSide: BorderSide(
+                                                                  color: Colors.red,
+                                                                  width: 1,
+                                                                ),
+                                                              ),
+                                                              disabledBorder: InputBorder.none,
+                                                              errorBorder: OutlineInputBorder(
+                                                                borderRadius: BorderRadius.circular(12.0),
+                                                                borderSide: BorderSide(
+                                                                  color: Colors.red,
+                                                                  width: 1,
+                                                                ),
+                                                              ),
+                                                              focusedBorder: OutlineInputBorder(
+                                                                borderRadius:
+                                                                BorderRadius.circular(12.0),
+                                                                borderSide: BorderSide(
+                                                                  color: Color(0xff12b281),
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                              enabledBorder: OutlineInputBorder(
+                                                                borderRadius:
+                                                                BorderRadius.circular(12.0),
+                                                                borderSide: BorderSide(
+                                                                  color: Color(0xffededed),
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            value:
+                                                                selectedFrequency,
+                                                            items: listFrequency
+                                                                .map((value) =>
+                                                                    DropdownMenuItem(
+                                                                      child: Text(
+                                                                          value),
+                                                                      value:
+                                                                          value,
+                                                                    ))
+                                                                .toList(),
+                                                            onChanged:
+                                                                (String? value) {
+                                                              setState(() {
+                                                                selectedFrequency =
+                                                                    value
+                                                                        .toString();
+                                                              });
+                                                              if (_validate)
+                                                                calculatEndtime();
+                                                            },
+                                                            hint: Text(
+                                                                "Select item")),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                               Container(
                                                 width: MediaQuery.of(context)
@@ -773,130 +844,163 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                                     4,
                                               ),
                                               Container(
-                                                child: IntrinsicHeight(
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .stretch,
-                                                    children: [
-                                                      Container(
-                                                        child: Expanded(
-                                                          flex: 6,
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              DatePicker.showDatePicker(
-                                                                  context,
-                                                                  showTitleActions:
-                                                                      true,
-                                                                  minTime:
-                                                                      DateTime
-                                                                          .now(),
-                                                                  // maxTime: DateTime(2019, 6, 7),
-                                                                  onChanged:
-                                                                      (date) {
-                                                                print(DateFormat
-                                                                        .yMMMMEEEEd()
-                                                                    .format(
-                                                                        date));
-                                                              }, onConfirm:
-                                                                      (date) {
-                                                                // print('confirm $date');
-                                                                setState(() {
-                                                                  autoNoteDate =
-                                                                      date;
-                                                                });
-                                                              },
-                                                                  currentTime:
-                                                                      startTime,
-                                                                  locale:
-                                                                      LocaleType
-                                                                          .vi);
-                                                            },
-                                                            child: Card(
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8),
-                                                              ),
-                                                              child: Row(
-                                                                children: [
-                                                                  Container(
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            12,
-                                                                        horizontal:
-                                                                            16),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Container(
-                                                                          // height: double.infinity,
-                                                                          margin:
-                                                                              EdgeInsets.only(right: 26),
-                                                                          child:
-                                                                              Icon(
-                                                                            Icons.calendar_today_outlined,
-                                                                            color:
-                                                                                Color(0xff12B281),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          autoNoteDate != null
-                                                                              ? DateFormat('EEE, MMM dd, yyyy').format(autoNoteDate)
-                                                                              : '',
-                                                                          style:
-                                                                              TextStyle(color: Color(0xff12B281)),
-                                                                        )
-                                                                      ],
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          DatePicker.showDatePicker(
+                                                              context,
+                                                              showTitleActions:
+                                                                  true,
+                                                              minTime:
+                                                                  DateTime
+                                                                      .now(),
+                                                              // maxTime: DateTime(2019, 6, 7),
+                                                              onChanged:
+                                                                  (date) {
+                                                            print(DateFormat
+                                                                    .yMMMMEEEEd()
+                                                                .format(
+                                                                    date));
+                                                          }, onConfirm:
+                                                                  (date) {
+                                                            // print('confirm $date');
+                                                            setState(() {
+                                                              autoNoteDate =
+                                                                  date;
+                                                            });
+                                                          },
+                                                              currentTime:
+                                                                  startTime,
+                                                              locale:
+                                                                  LocaleType
+                                                                      .vi);
+                                                        },
+                                                        child: Container(
+                                                          width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                              187.5 *
+                                                              107,
+                                                          height: MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                              333.5 *
+                                                              28,
+                                                          decoration: BoxDecoration(
+                                                            borderRadius: BorderRadius.circular(12),
+                                                            border: Border.all(
+                                                              color: Color(0xffededed)
+                                                            )
+                                                          ),
+                                                          child: Row(
+                                                            children: [
+                                                              Container(
+
+                                                                padding: EdgeInsets.symmetric(
+                                                                    vertical:
+                                                                        12,
+                                                                    horizontal:
+                                                                        16),
+                                                                child: Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      // height: double.infinity,
+                                                                      margin:
+                                                                          EdgeInsets.only(right: 26),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons.calendar_today_outlined,
+                                                                        color:
+                                                                            Color(0xff12B281),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                ],
+                                                                    Text(
+                                                                      autoNoteDate != null
+                                                                          ? DateFormat('EEE, MMM dd, yyyy').format(autoNoteDate)
+                                                                          : '',
+                                                                      style:
+                                                                          TextStyle(color: Color(0xff12B281)),
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
-                                                      Expanded(
-                                                        flex: 4,
-                                                        child: Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10),
-                                                          child:
-                                                              DropdownButtonFormField<
-                                                                  String>(
-                                                            decoration: InputDecoration(
+                                                    ),
+                                                    Flexible(
+                                                      child: Container(
+                                                        margin:
+                                                            EdgeInsets.only(
+                                                                left: 10),
+                                                        child:
+                                                            DropdownButtonFormField<
+                                                                String>(
+                                                              icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+                                                              decoration: InputDecoration(
+                                                                labelStyle: TextStyle(
+                                                                  fontSize: 12 * curScaleFactor,
+                                                                ),
                                                                 border: OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(10)))),
-                                                            value:
-                                                                autoNoteFrequency,
-                                                            items: listFrequency
-                                                                .map((value) =>
-                                                                    DropdownMenuItem(
-                                                                      child: Text(
-                                                                          value),
-                                                                      value:
-                                                                          value,
-                                                                    ))
-                                                                .toList(),
-                                                            onChanged: (String?
-                                                                value) {
-                                                              setState(() {
-                                                                autoNoteFrequency =
-                                                                    value
-                                                                        .toString();
-                                                              });
-                                                              if (_validate)
-                                                                calculatEndtime();
-                                                            },
-                                                          ),
+                                                                  borderRadius: BorderRadius.circular(12.0),
+                                                                  borderSide: BorderSide(
+                                                                    color: Colors.red,
+                                                                    width: 1,
+                                                                  ),
+                                                                ),
+                                                                disabledBorder: InputBorder.none,
+                                                                errorBorder: OutlineInputBorder(
+                                                                  borderRadius: BorderRadius.circular(12.0),
+                                                                  borderSide: BorderSide(
+                                                                    color: Colors.red,
+                                                                    width: 1,
+                                                                  ),
+                                                                ),
+                                                                focusedBorder: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(12.0),
+                                                                  borderSide: BorderSide(
+                                                                    color: Color(0xff12b281),
+                                                                    width: 1.0,
+                                                                  ),
+                                                                ),
+                                                                enabledBorder: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(12.0),
+                                                                  borderSide: BorderSide(
+                                                                    color: Color(0xffededed),
+                                                                    width: 1.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          value:
+                                                              autoNoteFrequency,
+                                                          items: listFrequency
+                                                              .map((value) =>
+                                                                  DropdownMenuItem(
+                                                                    child: Text(
+                                                                        value),
+                                                                    value:
+                                                                        value,
+                                                                  ))
+                                                              .toList(),
+                                                          onChanged: (String?
+                                                              value) {
+                                                            setState(() {
+                                                              autoNoteFrequency =
+                                                                  value
+                                                                      .toString();
+                                                            });
+                                                            if (_validate)
+                                                              calculatEndtime();
+                                                          },
                                                         ),
-                                                      )
-                                                    ],
-                                                  ),
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                               )
                                             ],

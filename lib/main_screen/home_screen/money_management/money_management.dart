@@ -4,6 +4,7 @@ import 'package:active_ageing_mobile_app/main_screen/home_screen/money_managemen
 import 'package:active_ageing_mobile_app/main_screen/home_screen/money_management/list_transactions_by_date.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -216,8 +217,46 @@ class _MoneyManagementScreenState extends State<MoneyManagementScreen> {
                                     listTransaction,
                                     fetchAllData,
                                     updateState)
-                                : Text('Bạn chưa có ví nào'),
-                            hadWallet ? diaryWidget : Text('Bạn chưa có ví nào')
+                                : Column(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 187.5 * 4,
+                                  height: MediaQuery.of(context).size.height / 333.5 * 16,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 187.5 *120,
+                                  child: Text('Bạn chưa có ví nào, tạo ví trước để quản lý tài chính tốt hơn.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      color: Color(0xffdedede),
+                                      fontSize: 16 * curScaleFactor,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.normal,
+                                    ),),
+                                ),
+                              ],
+                            ),
+                            hadWallet ? diaryWidget : Column(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 187.5 * 4,
+                                  height: MediaQuery.of(context).size.height / 333.5 * 16,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 187.5 *120,
+                                  child: Text('Bạn chưa có ví nào, tạo ví trước để quản lý tài chính tốt hơn.',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      color: Color(0xffdedede),
+                                      fontSize: 16 * curScaleFactor,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.normal,
+                                    ),),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       )

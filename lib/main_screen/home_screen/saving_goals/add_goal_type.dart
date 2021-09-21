@@ -84,7 +84,8 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.menu_book_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.menu_book_rounded,
+                          color: _selectedIndex == 0 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -132,7 +133,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.car_rental_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.car_rental_rounded, color: _selectedIndex == 1 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -180,7 +181,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.computer_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.computer_rounded, color: _selectedIndex == 2 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -233,7 +234,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.pie_chart_outline_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.pie_chart_outline_rounded, color: _selectedIndex == 3 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -281,7 +282,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.wheelchair_pickup_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.wheelchair_pickup_rounded, color: _selectedIndex == 4 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -329,7 +330,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.house_siding_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.house_siding_rounded, color: _selectedIndex == 5 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -382,7 +383,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.wallet_giftcard_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.wallet_giftcard_rounded, color: _selectedIndex == 6 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -430,7 +431,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.travel_explore_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.travel_explore_rounded, color: _selectedIndex == 7 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,
@@ -478,7 +479,7 @@ class _AddGoalTypeState extends State<AddGoalType> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.music_video_rounded, color: Color(0xff666666), size: 30,),
+                        Icon(Icons.music_video_rounded, color: _selectedIndex == 8 ? Color(0xff12B281) : Color(0xff666666), size: 30,),
                         Container(
                           width:
                               (MediaQuery.of(context).size.width) / 187.5 * 1,

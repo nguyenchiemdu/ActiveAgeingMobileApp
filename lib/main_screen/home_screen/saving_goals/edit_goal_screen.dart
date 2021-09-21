@@ -294,75 +294,129 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   fontStyle: FontStyle.normal,
                                 )),
                             Container(
-                              width:
-                                  MediaQuery.of(context).size.width / 187.5 * 1,
+                              width: MediaQuery.of(context).size.width / 187.5 * 1,
                               height: MediaQuery.of(context).size.height /
                                   333.5 *
                                   4,
                             ),
                             Container(
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Expanded(
-                                      flex: 6,
-                                      child: Container(
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          onChanged: (value) {
-                                            calculatEndtime();
-                                          },
-                                          validator: (value) {
-                                            if (double.tryParse(
-                                                    value.toString()) !=
-                                                null)
-                                              return null;
-                                            else
-                                              return 'Hãy nhập vào 1 số';
-                                          },
-                                          controller: savedMoney,
-                                          decoration: InputDecoration(
-                                              hintText: 'Placeholder',
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              10)))),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width / 187.5 * 120,
+                                      child: TextFormField(
+                                        keyboardType: TextInputType.number,
+                                        onChanged: (value) {
+                                          calculatEndtime();
+                                        },
+                                        validator: (value) {
+                                          if (double.tryParse(
+                                                  value.toString()) !=
+                                              null)
+                                            return null;
+                                          else
+                                            return 'Hãy nhập vào 1 số';
+                                        },
+                                        controller: savedMoney,
+                                        decoration: InputDecoration(
+                                          labelStyle: TextStyle(
+                                            fontSize: 12 * curScaleFactor,
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: BorderSide(
+                                              color: Colors.red,
+                                              width: 1,
+                                            ),
+                                          ),
+                                          disabledBorder: InputBorder.none,
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0),
+                                            borderSide: BorderSide(
+                                              color: Colors.red,
+                                              width: 1,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(12.0),
+                                            borderSide: BorderSide(
+                                              color: Color(0xff12b281),
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(12.0),
+                                            borderSide: BorderSide(
+                                              color: Color(0xffededed),
+                                              width: 1.0,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Container(
-                                        margin: EdgeInsets.only(left: 10),
-                                        child: DropdownButtonFormField<String>(
-                                            decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)))),
-                                            value: selectedCurrency,
-                                            items: listCurrency
-                                                .map(
-                                                    (value) => DropdownMenuItem(
-                                                          child: Text(value),
-                                                          value: value,
-                                                        ))
-                                                .toList(),
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                selectedCurrency =
-                                                    value.toString();
-                                              });
-                                            },
-                                            hint: Text("Select item")),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Flexible(
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      child: DropdownButtonFormField<String>(
+                                          icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
+                                          decoration: InputDecoration(
+                                            labelStyle: TextStyle(
+                                              fontSize: 12 * curScaleFactor,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(12.0),
+                                              borderSide: BorderSide(
+                                                color: Colors.red,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            disabledBorder: InputBorder.none,
+                                            errorBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(12.0),
+                                              borderSide: BorderSide(
+                                                color: Colors.red,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(12.0),
+                                              borderSide: BorderSide(
+                                                color: Color(0xff12b281),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(12.0),
+                                              borderSide: BorderSide(
+                                                color: Color(0xffededed),
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                          ),
+                                          value: selectedCurrency,
+                                          items: listCurrency
+                                              .map(
+                                                  (value) => DropdownMenuItem(
+                                                        child: Text(value),
+                                                        value: value,
+                                                      ))
+                                              .toList(),
+                                          onChanged: (String? value) {
+                                            setState(() {
+                                              selectedCurrency =
+                                                  value.toString();
+                                            });
+                                          },
+                                          hint: Text("Select item")),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                             Container(
@@ -429,13 +483,18 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                     currentTime: startTime,
                                     locale: LocaleType.vi)
                               },
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                                height: MediaQuery.of(context).size.height / 333.5 * 26,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                        color: Color(0xffededed)
+                                    )
                                 ),
                                 child: Row(
                                   children: [
-                                    Expanded(
+                                    Flexible(
                                         child: Container(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 12, horizontal: 16),
@@ -534,13 +593,18 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                           currentTime: endTime,
                                           locale: LocaleType.vi)
                                     },
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                                      height: MediaQuery.of(context).size.height / 333.5 * 26,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(12),
+                                          border: Border.all(
+                                              color: Color(0xffededed)
+                                          )
                                       ),
                                       child: Row(
                                         children: [
-                                          Expanded(
+                                          Flexible(
                                               child: Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 12, horizontal: 16),

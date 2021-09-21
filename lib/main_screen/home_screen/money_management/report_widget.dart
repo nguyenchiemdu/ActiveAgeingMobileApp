@@ -94,7 +94,7 @@ class ReportWidget extends StatelessWidget {
     });
   }
 
-  getListPercentage(List listTransaction, double sum) {
+  getListPercentage(List listTransaction, double sum, String method) {
     List listCategories = getSetCategory(listTransaction);
     Map mapPercentage = {};
     listTransaction.forEach((transaction) {
@@ -107,6 +107,23 @@ class ReportWidget extends StatelessWidget {
 
       return {'nameCategory': category, 'percentage': percent};
     }).toList();
+    print('listResult');
+    print(listResult);
+    List listTemp = [];
+    if (method == '+') {
+      listTemp.add({'nameCategory': 'Thu nợ', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Lương', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Chứng khoán ', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Coin', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Khác', 'percentage': 0});
+    } else {
+      listTemp.add({'nameCategory': 'Thuê nhà', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Ăn uống', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Chứng khoán ', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Mua sắm', 'percentage': 0});
+      listTemp.add({'nameCategory': 'Khác', 'percentage': 0});
+    }
+    // if (listResult.length == 0) return listTemp;
     return listResult;
   }
 
@@ -155,8 +172,9 @@ class ReportWidget extends StatelessWidget {
     // calculateChartDataByDate();
     // calculateChartDataByWeek();
     // calculateChartDataByMonth();
-    List listPercentageIncome = getListPercentage(listIncome, incomeValue);
-    List listPercentageOutcome = getListPercentage(listOutcome, outcomeValue);
+    List listPercentageIncome = getListPercentage(listIncome, incomeValue, '+');
+    List listPercentageOutcome =
+        getListPercentage(listOutcome, outcomeValue, '-');
     double startMoney = endMoney + outcomeValue - incomeValue;
     return SingleChildScrollView(
       child: Container(
@@ -176,19 +194,18 @@ class ReportWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 187.5 * 83.75,
                   height: MediaQuery.of(context).size.height / 333.5 * 24,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Color(0xffdedede),
-                      width: 1
-                    )
-                  ),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Color(0xffdedede), width: 1)),
                   child: Row(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width / 187.5 * 4,
                         height: MediaQuery.of(context).size.height / 333.5 * 2,
                       ),
-                      Icon(Icons.payments_rounded, color:  Color(0xff12b281),),
+                      Icon(
+                        Icons.payments_rounded,
+                        color: Color(0xff12b281),
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width / 187.5 * 4,
                         height: MediaQuery.of(context).size.height / 333.5 * 2,
@@ -198,18 +215,20 @@ class ReportWidget extends StatelessWidget {
                             decoration: InputDecoration(
                               focusedBorder: InputBorder.none,
                               enabledBorder: InputBorder.none,
-                                ),
+                            ),
                             value: selectedName,
                             items: listWallet
                                 .map((wallet) => DropdownMenuItem(
-                                      child: Text(wallet['name'],
+                                      child: Text(
+                                        wallet['name'],
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           color: Color(0xff4d4d4d),
                                           fontSize: 12 * curScaleFactor,
                                           fontWeight: FontWeight.w500,
                                           fontStyle: FontStyle.normal,
-                                        ),),
+                                        ),
+                                      ),
                                       value: wallet['name'].toString(),
                                     ))
                                 .toList(),
@@ -238,11 +257,7 @@ class ReportWidget extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 333.5 * 24,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                          color: Color(0xffdedede),
-                          width: 1
-                      )
-                  ),
+                      border: Border.all(color: Color(0xffdedede), width: 1)),
                   child: InkWell(
                     onTap: () async {
                       Map result = await Navigator.push(
@@ -261,11 +276,11 @@ class ReportWidget extends StatelessWidget {
                         child: Container(
                       child: timePicker != null
                           ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-
-                        children: [
-                                Text(timePicker['duration'] +" gần nhất",
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  timePicker['duration'] + " gần nhất",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: Color(0xff1a1a1a),
@@ -274,18 +289,20 @@ class ReportWidget extends StatelessWidget {
                                     fontStyle: FontStyle.normal,
                                   ),
                                 ),
-                                Text(DateFormat('yMd')
-                                        .format(timePicker['startTime']) +
-                                    '-' +
-                                    DateFormat('yMd')
-                                        .format(timePicker['endTime']),
+                                Text(
+                                  DateFormat('yMd')
+                                          .format(timePicker['startTime']) +
+                                      '-' +
+                                      DateFormat('yMd')
+                                          .format(timePicker['endTime']),
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     color: Color(0xff999999),
                                     fontSize: 12 * curScaleFactor,
                                     fontWeight: FontWeight.w400,
                                     fontStyle: FontStyle.normal,
-                                  ),)
+                                  ),
+                                )
                               ],
                             )
                           : Text('Chọn khoảng thời gian'),
@@ -295,24 +312,21 @@ class ReportWidget extends StatelessWidget {
               ],
             ),
             Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 333.5 * 6,
-            ),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 333.5 * 0.75,
-                color: Color(0xffdedede)
-            ),
-            Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 333.5 * 4,
-              color: Color(0xffededed)
+              height: MediaQuery.of(context).size.height / 333.5 * 6,
             ),
             Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 333.5 * 0.75,
-                color: Color(0xffdedede)
-            ),
+                color: Color(0xffdedede)),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 333.5 * 4,
+                color: Color(0xffededed)),
+            Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 333.5 * 0.75,
+                color: Color(0xffdedede)),
             Container(
               child: Column(
                 children: [
@@ -322,54 +336,64 @@ class ReportWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 93.75,
+                          width:
+                              MediaQuery.of(context).size.width / 187.5 * 93.75,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Số dư đầu',
+                              Text(
+                                'Số dư đầu',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: Color(0xff999999),
                                   fontSize: 12 * curScaleFactor,
                                   fontWeight: FontWeight.w400,
                                   fontStyle: FontStyle.normal,
-                                ),),
-                              Text(formatter.format(startMoney) +
-                                  ' ' +
-                                  selectedWallet['currency'],
+                                ),
+                              ),
+                              Text(
+                                formatter.format(startMoney) +
+                                    ' ' +
+                                    selectedWallet['currency'],
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: Color(0xff1a1a1a),
                                   fontSize: 12 * curScaleFactor,
                                   fontWeight: FontWeight.w400,
                                   fontStyle: FontStyle.normal,
-                                ),)
+                                ),
+                              )
                             ],
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 93.75,
+                          width:
+                              MediaQuery.of(context).size.width / 187.5 * 93.75,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Số dư cuối',
+                              Text(
+                                'Số dư cuối',
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: Color(0xff999999),
                                   fontSize: 12 * curScaleFactor,
                                   fontWeight: FontWeight.w400,
                                   fontStyle: FontStyle.normal,
-                                ),),
-                              Text(formatter.format(endMoney) +
-                                  ' ' +
-                                  selectedWallet['currency'],
+                                ),
+                              ),
+                              Text(
+                                formatter.format(endMoney) +
+                                    ' ' +
+                                    selectedWallet['currency'],
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   color: Color(0xff1a1a1a),
                                   fontSize: 12 * curScaleFactor,
                                   fontWeight: FontWeight.w400,
                                   fontStyle: FontStyle.normal,
-                                ),)
+                                ),
+                              )
                             ],
                           ),
                         )
@@ -379,50 +403,50 @@ class ReportWidget extends StatelessWidget {
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Container(
                     height: MediaQuery.of(context).size.height / 333.5 * 28,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Thu nhập ròng',
+                        Text(
+                          'Thu nhập ròng',
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff999999),
                             fontSize: 12 * curScaleFactor,
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
-                          ),),
-                        Text(formatter.format(endMoney - startMoney) +
-                            ' ' +
-                            selectedWallet['currency'],
+                          ),
+                        ),
+                        Text(
+                          formatter.format(endMoney - startMoney) +
+                              ' ' +
+                              selectedWallet['currency'],
                           style: TextStyle(
                             fontFamily: 'Inter',
                             color: Color(0xff1a1a1a),
                             fontSize: 16 * curScaleFactor,
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
-                          ),)
+                          ),
+                        )
                       ],
                     ),
                   ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 4,
-                      color: Color(0xffededed)
-                  ),
+                      color: Color(0xffededed)),
                   ChartManagementWidget(listTransaction, timePicker),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.75,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 27,
@@ -430,7 +454,8 @@ class ReportWidget extends StatelessWidget {
                           left: MediaQuery.of(context).size.width / 187.5 * 8,
                           top: MediaQuery.of(context).size.height / 333.5 * 12),
                       color: Color(0xffededed),
-                      child: Text("Chi tiết khoản thu chi",
+                      child: Text(
+                        "Chi tiết khoản thu chi",
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff999999),
@@ -438,30 +463,33 @@ class ReportWidget extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           fontStyle: FontStyle.normal,
                         ),
-                      )
-                  ),
+                      )),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.75,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Row(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 93.25,
-                        height: MediaQuery.of(context).size.height / 333.5 * 110.5,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 93.25,
+                        height:
+                            MediaQuery.of(context).size.height / 333.5 * 110.5,
                         // height: 500,
                         child: Column(
                           children: [
-                            Text('Khoản thu',
+                            Text(
+                              'Khoản thu',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff666666),
                                 fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.normal,
-                              ),),
-                            Text(formatter.format(incomeValue),
+                              ),
+                            ),
+                            Text(
+                              formatter.format(incomeValue),
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff18CE8C),
@@ -516,31 +544,40 @@ class ReportWidget extends StatelessWidget {
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                          height: MediaQuery.of(context).size.height / 333.5 * 110.5,
-                          color: Color(0xffdedede)
-                      ),
+                          width:
+                              MediaQuery.of(context).size.width / 187.5 * 0.5,
+                          height: MediaQuery.of(context).size.height /
+                              333.5 *
+                              110.5,
+                          color: Color(0xffdedede)),
                       Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 93.25,
-                        height: MediaQuery.of(context).size.height / 333.5 * 110.5,                        // height: 500,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 93.25,
+                        height: MediaQuery.of(context).size.height /
+                            333.5 *
+                            110.5, // height: 500,
                         child: Column(
                           children: [
-                            Text('Khoản chi',
+                            Text(
+                              'Khoản chi',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff666666),
                                 fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.normal,
-                              ),),
-                            Text(formatter.format(outcomeValue),
+                              ),
+                            ),
+                            Text(
+                              formatter.format(outcomeValue),
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xffFF2d2d),
                                 fontSize: 16 * curScaleFactor,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
-                              ),),
+                              ),
+                            ),
                             Container(
                               child: Column(
                                   children: listPercentageOutcome
@@ -593,45 +630,63 @@ class ReportWidget extends StatelessWidget {
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Row(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 93.25,
-                        height: MediaQuery.of(context).size.height / 333.5 * 55.5,                           // height: 500,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 93.25,
+                        height: MediaQuery.of(context).size.height /
+                            333.5 *
+                            55.5, // height: 500,
                         child: Column(
                           children: [
                             Container(
-                                width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                                height: MediaQuery.of(context).size.height / 333.5 * 8,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  8,
                             ),
-                            Text('Cho vay (phải thu)',
+                            Text(
+                              'Cho vay (phải thu)',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff666666),
                                 fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.normal,
-                              ),),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 1,
+                              ),
                             ),
-                            Text(formatter.format(sumOutcomeLoan),
+                            Container(
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  1,
+                            ),
+                            Text(
+                              formatter.format(sumOutcomeLoan),
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff18CE8C),
                                 fontSize: 16 * curScaleFactor,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
-                              ),),
+                              ),
+                            ),
                             // Container(
                             //   child: Text(formatter.format(sumIncomeLoan))
                             // ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             TextButton(
                               onPressed: () {
@@ -665,42 +720,62 @@ class ReportWidget extends StatelessWidget {
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                          height: MediaQuery.of(context).size.height / 333.5 * 55.5,
-                          color: Color(0xffdedede)
-                      ),
+                          width:
+                              MediaQuery.of(context).size.width / 187.5 * 0.5,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 55.5,
+                          color: Color(0xffdedede)),
                       Container(
-                        width: MediaQuery.of(context).size.width / 187.5 * 93.25,
-                        height: MediaQuery.of(context).size.height / 333.5 * 55.5,                           // height: 500,
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 93.25,
+                        height: MediaQuery.of(context).size.height /
+                            333.5 *
+                            55.5, // height: 500,
                         child: Column(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 8,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  8,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 1,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  1,
                             ),
-                            Text('Nợ (phải trả)',
+                            Text(
+                              'Nợ (phải trả)',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xff666666),
                                 fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.normal,
-                              ),),
-                            Text(formatter.format(sumIncomeLoan),
+                              ),
+                            ),
+                            Text(
+                              formatter.format(sumIncomeLoan),
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 color: Color(0xffFF2d2d),
                                 fontSize: 16 * curScaleFactor,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
-                              ),),
+                              ),
+                            ),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 0.5,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width: MediaQuery.of(context).size.width /
+                                  187.5 *
+                                  0.5,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             TextButton(
                               onPressed: () {
@@ -736,18 +811,18 @@ class ReportWidget extends StatelessWidget {
                     ],
                   ),
                   Container(
-                      width: MediaQuery.of(context).size.width ,
+                      width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                      color: Color(0xffdedede)
-                  ),
+                      color: Color(0xffdedede)),
                   Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height / 333.5 *27,
+                      height: MediaQuery.of(context).size.height / 333.5 * 27,
                       padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width / 187.5 * 8,
                           top: MediaQuery.of(context).size.height / 333.5 * 12),
                       color: Color(0xffededed),
-                      child: Text("Báo cáo mức tăng trưởng",
+                      child: Text(
+                        "Báo cáo mức tăng trưởng",
                         style: TextStyle(
                           fontFamily: 'Inter',
                           color: Color(0xff999999),
@@ -755,9 +830,7 @@ class ReportWidget extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           fontStyle: FontStyle.normal,
                         ),
-                      )
-
-                  ),
+                      )),
                   GrowthReportWidget(listMonths, listGrowthIncome,
                       'Tổng thu nhập', Color(0xff12B281)),
                   GrowthReportWidget(listMonths, listGrowthOutcome,

@@ -191,6 +191,7 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                   333.5 *
                                   24,
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: annualSaving,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==
@@ -271,6 +272,7 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                   333.5 *
                                   24,
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: retirementPay,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==
@@ -352,6 +354,7 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                   333.5 *
                                   24,
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: rateBefore,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==
@@ -432,6 +435,7 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                   333.5 *
                                   24,
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: rateAfter,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==
@@ -513,6 +517,7 @@ class _AddRetirementFinancialState extends State<AddRetirementFinancial> {
                                   333.5 *
                                   24,
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   controller: pension,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==

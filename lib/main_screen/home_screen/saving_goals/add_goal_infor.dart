@@ -184,6 +184,7 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                         4,
                                   ),
                                   TextFormField(
+                                    keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (double.tryParse(value.toString()) !=
                                           null)
@@ -253,6 +254,8 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                             flex: 5,
                                             child: Container(
                                               child: TextFormField(
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   onChanged: (value) {
                                                     calculatEndtime();
                                                   },
@@ -595,6 +598,9 @@ class _AddGoalInforState extends State<AddGoalInfor> {
                                                     flex: 6,
                                                     child: Container(
                                                       child: TextFormField(
+                                                        keyboardType:
+                                                            TextInputType
+                                                                .number,
                                                         validator: (value) {
                                                           if (double.tryParse(value
                                                                   .toString()) !=

@@ -18,7 +18,7 @@ class _CreateWalletState extends State<CreateWallet> {
   var _formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController money = TextEditingController();
-
+  bool isCreatingWallet = false;
   @override
   Widget build(BuildContext context) {
     final curScaleFactor = MediaQuery.of(context).textScaleFactor;
@@ -179,6 +179,7 @@ class _CreateWalletState extends State<CreateWallet> {
                       width: MediaQuery.of(context).size.width / 187.5 * 155.5,
                       height: MediaQuery.of(context).size.height / 333.5 * 24,
                       child: TextFormField(
+                          keyboardType: TextInputType.number,
                           controller: money,
                           validator: (money) {
                             if (double.tryParse(money.toString()) == null) {
@@ -217,7 +218,11 @@ class _CreateWalletState extends State<CreateWallet> {
                     ),
                     child: ElevatedButton(
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate() &&
+                              !isCreatingWallet) {
+                            setState(() {
+                              isCreatingWallet = true;
+                            });
                             var wallet = {
                               'name': name.text,
                               'type': widget.type,
@@ -234,7 +239,9 @@ class _CreateWalletState extends State<CreateWallet> {
                             Navigator.pop(context);
                           }
                         },
-                        child: Text('Tạo ví'.toUpperCase())),
+                        child: Text(!isCreatingWallet
+                            ? 'Tạo ví'
+                            : 'Đang tạo ví ...'.toUpperCase())),
                   ),
                 ),
               )

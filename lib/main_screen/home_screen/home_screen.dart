@@ -126,23 +126,30 @@ class HomeScreen extends StatelessWidget {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 40,
-                                              height: 40,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(12),
-                                                color: Color(0xffffffff)
-                                              ),
-                                              child: Icon(Icons.wheelchair_pickup_rounded, color: Color(0xff12B281))
-                                            ),
+                                                width: 40,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    color: Color(0xffffffff)),
+                                                child: Icon(
+                                                    Icons
+                                                        .wheelchair_pickup_rounded,
+                                                    color: Color(0xff12B281))),
                                             Container(
-                                              width:
-                                              MediaQuery.of(context).size.width / 187.5 * 8,
-                                              height: MediaQuery.of(context).size.height /
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  187.5 *
+                                                  8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
                                                   333.5 *
                                                   4,
                                             ),
-                                            new Text(
-                                                "KẾ HOẠCH VỀ HƯU",
+                                            new Text("KẾ HOẠCH VỀ HƯU",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',
@@ -183,15 +190,22 @@ class HomeScreen extends StatelessWidget {
                                                 width: 40,
                                                 height: 40,
                                                 decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(12),
-                                                    color: Color(0xffffffff)
-                                                ),
-                                                child: Icon(Icons.savings_rounded, color: Color(0xff12B281))
-                                            ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    color: Color(0xffffffff)),
+                                                child: Icon(
+                                                    Icons.savings_rounded,
+                                                    color: Color(0xff12B281))),
                                             Container(
-                                              width:
-                                              MediaQuery.of(context).size.width / 187.5 * 8,
-                                              height: MediaQuery.of(context).size.height /
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  187.5 *
+                                                  8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
                                                   333.5 *
                                                   4,
                                             ),
@@ -235,7 +249,8 @@ class HomeScreen extends StatelessWidget {
                         width:
                             MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Row(children: [
-                          Icon(Icons.monetization_on_outlined, color: Color(0xff999999)),
+                          Icon(Icons.monetization_on_outlined,
+                              color: Color(0xff999999)),
                           new Text("Tài chính",
                               style: TextStyle(
                                 fontFamily: 'Inter',
@@ -257,33 +272,52 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Container(
                               width:
-                              MediaQuery.of(context).size.width / 187.5 * 4,
-                              height:
-                              MediaQuery.of(context).size.height / 333.5 * 0,
+                                  MediaQuery.of(context).size.width / 187.5 * 4,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  0,
                             ),
                             Row(children: [
                               InkWell(
                                 customBorder: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MoneyManagementScreen(
+                                                  docSnap.data()['listWallet'],
+                                                  false,
+                                                  1)));
+                                },
                                 child: Ink(
-                                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
-                                    height: MediaQuery.of(context).size.height / 333.5 * 44,
+                                    width: MediaQuery.of(context).size.width /
+                                        187.5 *
+                                        83.75,
+                                    height: MediaQuery.of(context).size.height /
+                                        333.5 *
+                                        44,
                                     decoration: BoxDecoration(
                                         color: Color(0xffffffff),
-                                        borderRadius: BorderRadius.circular(12)),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.calendar_today_rounded, color: Color(0xffFF800B)),
+                                          Icon(Icons.calendar_today_rounded,
+                                              color: Color(0xffFF800B)),
                                           Container(
-                                            width:
-                                            MediaQuery.of(context).size.width /
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
                                                 187.5 *
                                                 4,
-                                            height:
-                                            MediaQuery.of(context).size.height /
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
                                                 333.5 *
                                                 4,
                                           ),
@@ -299,10 +333,12 @@ class HomeScreen extends StatelessWidget {
                                         ])),
                               ),
                               Container(
-                                width:
-                                MediaQuery.of(context).size.width / 187.5 * 4,
-                                height:
-                                MediaQuery.of(context).size.height / 333.5 * 0,
+                                width: MediaQuery.of(context).size.width /
+                                    187.5 *
+                                    4,
+                                height: MediaQuery.of(context).size.height /
+                                    333.5 *
+                                    0,
                               ),
                               InkWell(
                                 customBorder: RoundedRectangleBorder(
@@ -310,9 +346,9 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   var data =
-                                  docSnap.data()['listSavingGoals'] == null
-                                      ? []
-                                      : docSnap.data()['listSavingGoals'];
+                                      docSnap.data()['listSavingGoals'] == null
+                                          ? []
+                                          : docSnap.data()['listSavingGoals'];
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -321,23 +357,30 @@ class HomeScreen extends StatelessWidget {
                                 },
                                 child: Ink(
                                     width: MediaQuery.of(context).size.width /
-                                        187.5 * 83.75,
+                                        187.5 *
+                                        83.75,
                                     height: MediaQuery.of(context).size.height /
-                                        333.5 * 44,
+                                        333.5 *
+                                        44,
                                     decoration: BoxDecoration(
                                         color: Color(0xffffffff),
-                                        borderRadius: BorderRadius.circular(12)),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.savings_rounded, color: Color(0xff565cf7)),
+                                          Icon(Icons.savings_rounded,
+                                              color: Color(0xff565cf7)),
                                           Container(
-                                            width:
-                                            MediaQuery.of(context).size.width /
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
                                                 187.5 *
                                                 4,
-                                            height:
-                                            MediaQuery.of(context).size.height /
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
                                                 333.5 *
                                                 4,
                                           ),
@@ -354,8 +397,11 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ]),
                             Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 4,
-                              height: MediaQuery.of(context).size.height / 333.5 * 4,
+                              width:
+                                  MediaQuery.of(context).size.width / 187.5 * 4,
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  4,
                             ),
                             Row(children: [
                               InkWell(
@@ -367,32 +413,42 @@ class HomeScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AfterRetirementScreen(docSnap.data()[
+                                              AfterRetirementScreen(docSnap
+                                                              .data()[
                                                           'listRetirement'] ==
                                                       null
                                                   ? []
-                                                  : docSnap
-                                                      .data()['listRetirement'])));
+                                                  : docSnap.data()[
+                                                      'listRetirement'])));
                                 },
                                 child: Ink(
-                                    width: MediaQuery.of(context).size.width / 187.5 * 83.75,
-                                    height: MediaQuery.of(context).size.height / 333.5 * 44,
+                                    width: MediaQuery.of(context).size.width /
+                                        187.5 *
+                                        83.75,
+                                    height: MediaQuery.of(context).size.height /
+                                        333.5 *
+                                        44,
                                     decoration: BoxDecoration(
                                         color: Color(0xffffffff),
-                                        borderRadius: BorderRadius.circular(12)),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.wheelchair_pickup_rounded, color: Color(0xff12b281)),
+                                          Icon(Icons.wheelchair_pickup_rounded,
+                                              color: Color(0xff12b281)),
                                           Container(
-                                            width:
-                                                MediaQuery.of(context).size.width /
-                                                    187.5 *
-                                                    4,
-                                            height:
-                                                MediaQuery.of(context).size.height /
-                                                    333.5 *
-                                                    4,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                4,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                4,
                                           ),
                                           new Text("Kế hoạch\nvề hưu",
                                               textAlign: TextAlign.center,
@@ -406,10 +462,12 @@ class HomeScreen extends StatelessWidget {
                                         ])),
                               ),
                               Container(
-                                width:
-                                    MediaQuery.of(context).size.width / 187.5 * 4,
-                                height:
-                                    MediaQuery.of(context).size.height / 333.5 * 0,
+                                width: MediaQuery.of(context).size.width /
+                                    187.5 *
+                                    4,
+                                height: MediaQuery.of(context).size.height /
+                                    333.5 *
+                                    0,
                               ),
                               InkWell(
                                 customBorder: RoundedRectangleBorder(
@@ -418,25 +476,32 @@ class HomeScreen extends StatelessWidget {
                                 onTap: () {},
                                 child: Ink(
                                     width: MediaQuery.of(context).size.width /
-                                        187.5 * 83.75,
+                                        187.5 *
+                                        83.75,
                                     height: MediaQuery.of(context).size.height /
-                                        333.5 * 44,
+                                        333.5 *
+                                        44,
                                     decoration: BoxDecoration(
                                         color: Color(0xffffffff),
-                                        borderRadius: BorderRadius.circular(12)),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.compare, color: Color(0xffEC5B5B)),
+                                          Icon(Icons.compare,
+                                              color: Color(0xffEC5B5B)),
                                           Container(
-                                            width:
-                                                MediaQuery.of(context).size.width /
-                                                    187.5 *
-                                                    4,
-                                            height:
-                                                MediaQuery.of(context).size.height /
-                                                    333.5 *
-                                                    4,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                4,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                4,
                                           ),
                                           new Text("Gợi ý\nđầu tư",
                                               textAlign: TextAlign.center,
@@ -470,10 +535,13 @@ class HomeScreen extends StatelessWidget {
                         width:
                             MediaQuery.of(context).size.width / 187.5 * 171.5,
                         child: Row(children: [
-                          Icon(Icons.favorite_border_rounded, color: Color(0xff999999)),
+                          Icon(Icons.favorite_border_rounded,
+                              color: Color(0xff999999)),
                           Container(
-                            width: MediaQuery.of(context).size.width / 187.5 * 4,
-                            height: MediaQuery.of(context).size.height / 333.5 * 1,
+                            width:
+                                MediaQuery.of(context).size.width / 187.5 * 4,
+                            height:
+                                MediaQuery.of(context).size.height / 333.5 * 1,
                           ),
                           new Text("Sức khỏe",
                               style: TextStyle(
@@ -510,7 +578,8 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.remember_me_rounded, color: Color(0xffEC5B5B)),
+                                        Icon(Icons.remember_me_rounded,
+                                            color: Color(0xffEC5B5B)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -555,7 +624,8 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.group_rounded, color: Color(0xff565cf7)),
+                                        Icon(Icons.group_rounded,
+                                            color: Color(0xff565cf7)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -604,7 +674,8 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.health_and_safety_rounded, color: Color(0xff12b281)),
+                                        Icon(Icons.health_and_safety_rounded,
+                                            color: Color(0xff12b281)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size
@@ -649,8 +720,8 @@ class HomeScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(Icons.book_rounded, color: Color(0xffff800b)),
-
+                                        Icon(Icons.book_rounded,
+                                            color: Color(0xffff800b)),
                                         Container(
                                           width: MediaQuery.of(context)
                                                   .size

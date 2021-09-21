@@ -249,6 +249,7 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                   4,
                             ),
                             TextFormField(
+                              keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (double.tryParse(value.toString()) != null)
                                   return null;
@@ -309,6 +310,7 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                       flex: 6,
                                       child: Container(
                                         child: TextFormField(
+                                          keyboardType: TextInputType.number,
                                           onChanged: (value) {
                                             calculatEndtime();
                                           },
@@ -583,6 +585,8 @@ class _EditGoalScreenState extends State<EditGoalScreen> {
                                               flex: 6,
                                               child: Container(
                                                 child: TextFormField(
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   validator: (value) {
                                                     if (double.tryParse(
                                                             value.toString()) !=

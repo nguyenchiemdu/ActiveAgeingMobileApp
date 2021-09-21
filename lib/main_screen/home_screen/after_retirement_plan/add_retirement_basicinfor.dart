@@ -168,6 +168,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: currentAge,
                                     validator: (value) {
                                       if (int.tryParse(value.toString()) ==
@@ -231,6 +232,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: retirementAge,
                                     validator: (value) {
                                       if (int.tryParse(value.toString()) ==
@@ -312,6 +314,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: income,
                                     validator: (value) {
                                       if (double.tryParse(value.toString()) ==
@@ -394,6 +397,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: increase,
                                     validator: (value) {
                                       if (double.tryParse(value.toString()) ==
@@ -476,6 +480,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: saving,
                                     validator: (value) {
                                       if (double.tryParse(value.toString()) ==
@@ -559,6 +564,7 @@ class AddRetirementBacisInfor extends StatelessWidget {
                                     333.5 *
                                     24,
                                 child: TextFormField(
+                                    keyboardType: TextInputType.number,
                                     controller: yearsRetirement,
                                     validator: (value) {
                                       if (int.tryParse(value.toString()) ==

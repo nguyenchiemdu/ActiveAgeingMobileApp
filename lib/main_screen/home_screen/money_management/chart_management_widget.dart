@@ -129,7 +129,7 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
             : 0;
         return SummaryData(id, date['time'].day.toString(), logaritedMoney);
       }).toList();
-      maxYbyDay = (log(maxYbyDay) / ln10).round();
+      maxYbyDay = maxYbyDay == 0 ? 0 : (log(maxYbyDay) / ln10).round();
     }
   }
 
@@ -578,14 +578,12 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
             Container(
               width: MediaQuery.of(context).size.width / 187.5 * 83.75,
               height: MediaQuery.of(context).size.height / 333.5 * 24,
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width / 187.5 * 4,),
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width / 187.5 * 4,
+              ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: Color(0xffdedede),
-                      width: 1
-                  )
-              ),
+                  border: Border.all(color: Color(0xffdedede), width: 1)),
               child: DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     focusedBorder: InputBorder.none,
@@ -629,54 +627,58 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
                   width: MediaQuery.of(context).size.width / 187.5 * 179.5,
                   height: MediaQuery.of(context).size.height / 333.5 * 14,
                   decoration: BoxDecoration(
-                    color: Color(0xffededed),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
                       color: Color(0xffededed),
-                      width: 0.75
-                    )
-                  ),
+                      borderRadius: BorderRadius.circular(12),
+                      border:
+                          Border.all(color: Color(0xffededed), width: 0.75)),
                   child: TabBar(
                       onTap: (index) {
                         //your currently selected index
                       },
-
                       labelColor: Color(0xff12B281),
                       unselectedLabelColor: Color(0xff999999),
                       indicator: ShapeDecoration(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                          color: Color(0xffffffff),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        color: Color(0xffffffff),
                       ),
                       tabs: [
                         Container(
-                          height: MediaQuery.of(context).size.height / 333.5 * 12,
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 12,
                           child: Tab(
-                            child: Text('Theo ngày',
+                            child: Text(
+                              'Theo ngày',
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 12 * curScaleFactor,
                                 fontWeight: FontWeight.w500,
                                 fontStyle: FontStyle.normal,
-                              ),),
+                              ),
+                            ),
                           ),
                         ),
                         Tab(
-                          child: Text('Theo tuần',
+                          child: Text(
+                            'Theo tuần',
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 12 * curScaleFactor,
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
-                            ),),
+                            ),
+                          ),
                         ),
                         Tab(
-                          child: Text('Theo tháng',
+                          child: Text(
+                            'Theo tháng',
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 12 * curScaleFactor,
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
-                            ),),
+                            ),
+                          ),
                         ),
                       ]),
                 ),
@@ -743,14 +745,16 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
                   width: MediaQuery.of(context).size.width / 187.5 * 4,
                   height: MediaQuery.of(context).size.height / 333.5 * 1,
                 ),
-                Text('Thu',
+                Text(
+                  'Thu',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     color: Color(0xff000000),
                     fontSize: 12 * curScaleFactor,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
-                  ),)
+                  ),
+                )
               ],
             ),
             Row(
@@ -765,14 +769,16 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
                   width: MediaQuery.of(context).size.width / 187.5 * 4,
                   height: MediaQuery.of(context).size.height / 333.5 * 1,
                 ),
-                Text('Chi',
+                Text(
+                  'Chi',
                   style: TextStyle(
                     fontFamily: 'Inter',
                     color: Color(0xff000000),
                     fontSize: 12 * curScaleFactor,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
-                  ),)
+                  ),
+                )
               ],
             )
           ],

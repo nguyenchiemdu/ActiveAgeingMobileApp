@@ -129,576 +129,774 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     return Scaffold(
       appBar: appBar,
-        resizeToAvoidBottomInset: false,
-        body: Center(
-          child: Form(
-            key: _formKey,
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                    height: MediaQuery.of(context).size.height / 333.5 * 8,
+      resizeToAvoidBottomInset: false,
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal:
+                          MediaQuery.of(context).size.width / 187.5 * 8),
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 46,
+                  decoration: BoxDecoration(
+                    color: Color(0xffFFFFFF),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: MediaQuery.of(context).size.width / 187.5 * 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        width:
+                            MediaQuery.of(context).size.width / 187.5 * 171.5,
+                        height: MediaQuery.of(context).size.height / 333.5 * 8,
+                      ),
+                      Text(
+                        'Số tiền',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff1a1a1a),
+                          fontSize: 12 * curScaleFactor,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: money,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          color: Color(0xff00865D),
+                          fontSize: 32 * curScaleFactor,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal,
+                        ),
+                        textAlign: TextAlign.right,
+                        validator: (value) {
+                          if (double.tryParse(value.toString()) == null)
+                            return 'Input không hợp lệ';
+                          return null;
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 4,
+                ),
+                Expanded(
+                  child: Container(
                     width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                    height: MediaQuery.of(context).size.height / 333.5 * 46,
+                    height: MediaQuery.of(context).size.height / 333.5 * 40,
                     decoration: BoxDecoration(
                       color: Color(0xffFFFFFF),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                          height: MediaQuery.of(context).size.height / 333.5 * 8,
-                        ),
-                        Text('Số tiền',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xff1a1a1a),
-                            fontSize: 12 * curScaleFactor,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                          ),),
-                        TextFormField(
-                          controller: money,
-                          style: TextStyle(
-                          fontFamily: 'Inter',
-                            color: Color(0xff00865D),
-                            fontSize: 32 * curScaleFactor,
-                            fontWeight: FontWeight.w600,
-                            fontStyle: FontStyle.normal,
-                        ),
-                          textAlign: TextAlign.right,
-                          validator: (value) {
-                            if (double.tryParse(value.toString()) == null)
-                              return 'Input không hợp lệ';
-                            return null;
+                        InkWell(
+                          onTap: () async {
+                            Map result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ListCategories()));
+                            if (result != null)
+                              setState(() {
+                                name = result['selectedTitle'];
+                                category = result['selectedCategory'];
+                                method = result['method'];
+                              });
+                            print(name);
+                            print(category);
                           },
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                    height: MediaQuery.of(context).size.height / 333.5 * 4,
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                      height: MediaQuery.of(context).size.height / 333.5 * 40,
-
-                      decoration: BoxDecoration(
-                        color: Color(0xffFFFFFF),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              Map result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ListCategories()));
-                              if (result != null)
-                                setState(() {
-                                  name = result['selectedTitle'];
-                                  category = result['selectedCategory'];
-                                  method = result['method'];
-                                });
-                              print(name);
-                              print(category);
-                            },
-                            child: Ink(
-                                height: MediaQuery.of(context).size.height / 333.5 * 24,
-                                child: category == null
+                          child: Ink(
+                              height: MediaQuery.of(context).size.height /
+                                  333.5 *
+                                  24,
+                              child: category == null
                                   ? Padding(
-                                    padding: const EdgeInsets.only(right:8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
                                               Container(
-                                                width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                height: MediaQuery.of(context).size.height / 333.5 * 1,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    187.5 *
+                                                    8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    333.5 *
+                                                    1,
                                               ),
-                                              Icon(Icons.account_balance_wallet, color: Color(0xff12B281),),
+                                              Icon(
+                                                Icons.account_balance_wallet,
+                                                color: Color(0xff12B281),
+                                              ),
                                               Container(
-                                                width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                height: MediaQuery.of(context).size.height / 333.5 * 1,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    187.5 *
+                                                    8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    333.5 *
+                                                    1,
                                               ),
-                                              Text('Chọn hạng mục',
+                                              Text(
+                                                'Chọn hạng mục',
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   color: Color(0xff999999),
                                                   fontSize: 18 * curScaleFactor,
                                                   fontWeight: FontWeight.w500,
                                                   fontStyle: FontStyle.normal,
-                                                ),),
+                                                ),
+                                              ),
                                             ],
                                           ),
-                                          Icon(Icons.more_horiz_rounded, color: Color(0xff999999),)
+                                          Icon(
+                                            Icons.more_horiz_rounded,
+                                            color: Color(0xff999999),
+                                          )
                                         ],
                                       ),
-                                  )
+                                    )
                                   : Padding(
-                                padding: const EdgeInsets.only(right:8),
-                                    child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 1,
-                                        ),
-                                        Icon(Icons.account_balance_wallet, color: Color(0xff12B281),),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 1,
-                                        ),
-                                        Text(name,
-                                          style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            color: Color(0xff1a1a1a),
-                                            fontSize: 18 * curScaleFactor,
-                                            fontWeight: FontWeight.w500,
-                                            fontStyle: FontStyle.normal,
-                                          ),),
-                                      ],
-                                    ),
-                                    Icon(Icons.more_horiz_rounded, color: Color(0xff999999),)
-                                ],
-                              ),
-                                  )
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width / 187.5 * 160,
-                            height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                            color:Color(0xffededed)
-                          ),
-                          // Container(
-                          //   child: Text(
-                          //     categoryNof,
-                          //     style: TextStyle(color: Colors.red),
-                          //   ),
-                          // ),
-                          category == 'Đi vay và thu nợ (Tiền vào)' ||
-                                  category == 'Cho vay và trả nợ (Tiền ra)'
-                              ? Container(
-                                    child: Column(
-                                    children: [
-                                      Container(
-                                        height: MediaQuery.of(context).size.height / 333.5 * 24,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                            ),
-                                            Icon(Icons.person_outline_rounded, color: Color(0xff999999)),
-                                            Container(
-                                                width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                            ),
-                                            Flexible(
-                                              child: TextFormField(
-                                                validator: (value) {
-                                                  if (value == null || value.length == 0)
-                                                    return 'Mục này không được để trống!';
-                                                  return null;
-                                                },
-                                                controller: person,
-                                                style: TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  color: Color(0xff999999),
-                                                  fontSize: 14 * curScaleFactor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                                decoration: InputDecoration(
-                                                    hintText: 'Người cho vay',
-                                                    hintStyle: TextStyle(
-                                                      fontFamily: 'Inter',
-                                                      color: Color(0xff999999),
-                                                      fontSize: 14 * curScaleFactor,
-                                                      fontWeight: FontWeight.w500,
-                                                      fontStyle: FontStyle.normal,
-                                                    ),
-                                                    focusedBorder: InputBorder.none,
-                                                    enabledBorder: InputBorder.none,),
-
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 160,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                          color:Color(0xffededed)
-                                      ),
-                                      Container(
-                                        height: MediaQuery.of(context).size.height / 333.5 * 24,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                            ),
-                                            Icon(Icons.star, color: Color(0xff999999)),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                            ),
-                                            Flexible(
-                                              child: TextFormField(
-                                                controller: interest,
-                                                validator: (value) {
-                                                  if (double.tryParse(value.toString()) ==
-                                                      null) return 'Mục này không được để trống!';
-                                                  return null;
-                                                },
-                                                style: TextStyle(
-                                                  fontFamily: 'Inter',
-                                                  color: Color(0xff999999),
-                                                  fontSize: 14 * curScaleFactor,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                                decoration:
-                                                    InputDecoration(
-                                                      hintText: 'Lãi suất',
-                                                      hintStyle: TextStyle(
-                                                        fontFamily: 'Inter',
-                                                        color: Color(0xff999999),
-                                                        fontSize: 14 * curScaleFactor,
-                                                        fontWeight: FontWeight.w500,
-                                                        fontStyle: FontStyle.normal,
-                                                      ),
-                                                      focusedBorder: InputBorder.none,
-                                                      enabledBorder: InputBorder.none,),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 160,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                          color:Color(0xffededed)
-                                      ),
-                                      Container(
-                                        height: MediaQuery.of(context).size.height / 333.5 * 34,
-                                        child: GestureDetector(
-                                          onTap: () => {
-                                            DatePicker.showDatePicker(context,
-                                                showTitleActions: true,
-                                                // minTime: ,
-                                                minTime: DateTime.now(),
-                                                onChanged: (date) {},
-                                                onConfirm: (date) {
-                                              setState(() {
-                                                remindTime = date;
-                                              });
-                                            },
-                                                currentTime: remindTime,
-                                                locale: LocaleType.vi)
-                                          },
-                                          child: Row(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
                                             children: [
                                               Container(
-                                                width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                height: MediaQuery.of(context).size.height / 333.5 * 0.5,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    187.5 *
+                                                    8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    333.5 *
+                                                    1,
                                               ),
-                                              Icon(Icons.calendar_today_outlined,
-                                                  color: Color(0xff999999)),
+                                              Icon(
+                                                Icons.account_balance_wallet,
+                                                color: Color(0xff12B281),
+                                              ),
                                               Container(
-                                                  width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                  height: MediaQuery.of(context).size.height / 333.5 * 0.5,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    187.5 *
+                                                    8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    333.5 *
+                                                    1,
                                               ),
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text('Ngày trả nợ',
+                                              Text(
+                                                name,
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xff1a1a1a),
+                                                  fontSize: 18 * curScaleFactor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Icon(
+                                            Icons.more_horiz_rounded,
+                                            color: Color(0xff999999),
+                                          )
+                                        ],
+                                      ),
+                                    )),
+                        ),
+                        Container(
+                            width:
+                                MediaQuery.of(context).size.width / 187.5 * 160,
+                            height: MediaQuery.of(context).size.height /
+                                333.5 *
+                                0.5,
+                            color: Color(0xffededed)),
+                        // Container(
+                        //   child: Text(
+                        //     categoryNof,
+                        //     style: TextStyle(color: Colors.red),
+                        //   ),
+                        // ),
+                        category == 'Đi vay và thu nợ (Tiền vào)' ||
+                                category == 'Cho vay và trả nợ (Tiền ra)'
+                            ? Container(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              333.5 *
+                                              24,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                0.5,
+                                          ),
+                                          Icon(Icons.person_outline_rounded,
+                                              color: Color(0xff999999)),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                0.5,
+                                          ),
+                                          Flexible(
+                                            child: TextFormField(
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.length == 0)
+                                                  return 'Mục này không được để trống!';
+                                                return null;
+                                              },
+                                              controller: person,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 14 * curScaleFactor,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FontStyle.normal,
+                                              ),
+                                              decoration: InputDecoration(
+                                                hintText: 'Người cho vay',
+                                                hintStyle: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xff999999),
+                                                  fontSize: 14 * curScaleFactor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                187.5 *
+                                                160,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                333.5 *
+                                                0.5,
+                                        color: Color(0xffededed)),
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              333.5 *
+                                              24,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                0.5,
+                                          ),
+                                          Icon(Icons.star,
+                                              color: Color(0xff999999)),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                187.5 *
+                                                8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                333.5 *
+                                                0.5,
+                                          ),
+                                          Flexible(
+                                            child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: interest,
+                                              validator: (value) {
+                                                if (double.tryParse(
+                                                        value.toString()) ==
+                                                    null)
+                                                  return 'Mục này không được để trống!';
+                                                return null;
+                                              },
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                color: Color(0xff999999),
+                                                fontSize: 14 * curScaleFactor,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FontStyle.normal,
+                                              ),
+                                              decoration: InputDecoration(
+                                                hintText: 'Lãi suất',
+                                                hintStyle: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xff999999),
+                                                  fontSize: 14 * curScaleFactor,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle: FontStyle.normal,
+                                                ),
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                187.5 *
+                                                160,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                333.5 *
+                                                0.5,
+                                        color: Color(0xffededed)),
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              333.5 *
+                                              34,
+                                      child: GestureDetector(
+                                        onTap: () => {
+                                          DatePicker.showDatePicker(context,
+                                              showTitleActions: true,
+                                              // minTime: ,
+                                              minTime: DateTime.now(),
+                                              onChanged: (date) {},
+                                              onConfirm: (date) {
+                                            setState(() {
+                                              remindTime = date;
+                                            });
+                                          },
+                                              currentTime: remindTime,
+                                              locale: LocaleType.vi)
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  187.5 *
+                                                  8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  333.5 *
+                                                  0.5,
+                                            ),
+                                            Icon(Icons.calendar_today_outlined,
+                                                color: Color(0xff999999)),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  187.5 *
+                                                  8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  333.5 *
+                                                  0.5,
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Ngày trả nợ',
                                                   style: TextStyle(
                                                     fontFamily: 'Inter',
                                                     color: Color(0xff999999),
-                                                    fontSize: 14 * curScaleFactor,
+                                                    fontSize:
+                                                        14 * curScaleFactor,
                                                     fontWeight: FontWeight.w500,
                                                     fontStyle: FontStyle.normal,
-                                                  ),),
-                                                  Container(
-                                                    width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                                    height: MediaQuery.of(context).size.height / 333.5 * 2,
                                                   ),
-                                                  Text(
-                                                    DateFormat.yMMMMEEEEd()
-                                                        .format(remindTime),
-                                                    style: TextStyle(
-                                                      fontFamily: 'Inter',
-                                                      color: Color(0xff1a1a1a),
-                                                      fontSize: 16 * curScaleFactor,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontStyle: FontStyle.normal,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-
-                                            ],
-                                          ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      187.5 *
+                                                      8,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      333.5 *
+                                                      2,
+                                                ),
+                                                Text(
+                                                  DateFormat.yMMMMEEEEd()
+                                                      .format(remindTime),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    color: Color(0xff1a1a1a),
+                                                    fontSize:
+                                                        16 * curScaleFactor,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.normal,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 160,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                          color:Color(0xffededed)
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Container(),
-                              Container(
-                                height: MediaQuery.of(context).size.height / 333.5 * 24,
-                                child: Row(
-                                  children: [
+                                    ),
                                     Container(
-                                        width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                        height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                    ),
-                                    Icon(Icons.notes_rounded, color: Color(0xff999999)),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                      height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                    ),
-                                    Flexible(
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                            hintText: 'Ghi chú',
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            isDense: true,
-                                        ),
-                                        style: TextStyle(
-                                          fontFamily: 'Inter',
-                                          color: Color(0xff999999),
-                                          fontSize: 14 * curScaleFactor,
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle: FontStyle.normal,
-                                        ),
-                                        controller: note,
-                                      ),
-                                    ),
-
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                187.5 *
+                                                160,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                333.5 *
+                                                0.5,
+                                        color: Color(0xffededed)),
                                   ],
                                 ),
+                              )
+                            : Container(),
+                        Container(
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 24,
+                          child: Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width /
+                                    187.5 *
+                                    8,
+                                height: MediaQuery.of(context).size.height /
+                                    333.5 *
+                                    0.5,
                               ),
-                          // Row(
-                          //   children: [
-                          //     Icon(Icons.notes_rounded,
-                          //         color: Color(0xff999999)
-                          //     ),
-                          //     TextFormField(
-                          //       decoration: InputDecoration(hintText: 'Ghi chú'),
-                          //       style: TextStyle(
-                          //         fontFamily: 'Inter',
-                          //         color: Color(0xff1a1a1a),
-                          //         fontSize: 14 * curScaleFactor,
-                          //         fontWeight: FontWeight.w500,
-                          //         fontStyle: FontStyle.normal,
-                          //       ),
-                          //       controller: note,
-                          //     ),
-                          //   ],
-                          // ),
-                          Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 160,
-                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                              color:Color(0xffededed)
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height / 333.5 * 24,
-                            child: GestureDetector(
-                              onTap: () => {
-                                DatePicker.showDatePicker(context,
-                                    showTitleActions: true,
-                                    // minTime: ,
-                                    maxTime: DateTime.now(),
-                                    onChanged: (date) {}, onConfirm: (date) {
-                                  setState(() {
-                                    time = date;
-                                  });
-                                }, currentTime: time, locale: LocaleType.vi)
-                              },
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(
-                                        height: MediaQuery.of(context).size.height / 333.5 * 24,
-                                        child: Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                        ),
-                                        Container(
-                                          child: Icon(
-                                            Icons.calendar_today_outlined,
-                                            color: Color(0xff999999),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                                        ),
-                                        Text(
-                                          DateFormat.yMMMMEEEEd().format(time),
-                                          style: TextStyle(
-                                                  color: Color(0xff1a1a1a),
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 14 * curScaleFactor,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontStyle: FontStyle.normal,
-                                              ),
-                                        )
-                                      ],
-                                    ),
-                                  ))
-                                ],
+                              Icon(Icons.notes_rounded,
+                                  color: Color(0xff999999)),
+                              Container(
+                                width: MediaQuery.of(context).size.width /
+                                    187.5 *
+                                    8,
+                                height: MediaQuery.of(context).size.height /
+                                    333.5 *
+                                    0.5,
                               ),
-                            ),
+                              Flexible(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    hintText: 'Ghi chú',
+                                    focusedBorder: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    isDense: true,
+                                  ),
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    color: Color(0xff999999),
+                                    fontSize: 14 * curScaleFactor,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.normal,
+                                  ),
+                                  controller: note,
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                              width: MediaQuery.of(context).size.width / 187.5 * 160,
-                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
-                              color:Color(0xffededed)
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height / 333.5 * 26,
-                            padding: EdgeInsets.only(right: 8),
+                        ),
+                        // Row(
+                        //   children: [
+                        //     Icon(Icons.notes_rounded,
+                        //         color: Color(0xff999999)
+                        //     ),
+                        //     TextFormField(
+                        //       decoration: InputDecoration(hintText: 'Ghi chú'),
+                        //       style: TextStyle(
+                        //         fontFamily: 'Inter',
+                        //         color: Color(0xff1a1a1a),
+                        //         fontSize: 14 * curScaleFactor,
+                        //         fontWeight: FontWeight.w500,
+                        //         fontStyle: FontStyle.normal,
+                        //       ),
+                        //       controller: note,
+                        //     ),
+                        //   ],
+                        // ),
+                        Container(
+                            width:
+                                MediaQuery.of(context).size.width / 187.5 * 160,
+                            height: MediaQuery.of(context).size.height /
+                                333.5 *
+                                0.5,
+                            color: Color(0xffededed)),
+                        Container(
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 24,
+                          child: GestureDetector(
+                            onTap: () => {
+                              DatePicker.showDatePicker(context,
+                                  showTitleActions: true,
+                                  // minTime: ,
+                                  maxTime: DateTime.now(),
+                                  onChanged: (date) {}, onConfirm: (date) {
+                                setState(() {
+                                  time = date;
+                                });
+                              }, currentTime: time, locale: LocaleType.vi)
+                            },
                             child: Row(
-
                               children: [
-                                Flexible(
+                                Expanded(
+                                    child: Container(
+                                  height: MediaQuery.of(context).size.height /
+                                      333.5 *
+                                      24,
                                   child: Row(
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                187.5 *
+                                                8,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                333.5 *
+                                                0.5,
                                       ),
-                                      Icon(Icons.account_balance_wallet_rounded, color: Color(0xff12B281)),
                                       Container(
-                                        width: MediaQuery.of(context).size.width / 187.5 * 8,
-                                        height: MediaQuery.of(context).size.height / 333.5 * 1,
+                                        child: Icon(
+                                          Icons.calendar_today_outlined,
+                                          color: Color(0xff999999),
+                                        ),
                                       ),
-                                      Flexible(
-                                        child: DropdownButtonFormField<String>(
-                                            decoration: InputDecoration(
-                                              hintText: 'Ghi chú',
-                                              focusedBorder: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                            ),
-                                            icon: Visibility (visible:false, child: Icon(Icons.arrow_downward)),
-                                            value: selectedNameWallet,
-                                            items: listWallet
-                                                .map((wallet) => DropdownMenuItem(
-                                              child: Text(wallet['name']),
-                                              value: wallet['name'].toString(),
-                                            ))
-                                                .toList(),
-                                            onChanged: (String? value) {
-                                              Map newWallet = {};
-                                              listWallet.forEach((wallet) {
-                                                if (wallet['name'] == value) newWallet = wallet;
-                                              });
-                                              setState(() {
-                                                selectedWallet = newWallet;
-                                                selectedNameWallet = value.toString();
-                                              });
-                                            },
-                                            hint: Text("Select item")),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                187.5 *
+                                                8,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                333.5 *
+                                                0.5,
                                       ),
+                                      Text(
+                                        DateFormat.yMMMMEEEEd().format(time),
+                                        style: TextStyle(
+                                          color: Color(0xff1a1a1a),
+                                          fontFamily: 'Inter',
+                                          fontSize: 14 * curScaleFactor,
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.normal,
+                                        ),
+                                      )
                                     ],
                                   ),
-                                ),
-                                Icon(Icons.arrow_forward_ios_rounded, color:Color(0xff999999))
+                                ))
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        Container(
+                            width:
+                                MediaQuery.of(context).size.width / 187.5 * 160,
+                            height: MediaQuery.of(context).size.height /
+                                333.5 *
+                                0.5,
+                            color: Color(0xffededed)),
+                        Container(
+                          height:
+                              MediaQuery.of(context).size.height / 333.5 * 26,
+                          padding: EdgeInsets.only(right: 8),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          187.5 *
+                                          8,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              333.5 *
+                                              1,
+                                    ),
+                                    Icon(Icons.account_balance_wallet_rounded,
+                                        color: Color(0xff12B281)),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          187.5 *
+                                          8,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              333.5 *
+                                              1,
+                                    ),
+                                    Flexible(
+                                      child: DropdownButtonFormField<String>(
+                                          decoration: InputDecoration(
+                                            hintText: 'Ghi chú',
+                                            focusedBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                          ),
+                                          icon: Visibility(
+                                              visible: false,
+                                              child:
+                                                  Icon(Icons.arrow_downward)),
+                                          value: selectedNameWallet,
+                                          items: listWallet
+                                              .map((wallet) => DropdownMenuItem(
+                                                    child: Text(wallet['name']),
+                                                    value: wallet['name']
+                                                        .toString(),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (String? value) {
+                                            Map newWallet = {};
+                                            listWallet.forEach((wallet) {
+                                              if (wallet['name'] == value)
+                                                newWallet = wallet;
+                                            });
+                                            setState(() {
+                                              selectedWallet = newWallet;
+                                              selectedNameWallet =
+                                                  value.toString();
+                                            });
+                                          },
+                                          hint: Text("Select item")),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_ios_rounded,
+                                  color: Color(0xff999999))
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 160,
-                    height: MediaQuery.of(context).size.height / 333.5 * 8,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                    height: MediaQuery.of(context).size.height / 333.5 * 24,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate() && category != null) {
-                            Map<String, dynamic> transaction = {
-                              'method': method,
-                              'money': double.parse(money.text),
-                              'name': name,
-                              'category': category,
-                              'note': note.text,
-                              'time': Timestamp.fromDate(time),
-                              'typeWallet': selectedWallet,
-                              'idWallet': selectedWallet['id']
-                            };
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 160,
+                  height: MediaQuery.of(context).size.height / 333.5 * 8,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+                  height: MediaQuery.of(context).size.height / 333.5 * 24,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate() &&
+                            category != null) {
+                          Map<String, dynamic> transaction = {
+                            'method': method,
+                            'money': double.parse(money.text),
+                            'name': name,
+                            'category': category,
+                            'note': note.text,
+                            'time': Timestamp.fromDate(time),
+                            'typeWallet': selectedWallet,
+                            'idWallet': selectedWallet['id']
+                          };
 
-                            if (category == 'Đi vay và thu nợ (Tiền vào)' ||
-                                category == 'Cho vay và trả nợ (Tiền ra)') {
-                              transaction['person'] = person.text;
-                              transaction['interest'] = double.parse(interest.text);
-                              transaction['remindTime'] =
-                                  Timestamp.fromDate(remindTime);
-                            }
-                            int index = listWallet.indexOf(selectedWallet);
-                            await addToHistory();
-                            if (method == '-')
-                              listWallet[index]['money'] -= transaction['money'];
-                            else
-                              listWallet[index]['money'] += transaction['money'];
+                          if (category == 'Đi vay và thu nợ (Tiền vào)' ||
+                              category == 'Cho vay và trả nợ (Tiền ra)') {
+                            transaction['person'] = person.text;
+                            transaction['interest'] =
+                                double.parse(interest.text);
+                            transaction['remindTime'] =
+                                Timestamp.fromDate(remindTime);
+                          }
+                          int index = listWallet.indexOf(selectedWallet);
+                          await addToHistory();
+                          if (method == '-')
+                            listWallet[index]['money'] -= transaction['money'];
+                          else
+                            listWallet[index]['money'] += transaction['money'];
 
-                            await UserDatabase()
-                                .updateUserData({'listWallet': listWallet});
+                          await UserDatabase()
+                              .updateUserData({'listWallet': listWallet});
 
-                            bool result =
-                            await UserDatabase().addTransaction(transaction);
-                            if (result) {
-                              widget.fetchData();
-                              Navigator.pop(context);
-                            }
-                          } else
-                            print('invalidate');
-                          if (category == null)
-                            setState(() {
-                              categoryNof = 'Trường này không được để trống';
-                            });
-                        },
-                        child: Text('LƯU'.toUpperCase())),
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width / 187.5 * 160,
-                      height: MediaQuery.of(context).size.height / 333.5 * 10,
-                  ),
-                ],
-              ),
+                          bool result =
+                              await UserDatabase().addTransaction(transaction);
+                          if (result) {
+                            widget.fetchData();
+                            Navigator.pop(context);
+                          }
+                        } else
+                          print('invalidate');
+                        if (category == null)
+                          setState(() {
+                            categoryNof = 'Trường này không được để trống';
+                          });
+                      },
+                      child: Text('LƯU'.toUpperCase())),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 187.5 * 160,
+                  height: MediaQuery.of(context).size.height / 333.5 * 10,
+                ),
+              ],
             ),
           ),
         ),
-
-);
+      ),
+    );
   }
 }

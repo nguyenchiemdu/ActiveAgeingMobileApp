@@ -27,6 +27,8 @@ class RetirementWIdget extends StatelessWidget {
   }
 
   String process() {
+    print('da toi day');
+
     int percent =
         (retirementData['savedMoney'] / retirementData['goal'] * 100).round();
     return " (${percent.toString()}%)";

@@ -132,6 +132,7 @@ class _WalletEditScreenState extends State<WalletEditScreen> {
                             ),
                             Flexible(
                               child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   validator: (value) {
                                     if (double.tryParse(value.toString()) ==
                                         null) return 'Dữ liệu k hợp lệ';
@@ -276,8 +277,6 @@ class _WalletEditScreenState extends State<WalletEditScreen> {
                               _status = !_status;
                             });
                           else if (_formKey.currentState!.validate()) {
-                            print('da toi day');
-
                             print(money.text);
                             Map newWallet = new Map.from(widget.wallet);
                             newWallet['name'] = name.text;

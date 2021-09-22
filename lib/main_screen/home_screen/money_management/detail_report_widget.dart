@@ -34,6 +34,7 @@ class DetailReportWidget extends StatelessWidget {
   List<Data> chartData = [];
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     calculateChartData();
     // double heightChart = 280;
     return SingleChildScrollView(
@@ -52,35 +53,77 @@ class DetailReportWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(method == '+' ? 'Khoản thu' : 'Khoản chi'),
+                  Text(method == '+' ? 'Khoản thu' : 'Khoản chi',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 12 * curScaleFactor,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff666666),
+                      fontStyle: FontStyle.normal,
+                    ),),
                   Text(formater.format(sumValue),
                       style: TextStyle(
-                          color: method == '+'
-                              ? Color(0xff18CE8C)
-                              : Color(0xffFF2D2D),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500)),
+                        fontFamily: 'Inter',
+                        fontSize: 20 * curScaleFactor,
+                        fontWeight: FontWeight.w500,
+                        color: method == '+'
+                            ? Color(0xff18CE8C)
+                            : Color(0xffFF2D2D),                        fontStyle: FontStyle.normal,
+                      ),),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 187.5 * 14,
+                    height: MediaQuery.of(context).size.height / 333.5 * 8,
+                  ),
                   ListView.builder(
                       // scrollDirection: ,
                       shrinkWrap: true,
                       itemCount: listPercentage.length,
                       itemBuilder: (context, index) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        return Column(
                           children: [
                             Container(
-                              width: 16,
-                              height: 16,
-                              decoration: BoxDecoration(
-                                  border: Border.fromBorderSide(BorderSide()),
-                                  shape: BoxShape.circle,
-                                  color: chartData[index].color),
+                              width: MediaQuery.of(context).size.width / 187.5 * 155.5,
+                              height: MediaQuery.of(context).size.height / 333.5 * 0.5,
+                              color: Color(0xffededed),
                             ),
-                            Text(listPercentage[index]['nameCategory']),
-                            Text(formater.format(listvalue[index]['money'])),
-                            Text(formater.format(
-                                    listPercentage[index]['percentage']) +
-                                '%')
+                            Container(
+                              height: MediaQuery.of(context).size.height / 333.5 * 16,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 187.5 * 63.75,
+                                    child: Text(listPercentage[index]['nameCategory'],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 12 * curScaleFactor,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xff666666),
+                                        fontStyle: FontStyle.normal,
+                                      ),),
+                                  ),
+                                  Text(formater.format(listvalue[index]['money']),
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: 12 * curScaleFactor,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff666666),
+                                      fontStyle: FontStyle.normal,
+                                    ),),
+                                  Text(formater.format(
+                                          listPercentage[index]['percentage']) +
+                                      '%',
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: 12 * curScaleFactor,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff666666),
+                                      fontStyle: FontStyle.normal,
+                                    ),)
+                                ],
+                              ),
+                            ),
                           ],
                         );
                       })

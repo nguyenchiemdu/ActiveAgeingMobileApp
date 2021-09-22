@@ -51,16 +51,34 @@ class DetailReportScreen extends StatelessWidget {
                     //your currently selected index
                   },
                   labelColor: Color(0xff12B281),
-                  unselectedLabelColor: Colors.black,
+                  unselectedLabelColor: Color(0xff4d4d4d),
                   tabs: [
                     Tab(
-                      child: Text('Thu'.toUpperCase()),
+                      child: Text('Thu'.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12 * curScaleFactor,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        ),),
                     ),
                     Tab(
-                      child: Text('Chi'.toUpperCase()),
+                      child: Text('Chi'.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12 * curScaleFactor,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        ),),
                     ),
                     Tab(
-                      child: Text('Vay nợ'.toUpperCase()),
+                      child: Text('Vay nợ'.toUpperCase(),
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 12 * curScaleFactor,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.normal,
+                        ),),
                     ),
                   ]),
               Expanded(

@@ -730,6 +730,15 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
             ),
           ),
         ),
+        Container(
+          width: MediaQuery.of(context).size.width / 187.5 * 187.5,
+          height: MediaQuery.of(context).size.height / 333.5 * 0.5,
+          color: Color(0xffededed)
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width / 187.5 * 4,
+          height: MediaQuery.of(context).size.height / 333.5 * 4,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -782,6 +791,10 @@ class _ChartManagementWidgetState extends State<ChartManagementWidget> {
               ],
             )
           ],
+        ),
+        Container(
+          width: MediaQuery.of(context).size.width / 187.5 * 4,
+          height: MediaQuery.of(context).size.height / 333.5 * 4,
         ),
       ],
     );

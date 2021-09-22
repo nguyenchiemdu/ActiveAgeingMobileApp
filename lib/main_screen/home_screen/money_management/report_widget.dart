@@ -478,6 +478,12 @@ class ReportWidget extends StatelessWidget {
                         // height: 500,
                         child: Column(
                           children: [
+                            Container(
+                              width:
+                              MediaQuery.of(context).size.width / 187.5 * 3,
+                              height:
+                              MediaQuery.of(context).size.height / 333.5 * 8,
+                            ),
                             Text(
                               'Khoản thu',
                               style: TextStyle(
@@ -499,14 +505,45 @@ class ReportWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
+                              width:
+                              MediaQuery.of(context).size.width / 187.5 * 8,
+                              height:
+                              MediaQuery.of(context).size.height / 333.5 * 6,
+                            ),
+                            Container(
                               child: Column(
                                   children: listPercentageIncome
                                       .map<Widget>((element) {
-                                        return Text(element['nameCategory'] +
-                                            ' ' +
-                                            formatter
-                                                .format(element['percentage']) +
-                                            '%');
+                                        return Row(
+                                          children: [
+                                            Container(
+                                              width:
+                                              MediaQuery.of(context).size.width / 187.5 * 8,
+                                              height:
+                                              MediaQuery.of(context).size.height / 333.5 * 8,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context).size.width / 187.5 * 60,
+                                                child: Text(element['nameCategory'],
+                                                  style: TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    color: Color(0xff666666),
+                                                    fontSize: 12 * curScaleFactor,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontStyle: FontStyle.normal,
+                                                  )
+                                                )),
+                                            Text(formatter
+                                                .format(element['percentage']) + '%',
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xff666666),
+                                                  fontSize: 12 * curScaleFactor,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                ))
+                                          ],
+                                        );
                                       })
                                       .toList()
                                       .sublist(0,
@@ -558,6 +595,12 @@ class ReportWidget extends StatelessWidget {
                             110.5, // height: 500,
                         child: Column(
                           children: [
+                            Container(
+                              width:
+                              MediaQuery.of(context).size.width / 187.5 * 3,
+                              height:
+                              MediaQuery.of(context).size.height / 333.5 * 8,
+                            ),
                             Text(
                               'Khoản chi',
                               style: TextStyle(
@@ -579,21 +622,50 @@ class ReportWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
+                              width:
+                              MediaQuery.of(context).size.width / 187.5 * 8,
+                              height:
+                              MediaQuery.of(context).size.height / 333.5 * 6,
+                            ),
+                            Container(
                               child: Column(
                                   children: listPercentageOutcome
                                       .map<Widget>((element) {
-                                        return Text(element['nameCategory'] +
-                                            ' ' +
-                                            formatter
-                                                .format(element['percentage']) +
-                                            '%');
-                                      })
+                                    return Row(
+                                      children: [
+                                        Container(
+                                          width:
+                                          MediaQuery.of(context).size.width / 187.5 * 8,
+                                          height:
+                                          MediaQuery.of(context).size.height / 333.5 * 8,
+                                        ),
+                                        Container(
+                                            width: MediaQuery.of(context).size.width / 187.5 * 60,
+                                            child: Text(element['nameCategory'] ,
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xff666666),
+                                                  fontSize: 12 * curScaleFactor,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                )
+                                            )),
+                                        Text(formatter.format(element['percentage']) + '%',
+                                            style: TextStyle(
+                                              fontFamily: 'Inter',
+                                              color: Color(0xff666666),
+                                              fontSize: 12 * curScaleFactor,
+                                              fontWeight: FontWeight.w400,
+                                              fontStyle: FontStyle.normal,
+                                            ))
+                                      ],
+                                    );
+                                  })
                                       .toList()
-                                      .sublist(
-                                          0,
-                                          min(4,
-                                              listPercentageOutcome.length))),
+                                      .sublist(0,
+                                      min(4, listPercentageOutcome.length))),
                             ),
+
                             TextButton(
                               onPressed: () {
                                 Navigator.push(

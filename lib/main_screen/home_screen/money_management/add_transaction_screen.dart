@@ -146,7 +146,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       horizontal:
                           MediaQuery.of(context).size.width / 187.5 * 8),
                   width: MediaQuery.of(context).size.width / 187.5 * 171.5,
-                  height: MediaQuery.of(context).size.height / 333.5 * 46,
+                  height: MediaQuery.of(context).size.height / 333.5 * 50,
                   decoration: BoxDecoration(
                     color: Color(0xffFFFFFF),
                     borderRadius: BorderRadius.circular(12.0),
@@ -169,22 +169,24 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           fontStyle: FontStyle.normal,
                         ),
                       ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        controller: money,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          color: Color(0xff00865D),
-                          fontSize: 32 * curScaleFactor,
-                          fontWeight: FontWeight.w600,
-                          fontStyle: FontStyle.normal,
+                      Flexible(
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          controller: money,
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Color(0xff00865D),
+                            fontSize: 32 * curScaleFactor,
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FontStyle.normal,
+                          ),
+                          textAlign: TextAlign.right,
+                          validator: (value) {
+                            if (double.tryParse(value.toString()) == null)
+                              return 'Input không hợp lệ';
+                            return null;
+                          },
                         ),
-                        textAlign: TextAlign.right,
-                        validator: (value) {
-                          if (double.tryParse(value.toString()) == null)
-                            return 'Input không hợp lệ';
-                          return null;
-                        },
                       )
                     ],
                   ),

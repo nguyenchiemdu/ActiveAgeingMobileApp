@@ -11,6 +11,8 @@ class LoanDetailReportWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     // final curScaleFactor = MediaQuery.of(context).textScaleFactor;
     // final appBar = AppBar(
     //     centerTitle: true,
@@ -27,20 +29,41 @@ class LoanDetailReportWidget extends StatelessWidget {
       initialIndex: 1,
       child: Column(
         children: [
-          TabBar(
-              onTap: (index) {
-                //your currently selected index
-              },
-              labelColor: Color(0xff12B281),
-              unselectedLabelColor: Colors.black,
-              tabs: [
-                Tab(
-                  child: Text('Nợ'),
+          Container(
+            width: MediaQuery.of(context).size.width / 187.5 * 179.5,
+            height: MediaQuery.of(context).size.height / 333.5 * 8,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 187.5 * 171.5,
+            height: MediaQuery.of(context).size.height / 333.5 * 14,
+            decoration: BoxDecoration(
+                color: Color(0xffededed),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                    color: Color(0xffededed),
+                    width: 0.75
+                )
+            ),
+
+            child: TabBar(
+                labelColor: Color(0xff12B281),
+                unselectedLabelColor: Color(0xff999999),
+                indicator: ShapeDecoration(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  color: Color(0xffffffff),
                 ),
-                Tab(
-                  child: Text('Cho vay'),
-                ),
-              ]),
+                onTap: (index) {
+                  //your currently selected index
+                },
+                tabs: [
+                  Tab(
+                    child: Text('Nợ'),
+                  ),
+                  Tab(
+                    child: Text('Cho vay'),
+                  ),
+                ]),
+          ),
           Expanded(
             // height: (MediaQuery.of(context).size.height) / 333.5 * 298,
             child: TabBarView(
